@@ -147,9 +147,16 @@ TAN   = colors.HexColor("#d8cfc4")  # example box border
 
 ### 6. Coordinate grids (for graph problems)
 
-178×178 pt, x_range (-10, 10), y_range (-10, 10), gridlines every 1,
-labels every 2, arrows on positive x and y axes. Port directly from
-the reference file.
+**Deferred until a reference example arrives.** Graph problems are rare
+in the teacher's actual workload (seen once, example not available),
+and there's no visual target in `reference/` — both PDF pairs are
+graph-free. Don't build the coordinate-grid renderer speculatively.
+
+When a graph-bearing test comes in, drop the input PDF + an approved
+output PDF (even hand-marked) into `reference/` like the other pairs,
+then implement to match. Spec to follow if needed: 178×178 pt, x_range
+(-10, 10), y_range (-10, 10), gridlines every 1, labels every 2,
+arrows on positive x and y axes — but don't trust the spec alone.
 
 ## Math correctness — non-negotiable
 
