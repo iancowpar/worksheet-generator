@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-bg text-text-primary font-body antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  /* Modern type scale */
+  h1, h2, h3 { @apply tracking-tight; }
+}
+
+@layer components {
+  /* CHIPS — substantial, modern. Same corner-radius as buttons (rounded-lg)
+     so the whole interactive vocabulary speaks one shape language. */
+  .chip {
+    @apply px-3.5 py-2 rounded-lg text-sm font-medium border border-border bg-surface
+           text-text-muted transition-all cursor-pointer select-none;
+  }
+  .chip:hover {
+    @apply text-text-primary border-text-faint shadow-sm;
+  }
+  /* Selected state: charcoal fill — the wordmark gradient is the singular
+     brand color, so primary actions and active selections stay neutral. */
+  .chip-active {
+    @apply text-white border-text-primary bg-text-primary shadow-sm font-semibold;
+  }
+  .chip-active:hover {
+    @apply text-white border-text-primary bg-text-primary;
+  }
+
+  /* LABELS */
+  .label-faint {
+    @apply text-text-muted uppercase tracking-[0.1em] text-[11px] font-semibold;
+  }
+
+  /* BUTTONS */
+  .btn {
+    @apply inline-flex items-center justify-center
+           px-4 py-2.5 rounded-lg font-semibold text-sm
+           border border-border bg-surface text-text-primary
+           transition-all cursor-pointer;
+  }
+  .btn:hover {
+    @apply border-accent text-accent shadow-sm;
+  }
+  /* Primary CTA: charcoal, not indigo. The wordmark carries the brand color;
+     CTAs stay quiet so the wordmark earns its keep as the page anchor. */
+  .btn-primary {
+    @apply bg-text-primary border-text-primary text-white shadow-sm;
+  }
+  .btn-primary:hover {
+    @apply bg-text-primary text-white border-text-primary;
+    box-shadow: 0 6px 16px rgba(11, 18, 32, 0.18);
+    transform: translateY(-1px);
+  }
+  .btn-primary:disabled {
+    @apply bg-text-faint border-text-faint text-white shadow-none cursor-not-allowed;
+    transform: none;
+  }
+  .btn-primary:disabled:hover {
+    @apply shadow-none;
+    transform: none;
+  }
+
+  /* INPUTS */
+  .input {
+    @apply w-full px-3.5 py-2.5 rounded-lg bg-surface border border-border
+           text-text-primary text-sm transition-all
+           focus:outline-none focus:border-accent focus:shadow-glow
+           placeholder:text-text-faint;
+  }
+
+  /* CARDS — Notion-block treatment: border-defined, no shadow.
+     Sections rely on whitespace + 1px border, not elevation. */
+  .card {
+    @apply bg-surface border border-border rounded-xl;
+  }
+
+  /* WORDMARK — neutral charcoal placeholder until logo lands.
+     Class kept so component code doesn't churn; styling is now plain. */
+  .wordmark {
+    @apply text-text-primary font-bold tracking-tight;
+  }
+}
+
+@layer utilities {
+  /* Tour highlight — applied via JS to the targeted element. */
+  .tour-highlight {
+    position: relative;
+    z-index: 45;
+    box-shadow:
+      0 0 0 4px rgba(67, 56, 202, 0.6),
+      0 0 0 12px rgba(67, 56, 202, 0.18),
+      0 12px 40px rgba(11, 18, 32, 0.18);
+    border-radius: 12px;
+    animation: tourPulse 2s ease-in-out infinite;
+  }
+  @keyframes tourPulse {
+    0%, 100% {
+      box-shadow:
+        0 0 0 4px rgba(67, 56, 202, 0.6),
+        0 0 0 12px rgba(67, 56, 202, 0.18),
+        0 12px 40px rgba(11, 18, 32, 0.18);
+    }
+    50% {
+      box-shadow:
+        0 0 0 4px rgba(67, 56, 202, 0.7),
+        0 0 0 18px rgba(67, 56, 202, 0.10),
+        0 12px 40px rgba(11, 18, 32, 0.22);
+    }
+  }
+}
