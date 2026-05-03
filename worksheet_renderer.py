@@ -1,15 +1,15 @@
 """Round Two — worksheet renderer.
 
 ReportLab canvas-direct renderer that reproduces the canonical practice
-worksheet style from reference/module16_practice_worksheet.pdf. This is
-Step 1: page header + section header + example box + one problem, drawn
-at fixed y. Distribution math (block_h) and exponent parser arrive in
-Step 2; multi-page and answer key in Step 3; MC/table/short-answer
+worksheet style from reference/module16_practice_worksheet.pdf. Step 2:
+five-problem distribution with separator clearance + exponent markup
+parser. Multi-page and answer key in Step 3; MC/table/short-answer
 layouts in Step 4.
 """
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -28,7 +28,8 @@ GRAY_RULE = colors.HexColor("#cccccc")
 PAGE_W, PAGE_H = letter
 MARGIN_LEFT = 43
 MARGIN_RIGHT = 43
-MARGIN_TOP = 50
+MARGIN_TOP = 42      # title cap-line lands at the same y as the reference
+MARGIN_BOTTOM = 22   # reference uses a tight bottom margin so 5 blocks fit at block_h ≈ 107.6
 
 # Distance from the left margin to the column where each problem's prompt
 # ("Find the sum.", "Find the difference.", etc.) starts. Pulled from the
@@ -36,8 +37,20 @@ MARGIN_TOP = 50
 # fixed tab stop, not at a floating offset after the label.
 PROMPT_INDENT = 90
 
-# Reserved for Step 2 (separator clearance rule from CLAUDE.md)
+# CLAUDE.md rule 3: separator clearance. Block 0 has no top padding; every
+# subsequent block has PAD_TOP added so the light-gray separator can sit
+# halfway in the gap without colliding with the next problem's header.
 PAD_TOP = 28
+
+# Exponent rendering. Reference uses Helvetica 7.2pt for exponents alongside
+# 11pt body — so the ratio is ~0.65. Raise is ~40% of body size, which puts
+# the exponent's baseline near the cap-height of the surrounding text.
+EXP_SIZE_RATIO = 0.65
+EXP_RAISE_RATIO = 0.4
+
+# `^N` (single alphanumeric) or `^{...}` (any non-} run). Negative or
+# multi-character exponents must use the brace form: `^{-2}`, `^{n+1}`.
+_EXPONENT_PATTERN = re.compile(r"\^(\{[^}]+\}|[A-Za-z0-9])")
 
 
 # --- Data shapes ---
@@ -85,16 +98,45 @@ def render_worksheet(worksheet: Worksheet, output_path: str | Path) -> None:
 def _render_type_page(c, worksheet_title: str, type_: ProblemType) -> None:
     y = PAGE_H - MARGIN_TOP
     y = _draw_page_header(c, worksheet_title, y)
-    y -= 14
+    y -= 6   # ref: ~22pt name-baseline → type-baseline; with helper offsets this lands the type header at y ≈ 700
     y = _draw_section_header(c, type_, y)
-    y -= 14
+    y -= 14  # ref: ~36pt type-baseline → example-header-baseline
     y = _draw_example_box(c, type_.example_lines, y)
-    y -= 8
     y = _draw_instruction_line(c, type_.instruction, y)
-    y -= 18
+    y -= 2   # ref: ~14pt instruction-baseline → first-problem-baseline
 
-    if type_.problems:
-        _draw_problem_centered(c, type_.problems[0], y)
+    _draw_problems(c, type_.problems, y)
+
+
+def _draw_problems(c, problems: list, y_top: float) -> None:
+    """Distribute problems evenly down the page with separator clearance.
+
+    Implements CLAUDE.md rules 2 and 3:
+      block_h = (avail - PAD_TOP) / n   (block 0 has no top padding; blocks
+                                          1..n-1 each get an extra PAD_TOP
+                                          added once, between block 0 and
+                                          block 1)
+      problem i drawn at  y_top - i*block_h - (PAD_TOP if i > 0 else 0)
+      separator i drawn at y_top - (i+1)*block_h - PAD_TOP/2
+
+    The reference's 1-A → 1-B gap is block_h + PAD_TOP, while 1-B → 1-C,
+    1-C → 1-D, 1-D → 1-E are all exactly block_h. This formula reproduces
+    that pattern precisely.
+    """
+    n = len(problems)
+    if n == 0:
+        return
+    avail = y_top - MARGIN_BOTTOM
+    block_h = (avail - PAD_TOP) / n
+
+    for i, problem in enumerate(problems):
+        content_y = y_top - i * block_h - (PAD_TOP if i > 0 else 0)
+        _draw_problem_centered(c, problem, content_y)
+        if i < n - 1:
+            sep_y = y_top - (i + 1) * block_h - PAD_TOP / 2
+            c.setStrokeColor(GRAY_RULE)
+            c.setLineWidth(0.5)
+            c.line(MARGIN_LEFT, sep_y, PAGE_W - MARGIN_RIGHT, sep_y)
 
 
 def _draw_page_header(c, title: str, y: float) -> float:
@@ -107,7 +149,7 @@ def _draw_page_header(c, title: str, y: float) -> float:
     c.setStrokeColor(BLACK)
     c.setLineWidth(0.6)
     c.line(MARGIN_LEFT, y, PAGE_W - MARGIN_RIGHT, y)
-    y -= 22
+    y -= 15
 
     c.setFont("Helvetica", 10)
     fields = [
@@ -124,7 +166,7 @@ def _draw_page_header(c, title: str, y: float) -> float:
         c.setLineWidth(0.5)
         c.line(blank_x, y - 2, blank_x + blank_w, y - 2)
         x = blank_x + blank_w + 18
-    return y - 12
+    return y - 4
 
 
 def _draw_section_header(c, type_: ProblemType, y: float) -> float:
@@ -145,9 +187,9 @@ def _draw_example_box(c, lines: list[str], y: float) -> float:
     box_x = MARGIN_LEFT
     box_w = PAGE_W - MARGIN_LEFT - MARGIN_RIGHT
     pad_x = 12
-    pad_y = 10
+    pad_y = 7      # tighter than 10 to match reference's example-box density
     line_h = 13
-    header_gap = 6
+    header_gap = 3 # reference: ~16pt example-header → first-body-line gap (= line_h + 3)
 
     # Compute height: header + gap + body lines + top/bottom padding
     body_h = line_h + header_gap + line_h * len(lines)
@@ -189,24 +231,71 @@ def _draw_instruction_line(c, text: str, y: float) -> float:
 
 
 def _draw_problem_centered(c, problem: Problem, y: float) -> float:
-    """Centered-expression layout: bold label + bold prompt on one row, then a
-    centered body expression. Returns the y below the body. Step 1 uses fixed
-    spacing; Step 2 will replace this with the block_h distribution math."""
+    """Centered-expression layout: bold label + regular prompt on one row, then
+    a centered body expression. The body is drawn through the exponent parser
+    so `m^2` renders as `m²` (true superscript), not as a black box."""
     c.setFillColor(BLACK)
     c.setFont("Helvetica-Bold", 10)
     label_text = f"Problem {problem.label}."
     c.drawString(MARGIN_LEFT, y - 10, label_text)
 
-    # Prompt sits at a fixed tab stop in regular weight at the smaller body
-    # size — reference uses Helvetica 9pt here, not Helvetica-Bold 11pt.
     c.setFont("Helvetica", 9)
     c.drawString(MARGIN_LEFT + PROMPT_INDENT, y - 10, problem.prompt)
 
-    y -= 26
-
-    c.setFont("Helvetica", 11)
-    body_w = c.stringWidth(problem.body, "Helvetica", 11)
+    body_y = y - 28  # reference: ~18pt label-baseline → body-baseline
+    body_w = _width_with_exponents(c, problem.body, "Helvetica", 11)
     body_x = (PAGE_W - body_w) / 2
-    c.drawString(body_x, y, problem.body)
+    _draw_text_with_exponents(c, body_x, body_y, problem.body, "Helvetica", 11)
 
-    return y - 14
+    return body_y - 14
+
+
+# --- Exponent markup ---
+
+def _parse_exponent_markup(s: str) -> list[tuple[str, str]]:
+    """Tokenize a string with `^N` / `^{...}` markup into runs.
+
+    'm^2n - 3mn^2'  ->  [('text','m'), ('exp','2'), ('text','n - 3mn'), ('exp','2')]
+    'x^{10}'        ->  [('text','x'), ('exp','10')]
+    """
+    out: list[tuple[str, str]] = []
+    pos = 0
+    for m in _EXPONENT_PATTERN.finditer(s):
+        if m.start() > pos:
+            out.append(("text", s[pos:m.start()]))
+        exp = m.group(1)
+        if exp.startswith("{"):
+            exp = exp[1:-1]
+        out.append(("exp", exp))
+        pos = m.end()
+    if pos < len(s):
+        out.append(("text", s[pos:]))
+    return out
+
+
+def _width_with_exponents(c, text: str, font: str, size: float) -> float:
+    exp_size = size * EXP_SIZE_RATIO
+    w = 0.0
+    for kind, t in _parse_exponent_markup(text):
+        w += c.stringWidth(t, font, exp_size if kind == "exp" else size)
+    return w
+
+
+def _draw_text_with_exponents(
+    c, x: float, y: float, text: str, font: str, size: float
+) -> float:
+    """Draw `text` at (x, y) interpreting `^N` and `^{...}` as superscripts.
+    Returns the x position after the last glyph."""
+    exp_size = size * EXP_SIZE_RATIO
+    raise_y = size * EXP_RAISE_RATIO
+    cur = x
+    for kind, t in _parse_exponent_markup(text):
+        if kind == "exp":
+            c.setFont(font, exp_size)
+            c.drawString(cur, y + raise_y, t)
+            cur += c.stringWidth(t, font, exp_size)
+        else:
+            c.setFont(font, size)
+            c.drawString(cur, y, t)
+            cur += c.stringWidth(t, font, size)
+    return cur
