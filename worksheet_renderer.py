@@ -26,9 +26,15 @@ TAN = colors.HexColor("#d8cfc4")    # example box border
 GRAY_RULE = colors.HexColor("#cccccc")
 
 PAGE_W, PAGE_H = letter
-MARGIN_LEFT = 50
-MARGIN_RIGHT = 50
+MARGIN_LEFT = 43
+MARGIN_RIGHT = 43
 MARGIN_TOP = 50
+
+# Distance from the left margin to the column where each problem's prompt
+# ("Find the sum.", "Find the difference.", etc.) starts. Pulled from the
+# reference PDFs: every problem in module 16 page 1 has the prompt at this
+# fixed tab stop, not at a floating offset after the label.
+PROMPT_INDENT = 90
 
 # Reserved for Step 2 (separator clearance rule from CLAUDE.md)
 PAD_TOP = 28
@@ -94,9 +100,9 @@ def _render_type_page(c, worksheet_title: str, type_: ProblemType) -> None:
 def _draw_page_header(c, title: str, y: float) -> float:
     """Title + rule + Name/Date/Period blanks. Returns new y (below the blanks)."""
     c.setFillColor(BLACK)
-    c.setFont("Helvetica-Bold", 13)
-    c.drawString(MARGIN_LEFT, y - 12, title)
-    y -= 16
+    c.setFont("Helvetica-Bold", 11)
+    c.drawString(MARGIN_LEFT, y - 11, title)
+    y -= 14
 
     c.setStrokeColor(BLACK)
     c.setLineWidth(0.6)
@@ -157,15 +163,15 @@ def _draw_example_box(c, lines: list[str], y: float) -> float:
 
     # Header
     c.setFillColor(BLACK)
-    c.setFont("Helvetica-Bold", 10)
-    inner_y = box_top - pad_y - 10
+    c.setFont("Helvetica-Bold", 9)
+    inner_y = box_top - pad_y - 9
     c.drawString(box_x + pad_x, inner_y, "EXAMPLE — Look at this before you begin:")
     inner_y -= line_h + header_gap
 
     # Body lines (last line bold — the answer)
     for i, line in enumerate(lines):
         is_last = i == len(lines) - 1
-        c.setFont("Helvetica-Bold" if is_last else "Helvetica", 10)
+        c.setFont("Helvetica-Bold" if is_last else "Helvetica", 9)
         c.drawString(box_x + pad_x, inner_y, line)
         inner_y -= line_h
 
@@ -173,11 +179,13 @@ def _draw_example_box(c, lines: list[str], y: float) -> float:
 
 
 def _draw_instruction_line(c, text: str, y: float) -> float:
-    """Italic instruction sentence between the example box and the problems."""
+    """Plain instruction sentence between the example box and the problems.
+    Reference uses regular Helvetica 9pt — not italic, despite first-impression
+    appearance in the rendered PDF."""
     c.setFillColor(BLACK)
-    c.setFont("Helvetica-Oblique", 10)
-    c.drawString(MARGIN_LEFT, y - 12, text)
-    return y - 14
+    c.setFont("Helvetica", 9)
+    c.drawString(MARGIN_LEFT, y - 10, text)
+    return y - 12
 
 
 def _draw_problem_centered(c, problem: Problem, y: float) -> float:
@@ -185,12 +193,14 @@ def _draw_problem_centered(c, problem: Problem, y: float) -> float:
     centered body expression. Returns the y below the body. Step 1 uses fixed
     spacing; Step 2 will replace this with the block_h distribution math."""
     c.setFillColor(BLACK)
-    c.setFont("Helvetica-Bold", 11)
+    c.setFont("Helvetica-Bold", 10)
     label_text = f"Problem {problem.label}."
-    c.drawString(MARGIN_LEFT, y - 12, label_text)
+    c.drawString(MARGIN_LEFT, y - 10, label_text)
 
-    label_w = c.stringWidth(label_text, "Helvetica-Bold", 11)
-    c.drawString(MARGIN_LEFT + label_w + 12, y - 12, problem.prompt)
+    # Prompt sits at a fixed tab stop in regular weight at the smaller body
+    # size — reference uses Helvetica 9pt here, not Helvetica-Bold 11pt.
+    c.setFont("Helvetica", 9)
+    c.drawString(MARGIN_LEFT + PROMPT_INDENT, y - 10, problem.prompt)
 
     y -= 26
 
