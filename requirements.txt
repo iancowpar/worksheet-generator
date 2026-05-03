@@ -1,0 +1,6 @@
+streamlit>=1.36
+anthropic>=0.39
+reportlab>=4.2
+pdfplumber>=0.11
+sympy>=1.13
+pillow>=10.4
