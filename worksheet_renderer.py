@@ -70,6 +70,7 @@ class ProblemType:
     instruction: str
     example_lines: list[str]   # last line is rendered bold (the worked answer)
     problems: list[Problem]
+    answer_key_title: str | None = None  # short form for the answer key (defaults to title)
 
 
 @dataclass(frozen=True)
@@ -89,6 +90,7 @@ def render_worksheet(worksheet: Worksheet, output_path: str | Path) -> None:
     for type_ in worksheet.types:
         _render_type_page(c, worksheet.title, type_)
         c.showPage()
+    _render_answer_key_pages(c, worksheet)
 
     c.save()
 
@@ -248,6 +250,76 @@ def _draw_problem_centered(c, problem: Problem, y: float) -> float:
     _draw_text_with_exponents(c, body_x, body_y, problem.body, "Helvetica", 11)
 
     return body_y - 14
+
+
+# --- Answer key page ---
+
+ANSWER_KEY_INDENT = 14  # answer rows sit 14pt to the right of MARGIN_LEFT (matches reference x=57.2 - 43.2)
+ANSWER_LINE_H = 12      # vertical step between consecutive answer rows in the reference
+ANSWER_TYPE_GAP = 5     # extra whitespace below the last answer of one type before the next type's subheader
+
+
+def _render_answer_key_pages(c, worksheet: Worksheet) -> None:
+    """Render the answer key page(s) at the end of the PDF.
+
+    Falls onto a continuation page ('Answer Key (continued)') if the remaining
+    types don't fit. Sized for module 16 (4 types fit on one page) and module
+    13/14 (8 types on page 1, type 9 on a continuation page) without changes.
+    """
+    y = _start_answer_key_page(c, worksheet, continued=False)
+
+    for type_ in worksheet.types:
+        # Estimate vertical room for this type: subheader + N answer lines + a small trailing gap.
+        type_h = 14 + ANSWER_LINE_H * len(type_.problems) + ANSWER_TYPE_GAP
+        if y - type_h < MARGIN_BOTTOM:
+            c.showPage()
+            y = _start_answer_key_page(c, worksheet, continued=True)
+
+        # Per-type subheader — NAVY 10pt bold, uses the shorter answer_key_title if provided.
+        c.setFillColor(NAVY)
+        c.setFont("Helvetica-Bold", 10)
+        ak_title = type_.answer_key_title or type_.title
+        c.drawString(MARGIN_LEFT, y - 10, f"Type {type_.number} — {ak_title}")
+        y -= 14
+
+        # Answer rows — Helvetica 8.5pt, label + answer on one line, answer through the exponent parser.
+        c.setFillColor(BLACK)
+        for problem in type_.problems:
+            x_label = MARGIN_LEFT + ANSWER_KEY_INDENT
+            c.setFont("Helvetica", 8.5)
+            c.drawString(x_label, y - 9, problem.label)
+            label_w = c.stringWidth(problem.label, "Helvetica", 8.5)
+            _draw_text_with_exponents(
+                c, x_label + label_w + 8, y - 9, problem.answer, "Helvetica", 8.5
+            )
+            y -= ANSWER_LINE_H
+
+        y -= ANSWER_TYPE_GAP
+
+
+def _start_answer_key_page(c, worksheet: Worksheet, continued: bool) -> float:
+    """Begin an answer-key page: page header + 'Answer Key' header. Returns the y
+    position right below the header rule (where the first type subheader lands)."""
+    y = PAGE_H - MARGIN_TOP
+    y = _draw_page_header(c, worksheet.title, y)
+    y -= 6
+    label = "Answer Key (continued)" if continued else "Answer Key"
+    y = _draw_answer_key_header(c, y, label)
+    y -= 8  # ref: ~22pt baseline-to-baseline from "Answer Key" to first type subheader
+    return y
+
+
+def _draw_answer_key_header(c, y: float, text: str) -> float:
+    """NAVY 13pt bold header with rule beneath. Mirrors the section-header
+    pattern but at the larger answer-key size."""
+    c.setFillColor(NAVY)
+    c.setFont("Helvetica-Bold", 13)
+    c.drawString(MARGIN_LEFT, y - 13, text)
+    y -= 17
+    c.setStrokeColor(NAVY)
+    c.setLineWidth(0.7)
+    c.line(MARGIN_LEFT, y, PAGE_W - MARGIN_RIGHT, y)
+    return y
 
 
 # --- Exponent markup ---
