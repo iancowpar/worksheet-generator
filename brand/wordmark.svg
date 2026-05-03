@@ -3,9 +3,9 @@
     x="0"
     y="30"
     font-family="'DM Sans', system-ui, sans-serif"
-    font-weight="700"
     font-size="32"
     letter-spacing="-0.025em"
     fill="#0B1220"
-  >Round Two</text>
+    xml:space="preserve"
+  ><tspan font-weight="500">Round</tspan><tspan font-weight="700"> Two</tspan></text>
 </svg>

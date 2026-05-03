@@ -11,12 +11,12 @@
     <circle cx="50" cy="18" r="4.5" fill="#FFFFFF" />
   </svg>
   <text
-    x="46"
+    x="40"
     y="26"
     font-family="'DM Sans', system-ui, sans-serif"
-    font-weight="700"
     font-size="22"
     letter-spacing="-0.025em"
     fill="#FFFFFF"
-  >Round Two</text>
+    xml:space="preserve"
+  ><tspan font-weight="500">Round</tspan><tspan font-weight="700"> Two</tspan></text>
 </svg>
