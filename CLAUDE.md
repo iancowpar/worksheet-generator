@@ -9,21 +9,31 @@ examples, 5 practice problems per problem type, and an answer key.
 The teacher reviews extracted problem types and generated problems
 before the final PDF renders, so she can catch errors before printing.
 
-## Reference implementation
+## Reference
 
-`reference/make_worksheet_mod10.py` is a known-good ReportLab worksheet
-the teacher has refined over many iterations. Treat its visual style as
-canonical. `reference/module10_practice_worksheet.pdf` is its output —
-match this look exactly.
+Two known-good input/output PDF pairs are checked into `reference/`:
 
-When implementing the renderer, port helpers from the reference file
-rather than reinventing them.
+- `module16_test.pdf` + `module16_practice_worksheet.pdf` — polynomials
+  (add/subtract, perimeter word problems, real-world applications).
+  4 types, all centered-expression layout.
+- `module13_14_test.pdf` + `module13_14_practice_worksheet.pdf` —
+  exponential functions & geometric sequences. 9 types covering
+  multiple-choice (2-col and 4-row), classification table, and
+  short-answer layouts.
+
+Treat the approved-output PDFs as the canonical visual targets. Match
+them exactly: colors, spacing, fonts, example-box geometry, exponent
+rendering.
 
 ## Tech stack (don't substitute without asking)
 
 - Python 3.11+
 - streamlit — UI
-- anthropic — Claude API client, model `claude-opus-4-7`
+- anthropic — Claude API client. Two models:
+  - `claude-opus-4-7` for type extraction (one orchestration call per upload)
+  - `claude-sonnet-4-6` for per-problem generation and any
+    word-problem second-pass verification (~5× cheaper, similar
+    quality on this scoped task)
 - reportlab — PDF generation (canvas-direct, NOT Platypus)
 - pdfplumber — extract text from uploaded PDFs
 - sympy — algebraic verification of generated answers
