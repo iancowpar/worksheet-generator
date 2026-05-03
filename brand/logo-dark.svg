@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="178" height="36" viewBox="0 0 178 36" fill="none" aria-label="Round Two">
+  <svg x="2" y="2" width="32" height="32" viewBox="0 0 64 64" fill="none">
+    <path
+      d="M 16 34 L 27 46 L 50 18"
+      stroke="#7CC0B8"
+      stroke-width="10"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+    />
+    <circle cx="50" cy="18" r="4.5" fill="#FFFFFF" />
+  </svg>
+  <text
+    x="46"
+    y="26"
+    font-family="'DM Sans', system-ui, sans-serif"
+    font-weight="700"
+    font-size="22"
+    letter-spacing="-0.025em"
+    fill="#FFFFFF"
+  >Round Two</text>
+</svg>

@@ -1,10 +1,12 @@
-# Worksheet Generator — Project Context
+# Round Two — Project Context
 
 ## What this project is
 
-A Streamlit web app that lets a special education teacher upload a math
-test PDF and generates a printable practice worksheet PDF with worked
-examples, 5 practice problems per problem type, and an answer key.
+**Round Two** is a Streamlit web app that lets a special education
+teacher upload a math test her students just took and generates a
+printable practice worksheet PDF — worked examples, 5 practice
+problems per problem type, and an answer key — for them to rehearse
+before retaking the test.
 
 The teacher reviews extracted problem types and generated problems
 before the final PDF renders, so she can catch errors before printing.
@@ -51,12 +53,58 @@ verifier.py             SymPy algebraic verification
 prompts.py              Claude prompts as constants
 requirements.txt
 CLAUDE.md               This file
-reference/              Module 10 reference files (read-only, don't edit)
+.streamlit/config.toml  Streamlit native theme (color tokens)
+assets/theme.css        Custom CSS injected into the app (typography, components)
+brand/                  Logo, wordmark, lockups, favicons (see brand/README.md)
+reference/              Input/output PDF pairs + cold-open style reference (read-only)
 ```
+
+## Brand & UI
+
+Round Two shares its visual language with Cold Open (a sibling project
+the teacher and I built earlier). The app should read as a quiet,
+Notion-adjacent dashboard.
+
+**Brand assets** live in `brand/`. The mark is a single glacier-teal
+checkmark with a charcoal dot at the tip of the upstroke; the wordmark
+is "Round Two" in DM Sans Bold. Use `brand/logo.svg` as the canonical
+sidebar lockup, `brand/favicon.svg` for the page icon, and the
+matching `*-dark.svg` variants on dark surfaces.
+
+**Design tokens** (mirror `reference/tailwind.config.js`):
+
+```
+glacier   #7CC0B8   primary brand color (mark stroke, brand surfaces)
+charcoal  #0B1220   text-primary, primary CTA fill, mark dot
+indigo    #4338CA   accent — focus rings only, never primary actions
+amber     #F59E0B   "wins" — gentle celebrations, not alerts
+white     #FFFFFF   bg, surface
+F7F7F5    surface-soft (sidebar)
+E5E5E2    border (defines blocks without shouting)
+font-sans "DM Sans", system-ui, sans-serif
+font-mono "JetBrains Mono"
+```
+
+**Streamlit theming** is two layers:
+- `.streamlit/config.toml` sets the native color tokens.
+- `assets/theme.css` is injected at the top of `app.py` via
+  `st.markdown('<style>...</style>', unsafe_allow_html=True)` to load
+  DM Sans, override Streamlit's chrome (buttons, inputs, expanders,
+  sidebar, file uploader), and provide utility classes (`.chip`,
+  `.btn`, `.card`, `.label-faint`, `.step`).
+
+Do not introduce a third color, additional typeface, or shadow
+elevation beyond what `tailwind.config.js` defines. Cards use a 1px
+border, never a drop shadow. Primary CTAs are charcoal, never glacier
+or indigo (the brand color is reserved for the mark and brand
+surfaces).
 
 ## Visual style rules — DO NOT modify these
 
 These came from real failures. Breaking them ships unusable PDFs.
+
+> Note: this section governs the **PDF worksheet** style (NAVY etc.),
+> not the app UI. The app UI follows the Brand & UI section above.
 
 ### 1. Never use Unicode superscripts
 

@@ -1,0 +1,277 @@
+/*
+ * Round Two — Streamlit theme
+ *
+ * Translates the cold-open Tailwind tokens (tailwind.config.js) and component
+ * styles (index.css) into plain CSS that Streamlit can ingest via
+ * st.markdown(<style>...</style>, unsafe_allow_html=True).
+ *
+ * Two layers:
+ *   1. Override Streamlit's default chrome to read as Notion-ish (typography,
+ *      surfaces, borders, button shapes, focus rings).
+ *   2. Provide utility classes (.chip, .btn, .card, .label-faint, .wordmark)
+ *      for use inside st.markdown blocks.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Color tokens — mirror tailwind.config.js */
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-soft: #F7F7F5;
+  --border: #E5E5E2;
+  --text-primary: #0B1220;
+  --text-muted: #475569;
+  --text-faint: #94A3B8;
+  --accent: #4338CA;
+  --accent-soft: #E0E7FF;
+  --glacier: #7CC0B8;
+  --warm: #F59E0B;
+  --warm-soft: #FEF3C7;
+  --success: #10B981;
+
+  /* Shadows */
+  --shadow-card: 0 1px 2px rgba(11, 18, 32, 0.04), 0 4px 12px rgba(11, 18, 32, 0.04);
+  --shadow-card-hover: 0 2px 4px rgba(11, 18, 32, 0.06), 0 12px 24px rgba(11, 18, 32, 0.08);
+  --shadow-glow: 0 0 0 4px rgba(67, 56, 202, 0.15);
+
+  /* Type */
+  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ---------- Streamlit chrome overrides ---------- */
+
+html, body, [class*="css"], .stApp {
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  color: var(--text-primary);
+  background: var(--bg);
+}
+
+.stApp { background: var(--bg); }
+
+section[data-testid="stSidebar"] {
+  background: var(--surface-soft);
+  border-right: 1px solid var(--border);
+}
+
+/* Hide Streamlit's default header bar and footer */
+header[data-testid="stHeader"] { background: transparent; }
+footer { visibility: hidden; }
+#MainMenu { visibility: hidden; }
+
+/* Headings: tracking-tight, weight 700, no serif */
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.125rem; }
+
+/* Body text */
+p, li, label, .stMarkdown { color: var(--text-primary); font-family: var(--font-sans); }
+
+/* Code blocks: JetBrains Mono */
+code, pre, .stCode { font-family: var(--font-mono); }
+
+/* Buttons — Streamlit's default button maps to .btn-primary (charcoal) */
+.stButton > button,
+.stDownloadButton > button {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+  transition: all 0.15s ease;
+  box-shadow: none;
+}
+.stButton > button:hover,
+.stDownloadButton > button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: var(--shadow-card);
+}
+
+/* Streamlit's "primary" kind="primary" — charcoal fill, white text */
+.stButton > button[kind="primary"],
+.stDownloadButton > button[kind="primary"] {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-card);
+}
+.stButton > button[kind="primary"]:hover,
+.stDownloadButton > button[kind="primary"]:hover {
+  background: var(--text-primary);
+  color: #FFFFFF;
+  border-color: var(--text-primary);
+  box-shadow: 0 6px 16px rgba(11, 18, 32, 0.18);
+  transform: translateY(-1px);
+}
+.stButton > button[kind="primary"]:disabled {
+  background: var(--text-faint);
+  border-color: var(--text-faint);
+  color: #FFFFFF;
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* Inputs */
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea,
+.stNumberInput > div > div > input,
+.stSelectbox > div > div,
+.stFileUploader > div {
+  font-family: var(--font-sans);
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+  transition: all 0.15s ease;
+}
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus,
+.stNumberInput > div > div > input:focus {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-glow);
+  outline: none;
+}
+
+/* File uploader — Notion block treatment */
+.stFileUploader > div {
+  border-radius: 0.75rem;
+  background: var(--surface-soft);
+  border: 1px dashed var(--border);
+  padding: 1.25rem;
+}
+.stFileUploader > div:hover {
+  border-color: var(--text-faint);
+}
+
+/* Expander — card-style block */
+.streamlit-expanderHeader,
+[data-testid="stExpander"] > details > summary {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+[data-testid="stExpander"] > details {
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  margin-bottom: 0.5rem;
+}
+[data-testid="stExpander"] > details > summary {
+  border: none;
+  border-radius: 0.75rem;
+}
+[data-testid="stExpander"] > details[open] > summary {
+  border-bottom: 1px solid var(--border);
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+/* Progress / status — softer */
+.stProgress > div > div > div { background: var(--glacier); }
+
+/* Alerts — Notion callout treatment */
+[data-testid="stAlert"] {
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+}
+
+/* Dividers — light, quiet */
+hr { border-color: var(--border); margin: 1.5rem 0; }
+
+/* Sidebar nav links */
+section[data-testid="stSidebar"] .stMarkdown { color: var(--text-muted); }
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 { color: var(--text-primary); }
+
+/* ---------- Utility component classes (use inside st.markdown unsafe_allow_html=True) ---------- */
+
+.chip {
+  display: inline-block;
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  transition: all 0.15s ease;
+  cursor: pointer;
+  user-select: none;
+}
+.chip:hover {
+  color: var(--text-primary);
+  border-color: var(--text-faint);
+  box-shadow: var(--shadow-card);
+}
+.chip-active {
+  color: #FFFFFF;
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  font-weight: 600;
+}
+
+.label-faint {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+}
+
+.wordmark {
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-family: var(--font-sans);
+}
+
+/* Step indicator pills (used in sidebar) */
+.step {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.step .step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-faint);
+}
+.step.is-active {
+  background: var(--surface-soft);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.step.is-active .step-dot { background: var(--glacier); }
+.step.is-done .step-dot { background: var(--success); }
+.step.is-done { color: var(--text-primary); }

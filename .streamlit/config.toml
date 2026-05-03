@@ -1,0 +1,18 @@
+# Round Two — Streamlit native theme
+# Color tokens mirror tailwind.config.js from cold-open. The custom CSS in
+# assets/theme.css extends this with DM Sans typography and component styles
+# that Streamlit's native theme can't express.
+
+[theme]
+base = "light"
+primaryColor = "#0B1220"           # text-primary — primary CTAs use charcoal, not the brand teal
+backgroundColor = "#FFFFFF"        # bg
+secondaryBackgroundColor = "#F7F7F5"  # surface-soft — sidebar
+textColor = "#0B1220"              # text-primary
+font = "sans serif"                # overridden to DM Sans by assets/theme.css
+
+[browser]
+gatherUsageStats = false
+
+[server]
+headless = true
