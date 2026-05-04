@@ -70,6 +70,43 @@ MARK_SVG_LARGE = _mark_svg(32)  # PDF done state
 STEP_LABELS = {"upload": "Step 1 of 4", "types": "Step 2 of 4",
                "problems": "Step 3 of 4", "pdf": "Step 4 of 4"}
 
+# Brand color constants used in inline styles. Streamlit's HTML sanitizer
+# can drop class attributes on nested divs in some versions, so we lean on
+# inline `style="..."` for everything that needs to look right. Keep these
+# in sync with assets/theme.css so a future class-based render path could
+# still match.
+COLOR_GLACIER = "#7CC0B8"
+COLOR_CHARCOAL = "#0B1220"
+COLOR_MUTED = "#475569"
+COLOR_FAINT = "#94A3B8"
+COLOR_BORDER = "#E5E5E2"
+COLOR_SURFACE = "#FFFFFF"
+COLOR_SURFACE_SOFT = "#F7F7F5"
+COLOR_WARM = "#F59E0B"
+COLOR_WARM_SOFT = "#FEF3C7"
+COLOR_ACCENT = "#4338CA"
+COLOR_ACCENT_SOFT = "#E0E7FF"
+
+# Shared inline-style fragments. All callers concatenate these with
+# any per-element overrides via `; <override>;`.
+H1_STYLE = (
+    f"font-size:2rem;font-weight:700;letter-spacing:-0.02em;"
+    f"color:{COLOR_CHARCOAL};margin:0 0 0.875rem 0;line-height:1.1"
+)
+LEAD_STYLE = (
+    f"font-size:1.0625rem;line-height:1.55;color:{COLOR_MUTED};"
+    f"max-width:38rem;margin:0"
+)
+LEAD_STRONG_STYLE = f"color:{COLOR_CHARCOAL};font-weight:600"
+CARD_STYLE = (
+    f"background:{COLOR_SURFACE};border:1px solid {COLOR_BORDER};"
+    f"border-radius:0.75rem;padding:1rem 1.25rem"
+)
+LABEL_FAINT_STYLE = (
+    f"color:{COLOR_MUTED};text-transform:uppercase;letter-spacing:0.1em;"
+    f"font-size:11px;font-weight:600"
+)
+
 # Sidebar status icons — checkmark for done steps, filled dot for the
 # currently active step, hollow circle for steps yet to come. 14px to
 # match Notion's sidebar row density. Width/height baked in so they
@@ -192,15 +229,82 @@ def _default_title_from_filename(pdf_name: str) -> str:
     return f"{base} — Practice Worksheet"
 
 
+# Spinner SVG — uses SVG SMIL animation (no CSS keyframes needed) so it
+# works inside any markdown block regardless of CSS-load timing.
+_SPINNER_SVG = (
+    '<svg width="44" height="44" viewBox="0 0 40 40" '
+    'xmlns="http://www.w3.org/2000/svg" style="display:inline-block">'
+    f'<circle cx="20" cy="20" r="16" stroke="{COLOR_BORDER}" '
+    'stroke-width="3.5" fill="none"/>'
+    f'<circle cx="20" cy="20" r="16" stroke="{COLOR_GLACIER}" '
+    'stroke-width="3.5" stroke-linecap="round" fill="none" '
+    'stroke-dasharray="100.5" stroke-dashoffset="75" '
+    'transform="rotate(-90 20 20)">'
+    '<animateTransform attributeName="transform" type="rotate" '
+    'from="0 20 20" to="360 20 20" dur="1.1s" repeatCount="indefinite"/>'
+    '</circle></svg>'
+)
+
+
+def _overlay_html(title: str, subtitle: str = "", progress: float | None = None) -> str:
+    """Centered loading card over a dimmed full-viewport backdrop. Used by
+    _show_overlay for the three slow operations (extract, generate, render).
+
+    progress: 0.0–1.0 to render an inline progress bar; None to omit."""
+    progress_html = ""
+    if progress is not None:
+        pct = max(0.0, min(1.0, progress)) * 100
+        progress_html = (
+            f'<div style="margin-top:1.25rem;height:6px;width:100%;'
+            f'background:{COLOR_BORDER};border-radius:999px;overflow:hidden">'
+            f'<div style="height:100%;width:{pct:.1f}%;'
+            f'background:{COLOR_GLACIER};border-radius:999px;'
+            f'transition:width 0.25s ease"></div></div>'
+        )
+    return (
+        f'<div style="position:fixed;top:0;left:0;width:100vw;height:100vh;'
+        f'background:rgba(11,18,32,0.45);backdrop-filter:blur(3px);'
+        f'-webkit-backdrop-filter:blur(3px);'
+        f'z-index:9999;display:flex;align-items:center;justify-content:center">'
+        f'<div style="background:{COLOR_SURFACE};border:1px solid {COLOR_BORDER};'
+        f'border-radius:1rem;padding:2rem 2.5rem;text-align:center;'
+        f'min-width:340px;max-width:420px;'
+        f'box-shadow:0 24px 48px rgba(11,18,32,0.18),'
+        f'0 8px 16px rgba(11,18,32,0.08)">'
+        f'{_SPINNER_SVG}'
+        f'<div style="font-size:1.125rem;font-weight:600;color:{COLOR_CHARCOAL};'
+        f'margin:1rem 0 0.375rem 0;letter-spacing:-0.01em">{title}</div>'
+        f'<div style="color:{COLOR_MUTED};font-size:0.875rem;margin:0;'
+        f'line-height:1.5">{subtitle}</div>'
+        f'{progress_html}'
+        f'</div></div>'
+    )
+
+
+def _show_overlay(placeholder, title: str, subtitle: str = "",
+                  progress: float | None = None) -> None:
+    """Render the loading overlay into a Streamlit placeholder. Caller is
+    responsible for placeholder.empty() when work completes."""
+    placeholder.markdown(
+        _overlay_html(title, subtitle, progress),
+        unsafe_allow_html=True,
+    )
+
+
 def _eyebrow(step_key: str, extra: str | None = None) -> str:
     """Eyebrow text rendered above an H1. Pairs the step label with an
-    optional second clause (e.g. file name) joined by a middle dot."""
+    optional second clause (e.g. file name) joined by a middle dot.
+    All styling inline so it survives Streamlit's sanitizer."""
     parts = [STEP_LABELS.get(step_key, "")]
     if extra:
         parts.append(extra)
     inner = " · ".join(p for p in parts if p)
     return (
-        '<div class="eyebrow"><span class="eyebrow-dot"></span>'
+        f'<div style="display:inline-flex;align-items:center;gap:0.5rem;'
+        f'color:{COLOR_MUTED};text-transform:uppercase;letter-spacing:0.12em;'
+        f'font-size:11px;font-weight:600;margin-bottom:0.875rem">'
+        f'<span style="width:6px;height:6px;border-radius:50%;'
+        f'background:{COLOR_GLACIER}"></span>'
         f'{inner}</div>'
     )
 
@@ -390,23 +494,46 @@ def _render_upload_step() -> None:
     est = estimate_cost(len(pdf_bytes))
     size_kb = len(pdf_bytes) / 1024
     size_str = f"{size_kb:.0f} KB" if size_kb < 1024 else f"{size_kb / 1024:.1f} MB"
+
+    divider_style = (
+        f"display:flex;align-items:center;gap:0.875rem;margin:2.25rem 0 1.25rem 0;"
+        f"color:{COLOR_FAINT};font-size:11px;text-transform:uppercase;"
+        f"letter-spacing:0.12em;font-weight:600"
+    )
+    ready_card_style = (
+        f"background:{COLOR_SURFACE};border:1px solid {COLOR_BORDER};"
+        f"border-radius:0.75rem;padding:1rem 1.125rem 1.125rem 1.125rem"
+    )
+    ready_num_style = (
+        f"font-size:1.625rem;font-weight:700;letter-spacing:-0.025em;"
+        f"color:{COLOR_CHARCOAL};margin:0.5rem 0 0.25rem 0;"
+        f"font-feature-settings:'tnum'"
+    )
+    ready_sub_style = f"font-size:0.8125rem;color:{COLOR_MUTED};line-height:1.45"
+
     st.markdown(
-        '<div class="divider">Ready to generate</div>'
-        '<div class="ready-grid">'
-        '<div class="card ready-card">'
-        '<div class="label-faint">Estimated cost</div>'
-        f'<div class="ready-num">${est.dollars_low:.2f} – ${est.dollars_high:.2f}</div>'
-        f'<div class="ready-sub">~{est.input_tokens:,} input + '
+        f'<div style="{divider_style}">'
+        f'<span style="flex:1;height:1px;background:{COLOR_BORDER}"></span>'
+        f'Ready to generate'
+        f'<span style="flex:1;height:1px;background:{COLOR_BORDER}"></span>'
+        f'</div>'
+        f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.625rem;'
+        f'margin:1.25rem 0">'
+        f'<div style="{ready_card_style}">'
+        f'<div style="{LABEL_FAINT_STYLE}">Estimated cost</div>'
+        f'<div style="{ready_num_style}">${est.dollars_low:.2f} – ${est.dollars_high:.2f}</div>'
+        f'<div style="{ready_sub_style}">~{est.input_tokens:,} input + '
         f'{est.output_tokens:,} output tokens across one Opus 4.7 extraction '
-        f'call and {est.n_types * est.n_problems_per_type} Sonnet 4.6 generation calls.</div>'
-        '</div>'
-        '<div class="card ready-card">'
-        '<div class="label-faint">File</div>'
-        f'<div class="ready-num" style="font-size: 1.125rem; word-break: break-all; line-height: 1.3">'
-        f'{uploaded.name}</div>'
-        f'<div class="ready-sub">{size_str} · SHA-256 {file_hash[:8]}</div>'
-        '</div>'
-        '</div>',
+        f'call and {est.n_types * est.n_problems_per_type} Sonnet 4.6 '
+        f'generation calls.</div>'
+        f'</div>'
+        f'<div style="{ready_card_style}">'
+        f'<div style="{LABEL_FAINT_STYLE}">File</div>'
+        f'<div style="{ready_num_style};font-size:1.125rem;'
+        f'word-break:break-all;line-height:1.3">{uploaded.name}</div>'
+        f'<div style="{ready_sub_style}">{size_str} · SHA-256 {file_hash[:8]}</div>'
+        f'</div>'
+        f'</div>',
         unsafe_allow_html=True,
     )
 
@@ -445,44 +572,59 @@ def _cached_extract_types(file_hash: str, pdf_bytes: bytes) -> list[ExtractedTyp
 
 def _render_types_step() -> None:
     if "types" not in st.session_state:
+        overlay = st.empty()
+        _show_overlay(
+            overlay,
+            "Reading the test…",
+            "Round Two is looking at every page and identifying the problem types. "
+            "Usually 10–20 seconds.",
+        )
         try:
-            with st.spinner("Reading the test..."):
-                types = _cached_extract_types(
-                    st.session_state.pdf_hash,
-                    st.session_state.pdf_bytes,
-                )
+            types = _cached_extract_types(
+                st.session_state.pdf_hash,
+                st.session_state.pdf_bytes,
+            )
             st.session_state.types = types
         except MissingAPIKey as e:
+            overlay.empty()
             _render_api_key_error(str(e))
             return
         except Exception as e:
+            overlay.empty()
             _render_generic_error("Extraction failed", e)
             return
+        overlay.empty()
 
     types: list[ExtractedTypeSpec] = st.session_state.types
     pdf_name = st.session_state.get("pdf_name", "")
     st.markdown(
-        '<div class="hero">'
+        f'<div style="margin-bottom:2rem">'
         + _eyebrow("types", pdf_name)
-        + '<h1>Problem types</h1>'
-        f'<p class="hero-lead">We found <strong>{len(types)} types</strong> '
+        + f'<h1 style="{H1_STYLE}">Problem types</h1>'
+        f'<p style="{LEAD_STYLE}">We found '
+        f'<strong style="{LEAD_STRONG_STYLE}">{len(types)} types</strong> '
         'in this test. Skim each one — open the expander to check the example '
         'we extracted — then continue when it looks right.</p>'
         '</div>',
         unsafe_allow_html=True,
     )
 
+    tag_style = (
+        f"font-size:0.75rem;font-family:'JetBrains Mono',ui-monospace,monospace;"
+        f"color:{COLOR_MUTED};background:{COLOR_SURFACE_SOFT};"
+        f"border:1px solid {COLOR_BORDER};border-radius:0.375rem;"
+        f"padding:0.1875rem 0.5rem;display:inline-block"
+    )
     for spec in types:
         with st.expander(f"Type {spec.number} — {spec.title}"):
             st.markdown(
-                f'<div class="type-meta">'
-                f'<span class="type-meta-tag">Layout · {spec.layout}</span>'
-                f'</div>'
-                f'<div class="label-faint">Pattern</div>'
-                f'<div style="margin-bottom: 0.875rem">{spec.pattern_description}</div>'
-                f'<div class="label-faint">Example body</div>'
-                f'<div style="margin-bottom: 0.625rem">{spec.example_problem.body}</div>'
-                f'<div class="label-faint">Example answer</div>'
+                f'<div style="margin-bottom:0.875rem">'
+                f'<span style="{tag_style}">Layout · {spec.layout}</span></div>'
+                f'<div style="{LABEL_FAINT_STYLE}">Pattern</div>'
+                f'<div style="margin-bottom:0.875rem">{spec.pattern_description}</div>'
+                f'<div style="{LABEL_FAINT_STYLE}">Example body</div>'
+                f'<div style="margin-bottom:0.625rem">{spec.example_problem.body}</div>'
+                f'<div style="{LABEL_FAINT_STYLE}">Example answer</div>'
                 f'<div><code>{spec.example_problem.answer}</code></div>',
                 unsafe_allow_html=True,
             )
@@ -556,7 +698,15 @@ def _render_problems_step() -> None:
     if "generated" not in st.session_state:
         types: list[ExtractedTypeSpec] = st.session_state.types
         n_total = sum(len(PROBLEM_LETTERS) for _ in types)
-        progress = st.progress(0.0, text=f"Generating 0/{n_total}...")
+
+        overlay = st.empty()
+        _show_overlay(
+            overlay,
+            f"Generating problem 1 of {n_total}…",
+            "Each problem is generated and then verified. This usually "
+            "takes 60–90 seconds total.",
+            progress=0.0,
+        )
 
         generated_by_type: dict[int, list[GeneratedProblem]] = {}
         idx = 0
@@ -573,17 +723,24 @@ def _render_problems_step() -> None:
                         language_difficulty=lang_diff,
                     )
                 except MissingAPIKey as e:
-                    progress.empty()
+                    overlay.empty()
                     _render_api_key_error(str(e))
                     return
                 except Exception as e:
-                    progress.empty()
+                    overlay.empty()
                     _render_generic_error(f"Generation failed for {label}", e)
                     return
                 generated_by_type[spec.number].append(gp)
                 idx += 1
-                progress.progress(idx / n_total, text=f"Generating {idx}/{n_total}...")
-        progress.empty()
+                next_label = f"problem {min(idx + 1, n_total)} of {n_total}" \
+                    if idx < n_total else "verifying…"
+                _show_overlay(
+                    overlay,
+                    f"Generating {next_label}",
+                    f"On {spec.title}.",
+                    progress=idx / n_total,
+                )
+        overlay.empty()
         st.session_state.generated = generated_by_type
 
     generated_by_type: dict[int, list[GeneratedProblem]] = st.session_state.generated
@@ -600,31 +757,43 @@ def _render_problems_step() -> None:
         if not flagged else f"{flagged} flagged · {n_verified} verified"
     )
     st.markdown(
-        '<div class="hero">'
+        '<div style="margin-bottom:2rem">'
         + _eyebrow("problems", status_extra)
-        + '<h1>Review the problems</h1>'
-        '<p class="hero-lead">Each problem was generated to match its type and '
-        'then checked algebraically with SymPy. Flagged problems failed '
-        'verification — regenerate or accept them manually.</p>'
+        + f'<h1 style="{H1_STYLE}">Review the problems</h1>'
+        f'<p style="{LEAD_STYLE}">Each problem was generated to match its '
+        'type and then checked algebraically with SymPy. Flagged problems '
+        'failed verification — regenerate or accept them manually.</p>'
         '</div>',
         unsafe_allow_html=True,
     )
 
     if flagged:
         st.markdown(
-            f'<div class="card" style="background: var(--warm-soft); border-color: var(--warm); margin-bottom: 1rem">'
+            f'<div style="background:{COLOR_WARM_SOFT};'
+            f'border:1px solid {COLOR_WARM};border-radius:0.75rem;'
+            f'padding:1rem 1.25rem;margin-bottom:1rem;color:{COLOR_CHARCOAL}">'
             f'<strong>⚠️ {flagged} problem{"s" if flagged != 1 else ""} flagged for review.</strong> '
-            f'The verifier couldn\'t confirm the answer. Regenerate or accept manually.'
+            f'The verifier couldn\'t confirm the answer. Regenerate or accept '
+            f'each one before generating the PDF.'
             f'</div>',
             unsafe_allow_html=True,
         )
 
+    badge_style = (
+        f"display:inline-flex;align-items:center;justify-content:center;"
+        f"min-width:24px;height:24px;padding:0 0.5rem;border-radius:999px;"
+        f"background:{COLOR_ACCENT_SOFT};color:{COLOR_ACCENT};"
+        f"font-size:0.6875rem;font-weight:700;"
+        f"font-family:'JetBrains Mono',ui-monospace,monospace;"
+        f"letter-spacing:0.04em;margin-right:0.625rem;vertical-align:1px"
+    )
     for type_num in sorted(generated_by_type.keys()):
         spec = types_by_num[type_num]
         gps = generated_by_type[type_num]
         st.markdown(
-            f'<h3 style="margin-top: 1.75rem">'
-            f'<span class="type-badge">T{type_num}</span>{spec.title}'
+            f'<h3 style="margin-top:1.75rem;font-size:1.125rem;font-weight:700;'
+            f'color:{COLOR_CHARCOAL};letter-spacing:-0.02em">'
+            f'<span style="{badge_style}">T{type_num}</span>{spec.title}'
             f'</h3>',
             unsafe_allow_html=True,
         )
@@ -638,10 +807,17 @@ def _render_problems_step() -> None:
                     st.markdown(f"**Options:** {opts}")
                 if not gp.verification.ok:
                     st.warning(f"Verification failed: {gp.verification.reason}")
-                if st.button("Regenerate", key=f"regen_{type_num}_{i}"):
-                    excluded = [g.problem for g in gps if g is not gp]
-                    excluded.append(spec.example_problem)
-                    with st.spinner(f"Regenerating {gp.problem.label}..."):
+                btn_regen, btn_accept = st.columns([1, 1])
+                with btn_regen:
+                    if st.button("Regenerate", key=f"regen_{type_num}_{i}"):
+                        excluded = [g.problem for g in gps if g is not gp]
+                        excluded.append(spec.example_problem)
+                        regen_overlay = st.empty()
+                        _show_overlay(
+                            regen_overlay,
+                            f"Regenerating problem {gp.problem.label}…",
+                            "Replacing the flagged problem with a fresh one.",
+                        )
                         try:
                             new_gp = generate_problem_with_retry(
                                 spec, gp.problem.label, excluded,
@@ -649,10 +825,33 @@ def _render_problems_step() -> None:
                                 language_difficulty=lang_diff,
                             )
                         except Exception as e:
+                            regen_overlay.empty()
                             _render_generic_error(f"Regeneration failed for {gp.problem.label}", e)
                             return
-                    gps[i] = new_gp
-                    st.rerun()
+                        regen_overlay.empty()
+                        gps[i] = new_gp
+                        st.rerun()
+                if not gp.verification.ok:
+                    with btn_accept:
+                        if st.button("Accept anyway",
+                                     key=f"accept_{type_num}_{i}",
+                                     help="I've checked the math myself; ship it as-is."):
+                            from problem_generator import GeneratedProblem  # local — avoid circular at top
+                            from verifier import VerificationResult
+                            gps[i] = GeneratedProblem(
+                                problem=gp.problem,
+                                verification=VerificationResult(
+                                    ok=True,
+                                    reason="manually accepted by teacher",
+                                ),
+                                attempts=gp.attempts,
+                            )
+                            st.rerun()
+
+    # PDF generation gate: any flagged problems block the forward action.
+    # The teacher must regenerate or explicitly Accept Anyway each one.
+    # This is the cheap version of "wrong math can't ship by accident."
+    block_pdf = flagged > 0
 
     col_back, _, col_next = st.columns([2, 4, 3])
     with col_back:
@@ -661,8 +860,14 @@ def _render_problems_step() -> None:
             st.session_state.step = "types"
             st.rerun()
     with col_next:
+        gate_help = (
+            f"{flagged} flagged problem{'s' if flagged != 1 else ''} need attention "
+            "(regenerate or accept anyway) before generating the PDF."
+            if block_pdf else None
+        )
         if st.button("Generate PDF →", type="primary",
-                     use_container_width=True):
+                     use_container_width=True, disabled=block_pdf,
+                     help=gate_help):
             st.session_state.step = "pdf"
             st.rerun()
 
@@ -690,38 +895,69 @@ def _render_pdf_step() -> None:
 
         worksheet = Worksheet(title=title, types=worksheet_types)
 
-        with st.spinner("Rendering PDF..."):
-            buf = io.BytesIO()
+        overlay = st.empty()
+        _show_overlay(
+            overlay,
+            "Rendering your worksheet…",
+            "Laying out problems, drawing exponents, and stamping the answer key.",
+        )
+        try:
             tmp = Path("/tmp") / f"round_two_{st.session_state.pdf_hash[:12]}.pdf"
             render_worksheet(worksheet, tmp)
             st.session_state.pdf_out_bytes = tmp.read_bytes()
             st.session_state.pdf_out_name = f"{_slugify(title)}.pdf"
+        finally:
+            overlay.empty()
 
     n_types = len(st.session_state.get("types", []))
     n_problems = sum(len(gps) for gps in st.session_state.get("generated", {}).values())
     size_kb = len(st.session_state.pdf_out_bytes) / 1024
     size_str = f"{size_kb:.0f} KB" if size_kb < 1024 else f"{size_kb / 1024:.1f} MB"
 
+    done_mark_style = (
+        f"display:flex;align-items:center;justify-content:center;"
+        f"width:56px;height:56px;border-radius:999px;"
+        f"background:{COLOR_SURFACE_SOFT};border:1px solid {COLOR_BORDER};"
+        f"margin-bottom:1.125rem"
+    )
+    ready_card_style = (
+        f"background:{COLOR_SURFACE};border:1px solid {COLOR_BORDER};"
+        f"border-radius:0.75rem;padding:1rem 1.125rem 1.125rem 1.125rem"
+    )
+    ready_num_style = (
+        f"font-size:1.625rem;font-weight:700;letter-spacing:-0.025em;"
+        f"color:{COLOR_CHARCOAL};margin:0.5rem 0 0.25rem 0;"
+        f"font-feature-settings:'tnum'"
+    )
+    ready_sub_style = (
+        f"font-size:0.8125rem;color:{COLOR_MUTED};line-height:1.45"
+    )
+
     st.markdown(
-        '<div class="hero">'
+        '<div style="margin-bottom:1.5rem">'
         + _eyebrow("pdf", st.session_state.pdf_out_name)
-        + f'<div class="done-block"><div class="done-mark">{MARK_SVG_LARGE}</div>'
-        '<h1>Worksheet ready.</h1></div>'
-        '<p class="hero-lead">Print or share — the answer key is the last page '
-        'so you can fold it under or remove before handing out copies.</p>'
+        + f'<div style="display:flex;flex-direction:column;align-items:flex-start">'
+        f'<div style="{done_mark_style}">{MARK_SVG_LARGE}</div>'
+        f'<h1 style="{H1_STYLE}">Worksheet ready.</h1></div>'
+        f'<p style="{LEAD_STYLE}">Print or share — the answer key is the last '
+        'page so you can fold it under or remove before handing out copies.</p>'
         '</div>'
-        '<div class="ready-grid">'
-        '<div class="card ready-card">'
-        '<div class="label-faint">Contents</div>'
-        f'<div class="ready-num">{n_types} type{"s" if n_types != 1 else ""} · '
-        f'{n_problems} problem{"s" if n_problems != 1 else ""}</div>'
-        '<div class="ready-sub">Worked example per type, then 5 practice problems each, then a full answer key.</div>'
+        f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.625rem;'
+        f'margin:1.25rem 0">'
+        f'<div style="{ready_card_style}">'
+        f'<div style="{LABEL_FAINT_STYLE}">Contents</div>'
+        f'<div style="{ready_num_style}">{n_types} type'
+        f'{"s" if n_types != 1 else ""} · {n_problems} problem'
+        f'{"s" if n_problems != 1 else ""}</div>'
+        f'<div style="{ready_sub_style}">Worked example per type, then 5 '
+        'practice problems each, then a full answer key.</div>'
         '</div>'
-        '<div class="card ready-card">'
-        '<div class="label-faint">File</div>'
-        f'<div class="ready-num" style="font-size: 1.125rem; word-break: break-all; line-height: 1.3">'
+        f'<div style="{ready_card_style}">'
+        f'<div style="{LABEL_FAINT_STYLE}">File</div>'
+        f'<div style="{ready_num_style};font-size:1.125rem;'
+        f'word-break:break-all;line-height:1.3">'
         f'{st.session_state.pdf_out_name}</div>'
-        f'<div class="ready-sub">{size_str} · PDF</div>'
+        f'<div style="{ready_sub_style}">{size_str} · PDF</div>'
         '</div>'
         '</div>',
         unsafe_allow_html=True,
@@ -758,7 +994,9 @@ def _derive_worksheet_title(types: list[ExtractedTypeSpec], pdf_name: str) -> st
 
 def _render_api_key_error(message: str) -> None:
     st.markdown(
-        '<div class="card" style="background: var(--warm-soft); border-color: var(--warm)">'
+        f'<div style="background:{COLOR_WARM_SOFT};'
+        f'border:1px solid {COLOR_WARM};border-radius:0.75rem;'
+        f'padding:1rem 1.25rem;color:{COLOR_CHARCOAL}">'
         '<strong>Missing API key.</strong>'
         '</div>',
         unsafe_allow_html=True,
