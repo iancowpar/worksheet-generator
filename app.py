@@ -48,6 +48,50 @@ ASSETS_DIR = Path(__file__).parent
 BRAND_DIR = ASSETS_DIR / "brand"
 THEME_CSS = ASSETS_DIR / "assets" / "theme.css"
 
+# Inline mark SVG — kept as a constant so we can drop it into hero chips,
+# done-states, etc. without re-reading from disk on every rerun.
+MARK_SVG = (
+    '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="brand-mark">'
+    '<path d="M 16 34 L 27 46 L 50 18" stroke="#7CC0B8" stroke-width="10" '
+    'stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
+    '<circle cx="50" cy="18" r="4.5" fill="#0B1220"/>'
+    '</svg>'
+)
+
+STEP_LABELS = {"upload": "Step 1 of 4", "types": "Step 2 of 4",
+               "problems": "Step 3 of 4", "pdf": "Step 4 of 4"}
+
+# Sidebar status icons — checkmark for done steps, filled dot for the
+# currently active step, hollow circle for steps yet to come. Kept tiny
+# (14px) to match Notion's sidebar row density.
+_SIDEBAR_CHECK = (
+    '<svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">'
+    '<path d="M3 7.5 L6 10 L11 4" stroke="currentColor" stroke-width="1.75" '
+    'stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>'
+)
+_SIDEBAR_DOT = (
+    '<svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">'
+    '<circle cx="7" cy="7" r="3.5" fill="currentColor"/></svg>'
+)
+_SIDEBAR_CIRCLE = (
+    '<svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">'
+    '<circle cx="7" cy="7" r="3.25" stroke="currentColor" stroke-width="1.25" '
+    'fill="none"/></svg>'
+)
+
+
+def _eyebrow(step_key: str, extra: str | None = None) -> str:
+    """Eyebrow text rendered above an H1. Pairs the step label with an
+    optional second clause (e.g. file name) joined by a middle dot."""
+    parts = [STEP_LABELS.get(step_key, "")]
+    if extra:
+        parts.append(extra)
+    inner = " · ".join(p for p in parts if p)
+    return (
+        '<div class="eyebrow"><span class="eyebrow-dot"></span>'
+        f'{inner}</div>'
+    )
+
 st.set_page_config(
     page_title="Round Two",
     page_icon=str(BRAND_DIR / "favicon.svg"),
@@ -88,28 +132,26 @@ STEPS = [
 
 def _render_sidebar() -> None:
     with st.sidebar:
-        logo_path = BRAND_DIR / "logo.svg"
-        if logo_path.exists():
-            # Inline the SVG so DM Sans (loaded by assets/theme.css) drives the
-            # wordmark, and we control exact pixel size in the sidebar column.
-            svg = logo_path.read_text()
-            st.markdown(
-                f'<div style="margin-bottom: 0.5rem">{svg}</div>',
-                unsafe_allow_html=True,
-            )
-        st.markdown('<div class="label-faint" style="margin-top: 1.25rem">Steps</div>',
+        st.markdown(
+            f'<div class="sidebar-brand">{MARK_SVG}<span>Round Two</span></div>',
+            unsafe_allow_html=True,
+        )
+        st.markdown('<div class="sidebar-section-label">Steps</div>',
                     unsafe_allow_html=True)
         current = st.session_state.get("step", "upload")
         current_idx = next((i for i, (k, _) in enumerate(STEPS) if k == current), 0)
-        chips_html = ""
-        for i, (key, label) in enumerate(STEPS):
-            cls = "step"
+        rows_html = ""
+        for i, (_key, label) in enumerate(STEPS):
             if i < current_idx:
-                cls += " is-done"
+                cls, icon = "step is-done", _SIDEBAR_CHECK
             elif i == current_idx:
-                cls += " is-active"
-            chips_html += f'<div class="{cls}"><div class="step-dot"></div>{label}</div>'
-        st.markdown(chips_html, unsafe_allow_html=True)
+                cls, icon = "step is-active", _SIDEBAR_DOT
+            else:
+                cls, icon = "step is-upcoming", _SIDEBAR_CIRCLE
+            rows_html += (
+                f'<div class="{cls}"><span class="step-icon">{icon}</span>{label}</div>'
+            )
+        st.markdown(rows_html, unsafe_allow_html=True)
 
 
 # ---------------------------------------------------------------------------
@@ -118,13 +160,25 @@ def _render_sidebar() -> None:
 
 def _render_upload_step() -> None:
     st.markdown(
-        '<div style="margin-bottom: 1.5rem">'
-        '<h1 style="margin-bottom: 0.25rem">Practice worksheet from a test</h1>'
-        '<p style="color: var(--text-muted); margin-top: 0">'
-        'Upload the test your students just took. Round Two reads it, generates '
-        '5 fresh practice problems per type, and renders a printable PDF with '
-        'worked examples and an answer key.'
-        '</p></div>',
+        '<div class="hero">'
+        f'<div class="brand-chip">{MARK_SVG} Round Two</div>'
+        '<h1>Practice worksheets in under a minute.</h1>'
+        '<p class="hero-lead">Upload the test your students just took. Round Two '
+        'reads it, generates <strong>5 fresh practice problems per type</strong>, '
+        'verifies the math, and renders a printable PDF with worked examples '
+        'and an answer key.</p>'
+        '</div>'
+        '<div class="how">'
+        '<div class="how-card"><div class="how-num">01 — UPLOAD</div>'
+        '<div class="how-title">Drop in the test PDF</div>'
+        '<div class="how-desc">A scan or export of the test the kids just took.</div></div>'
+        '<div class="how-card"><div class="how-num">02 — REVIEW</div>'
+        '<div class="how-title">Confirm what we extracted</div>'
+        '<div class="how-desc">Skim the problem types so nothing slips through.</div></div>'
+        '<div class="how-card"><div class="how-num">03 — PRINT</div>'
+        '<div class="how-title">Download a printable PDF</div>'
+        '<div class="how-desc">Worked examples, 5 practice problems each, answer key.</div></div>'
+        '</div>',
         unsafe_allow_html=True,
     )
 
@@ -140,21 +194,29 @@ def _render_upload_step() -> None:
     st.session_state.pdf_size = len(pdf_bytes)
 
     est = estimate_cost(len(pdf_bytes))
+    size_kb = len(pdf_bytes) / 1024
+    size_str = f"{size_kb:.0f} KB" if size_kb < 1024 else f"{size_kb / 1024:.1f} MB"
     st.markdown(
-        '<div class="card" style="margin: 1rem 0">'
-        f'<div class="label-faint">Estimated cost</div>'
-        f'<div style="font-size: 1.5rem; font-weight: 700; margin-top: 0.25rem">'
-        f'${est.dollars_low:.2f} – ${est.dollars_high:.2f}'
-        f'</div>'
-        f'<div style="color: var(--text-muted); font-size: 0.875rem">'
-        f'~{est.input_tokens:,} input + {est.output_tokens:,} output tokens '
-        f'across one Opus 4.7 extraction call and {est.n_types * est.n_problems_per_type} '
-        f'Sonnet 4.6 generation calls'
-        f'</div></div>',
+        '<div class="divider">Ready to generate</div>'
+        '<div class="ready-grid">'
+        '<div class="card ready-card">'
+        '<div class="label-faint">Estimated cost</div>'
+        f'<div class="ready-num">${est.dollars_low:.2f} – ${est.dollars_high:.2f}</div>'
+        f'<div class="ready-sub">~{est.input_tokens:,} input + '
+        f'{est.output_tokens:,} output tokens across one Opus 4.7 extraction '
+        f'call and {est.n_types * est.n_problems_per_type} Sonnet 4.6 generation calls.</div>'
+        '</div>'
+        '<div class="card ready-card">'
+        '<div class="label-faint">File</div>'
+        f'<div class="ready-num" style="font-size: 1.125rem; word-break: break-all; line-height: 1.3">'
+        f'{uploaded.name}</div>'
+        f'<div class="ready-sub">{size_str} · SHA-256 {file_hash[:8]}</div>'
+        '</div>'
+        '</div>',
         unsafe_allow_html=True,
     )
 
-    if st.button("Continue", type="primary"):
+    if st.button("Continue →", type="primary"):
         st.session_state.step = "types"
         st.rerun()
 
@@ -172,8 +234,6 @@ def _cached_extract_types(file_hash: str, pdf_bytes: bytes) -> list[ExtractedTyp
 
 
 def _render_types_step() -> None:
-    st.markdown('<h1>Problem types</h1>', unsafe_allow_html=True)
-
     if "types" not in st.session_state:
         try:
             with st.spinner("Reading the test..."):
@@ -190,21 +250,28 @@ def _render_types_step() -> None:
             return
 
     types: list[ExtractedTypeSpec] = st.session_state.types
+    pdf_name = st.session_state.get("pdf_name", "")
     st.markdown(
-        f'<p style="color: var(--text-muted)">Found <strong>{len(types)} types</strong>. '
-        'Skim them to confirm the extraction looks right, then continue.</p>',
+        '<div class="hero">'
+        + _eyebrow("types", pdf_name)
+        + '<h1>Problem types</h1>'
+        f'<p class="hero-lead">We found <strong>{len(types)} types</strong> '
+        'in this test. Skim each one — open the expander to check the example '
+        'we extracted — then continue when it looks right.</p>'
+        '</div>',
         unsafe_allow_html=True,
     )
 
     for spec in types:
         with st.expander(f"Type {spec.number} — {spec.title}"):
             st.markdown(
-                f'<div class="label-faint">Layout</div>'
-                f'<div style="margin-bottom: 0.75rem"><code>{spec.layout}</code></div>'
+                f'<div class="type-meta">'
+                f'<span class="type-meta-tag">Layout · {spec.layout}</span>'
+                f'</div>'
                 f'<div class="label-faint">Pattern</div>'
-                f'<div style="margin-bottom: 0.75rem">{spec.pattern_description}</div>'
+                f'<div style="margin-bottom: 0.875rem">{spec.pattern_description}</div>'
                 f'<div class="label-faint">Example body</div>'
-                f'<div style="margin-bottom: 0.5rem">{spec.example_problem.body}</div>'
+                f'<div style="margin-bottom: 0.625rem">{spec.example_problem.body}</div>'
                 f'<div class="label-faint">Example answer</div>'
                 f'<div><code>{spec.example_problem.answer}</code></div>',
                 unsafe_allow_html=True,
@@ -231,8 +298,6 @@ PROBLEM_LETTERS = "ABCDE"
 
 
 def _render_problems_step() -> None:
-    st.markdown('<h1>Review problems</h1>', unsafe_allow_html=True)
-
     if "generated" not in st.session_state:
         types: list[ExtractedTypeSpec] = st.session_state.types
         n_total = sum(len(PROBLEM_LETTERS) for _ in types)
@@ -265,10 +330,27 @@ def _render_problems_step() -> None:
     generated_by_type: dict[int, list[GeneratedProblem]] = st.session_state.generated
     types_by_num = {s.number: s for s in st.session_state.types}
 
+    n_total = sum(len(gps) for gps in generated_by_type.values())
     flagged = sum(
         1 for gps in generated_by_type.values()
         for gp in gps if not gp.verification.ok
     )
+    n_verified = n_total - flagged
+    status_extra = (
+        f"{n_verified} of {n_total} verified"
+        if not flagged else f"{flagged} flagged · {n_verified} verified"
+    )
+    st.markdown(
+        '<div class="hero">'
+        + _eyebrow("problems", status_extra)
+        + '<h1>Review the problems</h1>'
+        '<p class="hero-lead">Each problem was generated to match its type and '
+        'then checked algebraically with SymPy. Flagged problems failed '
+        'verification — regenerate or accept them manually.</p>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
     if flagged:
         st.markdown(
             f'<div class="card" style="background: var(--warm-soft); border-color: var(--warm); margin-bottom: 1rem">'
@@ -282,7 +364,9 @@ def _render_problems_step() -> None:
         spec = types_by_num[type_num]
         gps = generated_by_type[type_num]
         st.markdown(
-            f'<h3 style="margin-top: 1.5rem">Type {type_num} — {spec.title}</h3>',
+            f'<h3 style="margin-top: 1.75rem">'
+            f'<span class="type-badge">T{type_num}</span>{spec.title}'
+            f'</h3>',
             unsafe_allow_html=True,
         )
         for i, gp in enumerate(gps):
@@ -324,8 +408,6 @@ def _render_problems_step() -> None:
 # ---------------------------------------------------------------------------
 
 def _render_pdf_step() -> None:
-    st.markdown('<h1>Download worksheet</h1>', unsafe_allow_html=True)
-
     if "pdf_out_bytes" not in st.session_state:
         types_by_num = {s.number: s for s in st.session_state.types}
         worksheet_types = []
@@ -348,10 +430,32 @@ def _render_pdf_step() -> None:
                 Path(st.session_state.pdf_name).stem + "_practice.pdf"
             )
 
+    n_types = len(st.session_state.get("types", []))
+    n_problems = sum(len(gps) for gps in st.session_state.get("generated", {}).values())
+    size_kb = len(st.session_state.pdf_out_bytes) / 1024
+    size_str = f"{size_kb:.0f} KB" if size_kb < 1024 else f"{size_kb / 1024:.1f} MB"
+
     st.markdown(
-        '<div class="card" style="margin: 1rem 0">'
-        '<strong>Worksheet ready.</strong> Print or share — the answer key is the '
-        'last page so you can fold it under or remove before handing out copies.'
+        '<div class="hero">'
+        + _eyebrow("pdf", st.session_state.pdf_out_name)
+        + f'<div class="done-block"><div class="done-mark">{MARK_SVG}</div>'
+        '<h1>Worksheet ready.</h1></div>'
+        '<p class="hero-lead">Print or share — the answer key is the last page '
+        'so you can fold it under or remove before handing out copies.</p>'
+        '</div>'
+        '<div class="ready-grid">'
+        '<div class="card ready-card">'
+        '<div class="label-faint">Contents</div>'
+        f'<div class="ready-num">{n_types} type{"s" if n_types != 1 else ""} · '
+        f'{n_problems} problem{"s" if n_problems != 1 else ""}</div>'
+        '<div class="ready-sub">Worked example per type, then 5 practice problems each, then a full answer key.</div>'
+        '</div>'
+        '<div class="card ready-card">'
+        '<div class="label-faint">File</div>'
+        f'<div class="ready-num" style="font-size: 1.125rem; word-break: break-all; line-height: 1.3">'
+        f'{st.session_state.pdf_out_name}</div>'
+        f'<div class="ready-sub">{size_str} · PDF</div>'
+        '</div>'
         '</div>',
         unsafe_allow_html=True,
     )
