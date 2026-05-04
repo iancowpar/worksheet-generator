@@ -104,34 +104,41 @@ code, pre, .stCode { font-family: var(--font-mono); }
   box-shadow: var(--shadow-card);
 }
 
-/* Streamlit wraps button labels in a <p>; the global `p { color: ... }` */
-/* rule beats the button's color, leaving primary buttons charcoal-on-  */
-/* charcoal. Force the label to inherit from its button.                */
-.stButton > button p,
-.stDownloadButton > button p,
-.stButton > button div,
-.stDownloadButton > button div {
-  color: inherit;
+/* Streamlit wraps button labels in <div data-testid="stMarkdownContainer"> */
+/* > <p>label</p>. The global `p { color: ... }` rule beats the button's  */
+/* color, so primary buttons render charcoal-on-charcoal. Force every      */
+/* descendant of a button to inherit its parent's color, with !important   */
+/* so cascade order doesn't matter.                                        */
+.stButton button *,
+.stDownloadButton button * {
+  color: inherit !important;
   margin: 0;
 }
 
-/* Streamlit's "primary" kind="primary" — charcoal fill, white text */
+/* Streamlit's primary button — charcoal fill, white text. Older */
+/* Streamlit marks it with kind="primary"; newer uses              */
+/* data-testid="stBaseButton-primary". Cover both.                 */
 .stButton > button[kind="primary"],
-.stDownloadButton > button[kind="primary"] {
+.stDownloadButton > button[kind="primary"],
+.stButton > button[data-testid$="-primary"],
+.stDownloadButton > button[data-testid$="-primary"] {
   background: var(--text-primary);
   border-color: var(--text-primary);
   color: #FFFFFF;
   box-shadow: var(--shadow-card);
 }
 .stButton > button[kind="primary"]:hover,
-.stDownloadButton > button[kind="primary"]:hover {
+.stDownloadButton > button[kind="primary"]:hover,
+.stButton > button[data-testid$="-primary"]:hover,
+.stDownloadButton > button[data-testid$="-primary"]:hover {
   background: var(--text-primary);
   color: #FFFFFF;
   border-color: var(--text-primary);
   box-shadow: 0 6px 16px rgba(11, 18, 32, 0.18);
   transform: translateY(-1px);
 }
-.stButton > button[kind="primary"]:disabled {
+.stButton > button[kind="primary"]:disabled,
+.stButton > button[data-testid$="-primary"]:disabled {
   background: var(--text-faint);
   border-color: var(--text-faint);
   color: #FFFFFF;
