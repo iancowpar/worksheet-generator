@@ -243,30 +243,55 @@ STEPS = [
 
 
 def _render_sidebar() -> None:
-    """Render brand lockup + step indicator. Uses st.html() (not
-    st.markdown(unsafe_allow_html=True)) because Streamlit's markdown
-    sanitizer drops `class` attributes on nested divs in some versions,
-    which leaves the .step / .sidebar-brand styling unapplied. st.html()
-    bypasses the markdown parser and injects the markup verbatim."""
+    """Render brand lockup + step indicator with inline styles.
+
+    Hard-learned lesson: Streamlit's HTML rendering is unreliable for
+    custom CSS classes. st.markdown(unsafe_allow_html=True) drops class
+    attributes on nested divs in some versions; st.html() drops SVG
+    children. Inline styles attached directly to elements survive both
+    paths, so we lean on those instead of theme.css for these blocks."""
+    glacier, charcoal, muted, faint, surface_soft = (
+        "#7CC0B8", "#0B1220", "#475569", "#94A3B8", "rgba(11, 18, 32, 0.05)"
+    )
+
     with st.sidebar:
+        st.markdown(
+            f'<div style="display:flex;align-items:center;gap:0.5rem;'
+            f'padding:0.375rem 0.5rem;margin-bottom:1.25rem;font-weight:700;'
+            f'font-size:0.9375rem;color:{charcoal};letter-spacing:-0.015em">'
+            f'{MARK_SVG}<span>Round Two</span></div>'
+            f'<div style="padding:0 0.5rem;margin:0 0 0.5rem 0;font-size:11px;'
+            f'font-weight:600;letter-spacing:0.08em;text-transform:uppercase;'
+            f'color:{faint}">Steps</div>',
+            unsafe_allow_html=True,
+        )
+
         current = st.session_state.get("step", "upload")
         current_idx = next((i for i, (k, _) in enumerate(STEPS) if k == current), 0)
-        rows_html = ""
+
+        rows_html = []
         for i, (_key, label) in enumerate(STEPS):
             if i < current_idx:
-                cls, icon = "step is-done", _SIDEBAR_CHECK
+                icon, icon_color, text_color, weight, bg = (
+                    _SIDEBAR_CHECK, glacier, charcoal, "500", "transparent"
+                )
             elif i == current_idx:
-                cls, icon = "step is-active", _SIDEBAR_DOT
+                icon, icon_color, text_color, weight, bg = (
+                    _SIDEBAR_DOT, glacier, charcoal, "600", surface_soft
+                )
             else:
-                cls, icon = "step is-upcoming", _SIDEBAR_CIRCLE
-            rows_html += (
-                f'<div class="{cls}"><span class="step-icon">{icon}</span>{label}</div>'
+                icon, icon_color, text_color, weight, bg = (
+                    _SIDEBAR_CIRCLE, faint, muted, "500", "transparent"
+                )
+            rows_html.append(
+                f'<div style="display:flex;align-items:center;gap:0.5rem;'
+                f'padding:0.3125rem 0.5rem;border-radius:0.375rem;'
+                f'background:{bg};color:{text_color};font-size:0.8125rem;'
+                f'font-weight:{weight};line-height:1.25">'
+                f'<span style="display:flex;align-items:center;'
+                f'color:{icon_color};flex:none">{icon}</span>{label}</div>'
             )
-        st.html(
-            f'<div class="sidebar-brand">{MARK_SVG}<span>Round Two</span></div>'
-            f'<div class="sidebar-section-label">Steps</div>'
-            f'{rows_html}'
-        )
+        st.markdown("".join(rows_html), unsafe_allow_html=True)
 
 
 # ---------------------------------------------------------------------------
@@ -290,32 +315,27 @@ def _render_upload_step() -> None:
         '</style>'
     )
 
-    feature_cards = "".join(
-        f'<div class="feature-card">'
-        f'<div class="feature-icon">{_FEATURE_ICONS[icon]}</div>'
-        f'<div class="feature-title">{title}</div>'
-        f'<div class="feature-desc">{desc}</div>'
-        f'</div>'
-        for icon, title, desc in FEATURES
+    # Hero block — inline styles so nothing depends on .upload-hero/
+    # .hero-headline/.eyebrow-loud surviving Streamlit's sanitizer.
+    glacier, charcoal, muted, border, surface = (
+        "#7CC0B8", "#0B1220", "#475569", "#E5E5E2", "#FFFFFF"
     )
-
-    # Render the hero + features as one st.html() block. st.markdown's
-    # sanitizer was dropping classes on nested divs (.feature-card,
-    # .feature-icon, etc.), which left the cards unstyled. st.html()
-    # passes the markup through verbatim.
-    st.html(
-        '<div class="upload-hero">'
-        '<div class="eyebrow-loud">Math-verified · Built for special education</div>'
-        '<h1 class="hero-headline">'
-        'Test on Friday.<br>'
-        'Practice by Monday.<br>'
-        '<span class="accent">Math you can trust.</span>'
-        '</h1>'
-        '<p class="hero-lead">Upload the test your students just took. Round Two '
-        'reads it, generates <strong>5 fresh practice problems per type</strong>, '
-        'verifies the math, and renders a printable PDF with worked examples '
-        'and an answer key.</p>'
-        '</div>'
+    st.markdown(
+        f'<div style="padding:2rem 0 1.5rem 0">'
+        f'<div style="display:block;color:{glacier};text-transform:uppercase;'
+        f'letter-spacing:0.14em;font-size:11px;font-weight:700;'
+        f'margin-bottom:1.25rem">Math-verified · Built for special education</div>'
+        f'<h1 style="font-size:3rem;line-height:1.04;letter-spacing:-0.035em;'
+        f'font-weight:700;color:{charcoal};margin:0 0 1.25rem 0">'
+        f'Test on Friday.<br>Practice by Monday.<br>'
+        f'<span style="color:{glacier}">Math you can trust.</span></h1>'
+        f'<p style="font-size:1.0625rem;line-height:1.55;color:{muted};'
+        f'max-width:38rem;margin:0 0 1.5rem 0">Upload the test your students '
+        f'just took. Round Two reads it, generates '
+        f'<strong style="color:{charcoal};font-weight:600">5 fresh practice '
+        f'problems per type</strong>, verifies the math, and renders a '
+        f'printable PDF with worked examples and an answer key.</p></div>',
+        unsafe_allow_html=True,
     )
 
     sample_path = ASSETS_DIR / "reference" / "module16_practice_worksheet.pdf"
@@ -328,7 +348,30 @@ def _render_upload_step() -> None:
             key="sample_download",
         )
 
-    st.html(f'<div class="features">{feature_cards}</div>')
+    # Feature cards — inline styles for the same reason. SVG icons keep
+    # their baked-in width/height so they always render at 22px.
+    card_html = []
+    for icon_key, title, desc in FEATURES:
+        card_html.append(
+            f'<div style="border:1px solid {border};border-radius:1rem;'
+            f'padding:1.5rem 1.375rem;background:{surface};'
+            f'transition:border-color 0.18s ease,transform 0.18s ease">'
+            f'<div style="display:flex;align-items:center;justify-content:center;'
+            f'width:40px;height:40px;border-radius:0.625rem;'
+            f'background:rgba(124,192,184,0.16);color:{glacier};'
+            f'margin-bottom:1rem">{_FEATURE_ICONS[icon_key]}</div>'
+            f'<div style="font-weight:600;font-size:1rem;color:{charcoal};'
+            f'margin-bottom:0.375rem;letter-spacing:-0.01em">{title}</div>'
+            f'<div style="font-size:0.875rem;color:{muted};line-height:1.5">'
+            f'{desc}</div></div>'
+        )
+    st.markdown(
+        f'<div style="display:grid;'
+        f'grid-template-columns:repeat(auto-fit,minmax(170px,1fr));'
+        f'gap:0.75rem;margin:1.75rem 0 2rem 0">'
+        f'{"".join(card_html)}</div>',
+        unsafe_allow_html=True,
+    )
 
     uploaded = st.file_uploader("Choose a test PDF", type=["pdf"], label_visibility="collapsed")
     if not uploaded:
