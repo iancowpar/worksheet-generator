@@ -3,11 +3,10 @@
 Output: brand/social/round-two-linkedin-wide.png  (1200x627)
 
 Composition:
-  - Brand lockup at ~60% of canvas width, centered horizontally
-  - Single-row tagline below: "Test in the morning. Practice after
-    lunch. Math you can trust." All three sentences in the same DM Sans
-    Bold weight, same charcoal color — uniform treatment, no glacier
-    emphasis on the third sentence.
+  - Brand lockup centered horizontally
+  - Single-row tagline below, sized so its rendered width matches the
+    lockup width exactly. Two charcoal sentences + a glacier
+    "Math you can trust." (matching the app's hero accent color).
   - Glacier-wash background flowing top-down (same as the primary
     variant for brand consistency).
 """
@@ -84,12 +83,13 @@ def main() -> None:
     img = render_background()
     draw = ImageDraw.Draw(img)
 
-    # Target lockup width = 60% of canvas. Mark + wordmark sizes tuned to
-    # land within a few px of 720 (60% of 1200).
-    target_lockup_w = int(W * 0.60)
-    mark_size = 132
-    wordmark_size = 112
-    gap = 20
+    # Lockup sizing — slightly wider than the original 60% target so the
+    # tagline at a comfortable read size can match it exactly. With these
+    # sizes the lockup lands at ~800 px, leaving the tagline at ~30 px
+    # font (highly readable on LinkedIn).
+    mark_size = 144
+    wordmark_size = 124
+    gap = 22
 
     wm_regular = ImageFont.truetype(DMSANS_REGULAR, wordmark_size)
     wm_bold = ImageFont.truetype(DMSANS_BOLD, wordmark_size)
@@ -102,12 +102,28 @@ def main() -> None:
     wm_top = min(a_bbox[1], b_bbox[1])
     lockup_w = mark_size + gap + a_w + b_w
 
-    # Single-row tagline. All three sentences in the same DM Sans Bold,
-    # same charcoal — uniform treatment per the user's spec.
-    tagline_size = 32
+    # Single-row tagline, three sentences with consistent generous spacing
+    # between them. Last sentence in glacier as the visual hook (matches
+    # the app's hero accent color).
+    SEP = "   "  # three spaces between sentences for breathing room
+    sentences = [
+        ("Test in the morning." + SEP, CHARCOAL),
+        ("Practice after lunch." + SEP, CHARCOAL),
+        ("Math you can trust.", GLACIER),
+    ]
+    full_text = "".join(s for s, _ in sentences)
+
+    # Pick a tagline font size whose rendered width matches the lockup
+    # width as closely as possible. Linear scaling from a base measurement
+    # is accurate enough for a target match within a couple of pixels.
+    base_size = 40
+    base_font = ImageFont.truetype(DMSANS_BOLD, base_size)
+    base_bbox = draw.textbbox((0, 0), full_text, font=base_font)
+    base_w = base_bbox[2] - base_bbox[0]
+    tagline_size = max(20, int(round(base_size * lockup_w / base_w)))
+
     tagline_font = ImageFont.truetype(DMSANS_BOLD, tagline_size)
-    tagline = "Test in the morning.   Practice after lunch.   Math you can trust."
-    tag_bbox = draw.textbbox((0, 0), tagline, font=tagline_font)
+    tag_bbox = draw.textbbox((0, 0), full_text, font=tagline_font)
     tag_w = tag_bbox[2] - tag_bbox[0]
     tag_h = tag_bbox[3] - tag_bbox[1]
     tag_top = tag_bbox[1]
@@ -117,7 +133,8 @@ def main() -> None:
     total_h = mark_size + breathing + tag_h
     content_top = (H - total_h) // 2
 
-    # Center both horizontally on the canvas.
+    # Center lockup and tagline horizontally on the canvas (both share the
+    # same width by construction, so they align cleanly).
     lockup_left = (W - lockup_w) // 2
     lockup_cy = content_top + mark_size // 2
 
@@ -129,14 +146,20 @@ def main() -> None:
     draw.text((wm_x, wm_y), word_a, font=wm_regular, fill=CHARCOAL)
     draw.text((wm_x + a_w, wm_y), word_b, font=wm_bold, fill=CHARCOAL)
 
+    # Render each tagline sentence with its own color, accumulating x.
     tag_x = (W - tag_w) // 2
     tag_y = content_top + mark_size + breathing - tag_top
-    draw.text((tag_x, tag_y), tagline, font=tagline_font, fill=CHARCOAL)
+    cursor_x = tag_x
+    for sentence, color in sentences:
+        draw.text((cursor_x, tag_y), sentence, font=tagline_font, fill=color)
+        bbox = draw.textbbox((cursor_x, tag_y), sentence, font=tagline_font)
+        cursor_x = bbox[2]
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     img.save(OUT, "PNG", optimize=True)
     print(f"Wrote {OUT}  ({W}x{H})  lockup_w={lockup_w}  "
-          f"target={target_lockup_w}  ratio={lockup_w / W:.2f}  tagline_w={tag_w}")
+          f"tagline_w={tag_w}  tagline_size={tagline_size}px  "
+          f"width_diff={tag_w - lockup_w:+d}px")
 
 
 if __name__ == "__main__":
