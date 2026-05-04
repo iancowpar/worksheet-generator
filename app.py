@@ -367,29 +367,12 @@ def _render_sidebar() -> None:
         "#7CC0B8", "#0B1220", "#475569", "#94A3B8", "rgba(11, 18, 32, 0.05)"
     )
 
-    # Pin "What's new" to the bottom of the sidebar with a single targeted
-    # override on the vertical-block container. Earlier attempts touched
-    # the outer wrappers too — that broke the layout (vertical-centered
-    # the whole sidebar). Just make the vertical block a full-height flex
-    # column with align-items:stretch and justify-content:flex-start, and
-    # the last child gets margin-top:auto.
-    st.html(
-        '<style>'
-        'section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {'
-        '  display: flex !important;'
-        '  flex-direction: column !important;'
-        '  align-items: stretch !important;'
-        '  justify-content: flex-start !important;'
-        '  min-height: calc(100vh - 4rem) !important;'
-        '}'
-        'section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] '
-        '  > div:last-child,'
-        'section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] '
-        '  > [data-testid="stElementContainer"]:last-child {'
-        '  margin-top: auto !important;'
-        '}'
-        '</style>'
-    )
+    # Streamlit's sidebar DOM varies enough between versions that flex-
+    # based bottom-anchoring is unreliable (in different attempts the
+    # whole sidebar ends up vertically centered, or the link gets pushed
+    # off-screen). Pragmatic alternative: just give the link a tall top
+    # margin so it sits well below the steps with clear visual separation.
+    # Not pinned to the literal bottom, but always visible.
 
     with st.sidebar:
         st.markdown(
@@ -430,12 +413,14 @@ def _render_sidebar() -> None:
             )
         st.markdown("".join(rows_html), unsafe_allow_html=True)
 
-        # Bottom-anchored "What's new" link. The injected CSS makes this
-        # the last child of the sidebar's vertical block and pushes it to
-        # the bottom via margin-top:auto. Opens CHANGELOG.md on GitHub in
-        # a new tab so long-form release notes stay out of the sidebar.
+        # "What's new" link with a generous top margin so it sits well below
+        # the steps with clear visual separation. Not pinned to the literal
+        # bottom (Streamlit's sidebar DOM varies enough between versions
+        # that flex-based bottom-anchoring is unreliable), but always
+        # visible.
         st.markdown(
-            f'<div style="border-top:1px solid #E5E5E2;padding-top:0.875rem">'
+            f'<div style="margin-top:3.5rem;padding-top:0.875rem;'
+            f'border-top:1px solid #E5E5E2">'
             f'<a href="{CHANGELOG_URL}" target="_blank" rel="noopener" '
             f'style="display:flex;align-items:center;gap:0.375rem;'
             f'padding:0.375rem 0.5rem;border-radius:0.375rem;'
@@ -478,17 +463,17 @@ def _render_upload_step() -> None:
     glacier, charcoal, muted, border, surface = (
         "#7CC0B8", "#0B1220", "#475569", "#E5E5E2", "#FFFFFF"
     )
-    # Brand lockup above the headline. Mark + "Round Two" wordmark at the
-    # same heavy weight as the headline, sized smaller so the headline still
-    # reads as the dominant element. Generous bottom margin gives the eyebrow
-    # room to breathe before the H1.
+    # Brand lockup above the headline. Sized big enough to carry real
+    # weight on the page — 56 px mark + 2.25 rem wordmark — so it reads
+    # as a proper logo, not a small label. Generous bottom margin gives
+    # the eyebrow room to breathe before the H1.
     st.markdown(
         f'<div style="padding:2rem 0 0 0">'
-        f'<div style="display:flex;align-items:center;gap:0.625rem;'
-        f'margin-bottom:2.25rem">'
-        f'{_mark_svg(36)}'
-        f'<span style="font-weight:700;font-size:1.5rem;color:{charcoal};'
-        f'letter-spacing:-0.025em">Round Two</span>'
+        f'<div style="display:flex;align-items:center;gap:0.875rem;'
+        f'margin-bottom:2.75rem">'
+        f'{_mark_svg(56)}'
+        f'<span style="font-weight:700;font-size:2.25rem;color:{charcoal};'
+        f'letter-spacing:-0.03em;line-height:1">Round Two</span>'
         f'</div>'
         f'<div style="display:block;color:{glacier};text-transform:uppercase;'
         f'letter-spacing:0.14em;font-size:11px;font-weight:700;'
