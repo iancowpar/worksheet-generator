@@ -100,7 +100,7 @@ _SIDEBAR_CIRCLE = (
 _FEATURE_ICONS = {
     # Document with folded corner + two content lines
     "doc": (
-        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">'
         '<path d="M6 3h8l5 5v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" '
         'stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/>'
         '<path d="M14 3v5h5" stroke="currentColor" stroke-width="1.75" '
@@ -114,7 +114,7 @@ _FEATURE_ICONS = {
     # Equality bars (=) on the left + brand-mark checkmark on the right,
     # with the signature charcoal dot at the checkmark tip
     "check": (
-        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">'
         '<path d="M3 10h9" stroke="currentColor" stroke-width="1.75" '
         'stroke-linecap="round"/>'
         '<path d="M3 14h9" stroke="currentColor" stroke-width="1.75" '
@@ -126,7 +126,7 @@ _FEATURE_ICONS = {
     ),
     # Rounded "example box" silhouette with a corner dot tag + content lines
     "example": (
-        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">'
         '<rect x="3.5" y="5" width="17" height="14" rx="2.5" '
         'stroke="currentColor" stroke-width="1.75"/>'
         '<circle cx="6.5" cy="9" r="1.25" fill="currentColor"/>'
@@ -140,7 +140,7 @@ _FEATURE_ICONS = {
     ),
     # Three rows of (answer bar + checkmark) — a literal answer key
     "key": (
-        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">'
         '<path d="M3 6h7" stroke="currentColor" stroke-width="1.75" '
         'stroke-linecap="round"/>'
         '<path d="M14 6l2 2 4-4" stroke="currentColor" stroke-width="1.75" '
@@ -243,13 +243,12 @@ STEPS = [
 
 
 def _render_sidebar() -> None:
+    """Render brand lockup + step indicator. Uses st.html() (not
+    st.markdown(unsafe_allow_html=True)) because Streamlit's markdown
+    sanitizer drops `class` attributes on nested divs in some versions,
+    which leaves the .step / .sidebar-brand styling unapplied. st.html()
+    bypasses the markdown parser and injects the markup verbatim."""
     with st.sidebar:
-        st.markdown(
-            f'<div class="sidebar-brand">{MARK_SVG}<span>Round Two</span></div>',
-            unsafe_allow_html=True,
-        )
-        st.markdown('<div class="sidebar-section-label">Steps</div>',
-                    unsafe_allow_html=True)
         current = st.session_state.get("step", "upload")
         current_idx = next((i for i, (k, _) in enumerate(STEPS) if k == current), 0)
         rows_html = ""
@@ -263,7 +262,11 @@ def _render_sidebar() -> None:
             rows_html += (
                 f'<div class="{cls}"><span class="step-icon">{icon}</span>{label}</div>'
             )
-        st.markdown(rows_html, unsafe_allow_html=True)
+        st.html(
+            f'<div class="sidebar-brand">{MARK_SVG}<span>Round Two</span></div>'
+            f'<div class="sidebar-section-label">Steps</div>'
+            f'{rows_html}'
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -296,7 +299,11 @@ def _render_upload_step() -> None:
         for icon, title, desc in FEATURES
     )
 
-    st.markdown(
+    # Render the hero + features as one st.html() block. st.markdown's
+    # sanitizer was dropping classes on nested divs (.feature-card,
+    # .feature-icon, etc.), which left the cards unstyled. st.html()
+    # passes the markup through verbatim.
+    st.html(
         '<div class="upload-hero">'
         '<div class="eyebrow-loud">Math-verified · Built for special education</div>'
         '<h1 class="hero-headline">'
@@ -308,8 +315,7 @@ def _render_upload_step() -> None:
         'reads it, generates <strong>5 fresh practice problems per type</strong>, '
         'verifies the math, and renders a printable PDF with worked examples '
         'and an answer key.</p>'
-        '</div>',
-        unsafe_allow_html=True,
+        '</div>'
     )
 
     sample_path = ASSETS_DIR / "reference" / "module16_practice_worksheet.pdf"
@@ -322,7 +328,7 @@ def _render_upload_step() -> None:
             key="sample_download",
         )
 
-    st.markdown(f'<div class="features">{feature_cards}</div>', unsafe_allow_html=True)
+    st.html(f'<div class="features">{feature_cards}</div>')
 
     uploaded = st.file_uploader("Choose a test PDF", type=["pdf"], label_visibility="collapsed")
     if not uploaded:
