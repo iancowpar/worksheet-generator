@@ -172,14 +172,30 @@ def generate_problem(
     example_json = json.dumps(_problem_to_dict(spec.example_problem), indent=2)
     excluded_bodies = "\n".join(f"  - {p.body}" for p in excluded) or "  (none)"
 
+    # Only include the difficulty-calibration block when at least one axis
+    # is non-default. For "same/same" the prompt collapses back to the
+    # original text — adding redundant "mirror the example exactly" prose
+    # was hurting generation quality.
+    calibration_lines = []
+    if math_difficulty != DEFAULT_DIFFICULTY:
+        calibration_lines.append(f"- Math: {MATH_DIFFICULTY_GUIDANCE[math_difficulty]}")
+    if language_difficulty != DEFAULT_DIFFICULTY:
+        calibration_lines.append(
+            f"- Language: {LANGUAGE_DIFFICULTY_GUIDANCE[language_difficulty]}"
+        )
+    calibration_block = ""
+    if calibration_lines:
+        calibration_block = (
+            "\nDifficulty calibration:\n" + "\n".join(calibration_lines) + "\n"
+        )
+
     user = GENERATE_PROBLEM_USER.format(
         title=spec.title,
         layout=spec.layout,
         pattern_description=spec.pattern_description,
         example_json=example_json,
         excluded_bodies=excluded_bodies,
-        math_difficulty_guidance=MATH_DIFFICULTY_GUIDANCE[math_difficulty],
-        language_difficulty_guidance=LANGUAGE_DIFFICULTY_GUIDANCE[language_difficulty],
+        calibration_block=calibration_block,
         label=label,
     )
 
@@ -247,14 +263,22 @@ def generate_problem_with_retry(
         )
 
         problem, status = correct_substitution_in_answer(problem)
-        if status == "regen":
-            seen.append(problem)
-            continue
 
         if spec.verifier_kind == "claude_second_pass":
             result = verify_word_problem(problem, spec)
         else:
             result = verify(problem, spec.verifier_kind)
+            # If the SymPy verifier raised a parse error, the spec's
+            # verifier_kind was probably misassigned during extraction
+            # (Claude tends to pick combine_like_terms for word problems
+            # whose body is a sentence, not a parseable expression).
+            # Fall back to Claude second-pass instead of flagging.
+            if not result.ok and any(
+                keyword in result.reason
+                for keyword in ("SyntaxError", "TokenError", "couldn't find",
+                                "couldn't parse", "raised")
+            ):
+                result = verify_word_problem(problem, spec)
 
         if result.ok:
             return GeneratedProblem(problem=problem, verification=result, attempts=attempt + 1)

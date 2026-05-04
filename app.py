@@ -345,6 +345,19 @@ STEPS = [
     ("pdf", "PDF"),
 ]
 
+# Bottom-of-sidebar changelog. Most-recent first. Keep entries terse —
+# they sit in a narrow column at small type. Only the highlights worth
+# showing a returning teacher; not every commit.
+CHANGELOG_ENTRIES = [
+    "Math + Language difficulty knobs",
+    "PDF blocked until flagged problems are resolved",
+    "Accept-anyway override on flagged problems",
+    "Loading overlay during long operations",
+    "SymPy auto-corrects polynomial substitution arithmetic",
+    "Custom output filename on upload",
+    "Sample worksheet download",
+]
+
 
 def _render_sidebar() -> None:
     """Render brand lockup + step indicator with inline styles.
@@ -397,6 +410,25 @@ def _render_sidebar() -> None:
             )
         st.markdown("".join(rows_html), unsafe_allow_html=True)
 
+        # Changelog at the bottom of the sidebar — a quiet running log of
+        # what's new. Edit CHANGELOG_ENTRIES to add a row.
+        changelog_html = "".join(
+            f'<div style="display:flex;gap:0.5rem;padding:0.25rem 0.5rem;'
+            f'font-size:0.75rem;line-height:1.35;color:{muted}">'
+            f'<span style="color:{glacier};flex:none;font-weight:600">+</span>'
+            f'<span>{entry}</span></div>'
+            for entry in CHANGELOG_ENTRIES
+        )
+        st.markdown(
+            f'<div style="margin-top:2.25rem;padding-top:1rem;'
+            f'border-top:1px solid #E5E5E2"></div>'
+            f'<div style="padding:0 0.5rem;margin:0 0 0.5rem 0;font-size:11px;'
+            f'font-weight:600;letter-spacing:0.08em;text-transform:uppercase;'
+            f'color:{faint}">What\'s new</div>'
+            f'{changelog_html}',
+            unsafe_allow_html=True,
+        )
+
 
 # ---------------------------------------------------------------------------
 # Step 1 — Upload
@@ -424,8 +456,18 @@ def _render_upload_step() -> None:
     glacier, charcoal, muted, border, surface = (
         "#7CC0B8", "#0B1220", "#475569", "#E5E5E2", "#FFFFFF"
     )
+    # Brand lockup above the headline. Mark + "Round Two" wordmark at the
+    # same heavy weight as the headline, sized smaller so the headline still
+    # reads as the dominant element. Generous bottom margin gives the eyebrow
+    # room to breathe before the H1.
     st.markdown(
-        f'<div style="padding:2rem 0 1.5rem 0">'
+        f'<div style="padding:2rem 0 0 0">'
+        f'<div style="display:flex;align-items:center;gap:0.625rem;'
+        f'margin-bottom:2.25rem">'
+        f'{_mark_svg(36)}'
+        f'<span style="font-weight:700;font-size:1.5rem;color:{charcoal};'
+        f'letter-spacing:-0.025em">Round Two</span>'
+        f'</div>'
         f'<div style="display:block;color:{glacier};text-transform:uppercase;'
         f'letter-spacing:0.14em;font-size:11px;font-weight:700;'
         f'margin-bottom:1.25rem">Math-verified · Built for special education</div>'
@@ -779,22 +821,30 @@ def _render_problems_step() -> None:
             unsafe_allow_html=True,
         )
 
+    # Streamlit's sanitizer was stripping the inline style on the inner
+    # <span> badge, leaving "T1Title" mashed together. Switching to a
+    # flex layout with sibling <div>s — those keep their inline styles.
     badge_style = (
-        f"display:inline-flex;align-items:center;justify-content:center;"
-        f"min-width:24px;height:24px;padding:0 0.5rem;border-radius:999px;"
+        f"display:flex;align-items:center;justify-content:center;"
+        f"min-width:28px;height:24px;padding:0 0.5rem;border-radius:999px;"
         f"background:{COLOR_ACCENT_SOFT};color:{COLOR_ACCENT};"
         f"font-size:0.6875rem;font-weight:700;"
-        f"font-family:'JetBrains Mono',ui-monospace,monospace;"
-        f"letter-spacing:0.04em;margin-right:0.625rem;vertical-align:1px"
+        f"font-family:JetBrains Mono,ui-monospace,monospace;"
+        f"letter-spacing:0.04em;flex:none"
+    )
+    title_style = (
+        f"font-size:1.125rem;font-weight:700;color:{COLOR_CHARCOAL};"
+        f"letter-spacing:-0.02em"
     )
     for type_num in sorted(generated_by_type.keys()):
         spec = types_by_num[type_num]
         gps = generated_by_type[type_num]
         st.markdown(
-            f'<h3 style="margin-top:1.75rem;font-size:1.125rem;font-weight:700;'
-            f'color:{COLOR_CHARCOAL};letter-spacing:-0.02em">'
-            f'<span style="{badge_style}">T{type_num}</span>{spec.title}'
-            f'</h3>',
+            f'<div style="display:flex;align-items:center;gap:0.625rem;'
+            f'margin-top:1.75rem;margin-bottom:0.5rem">'
+            f'<div style="{badge_style}">T{type_num}</div>'
+            f'<div style="{title_style}">{spec.title}</div>'
+            f'</div>',
             unsafe_allow_html=True,
         )
         for i, gp in enumerate(gps):

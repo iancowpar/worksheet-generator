@@ -168,13 +168,15 @@ def test_correct_substitution_rewrites_wrong_amount():
     assert "$14,200" in fixed.answer
 
 
-def test_correct_substitution_signals_regen_for_negative_profit():
-    # From production: 12(125) - 40(25) - 600 = -100, a negative profit.
-    # We don't want to ship a worksheet asking about profit with a negative
-    # answer — signal regeneration instead.
+def test_correct_substitution_rewrites_negative_profit():
+    # From production: 12(125) - 40(25) - 600 = -100. Earlier this signaled
+    # 'regen' but that ate retry budget and shipped flagged problems whenever
+    # Claude picked coefficients with revenue < cost at the chosen x.
+    # Negative profit is correct math; just format and ship as "-$100".
     p = _profit_problem("Profit = 12x^3 - 40x^2 - 600; at x = 5, profit = $400")
-    _, status = correct_substitution_in_answer(p)
-    assert status == "regen"
+    fixed, status = correct_substitution_in_answer(p)
+    assert status == "corrected"
+    assert "-$100" in fixed.answer
 
 
 def test_correct_substitution_keeps_correct_answer():

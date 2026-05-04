@@ -159,11 +159,7 @@ Example (for reference only — do not reproduce or trivially modify):
 
 Already generated for this type (avoid duplicating):
 {excluded_bodies}
-
-Difficulty calibration:
-- Math: {math_difficulty_guidance}
-- Language: {language_difficulty_guidance}
-
+{calibration_block}
 Generate problem {label} as JSON only."""
 
 

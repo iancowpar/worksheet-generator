@@ -424,16 +424,16 @@ def correct_substitution_in_answer(problem: Problem) -> tuple[Problem, str]:
     except Exception:
         return problem, "noop"
 
-    try:
-        if computed <= 0:
-            return problem, "regen"
-    except Exception:
-        return problem, "noop"
-
+    # Earlier this function rejected non-positive results as "regen", but
+    # that was eating retry budget and shipping flagged problems whenever
+    # Claude happened to pick coefficients where revenue < cost at the
+    # chosen x. Negative profit is mathematically correct — just format it
+    # as -$N and ship.
     if computed == int(computed):
-        formatted_amount = f"{int(computed):,}"
+        magnitude_str = f"{abs(int(computed)):,}"
     else:
-        formatted_amount = f"{float(computed):,.2f}"
+        magnitude_str = f"{abs(float(computed)):,.2f}"
+    dollar_str = f"-${magnitude_str}" if computed < 0 else f"${magnitude_str}"
 
     claimed_str = m.group("amount").replace(",", "")
     sign = m.group("sign")
@@ -448,7 +448,7 @@ def correct_substitution_in_answer(problem: Problem) -> tuple[Problem, str]:
     head = m.group("head").strip()
     tail_label = m.group("tail_label").strip()
     new_answer = (
-        f"{head} = {expr_str}; at x = {n_str}, {tail_label} = ${formatted_amount}"
+        f"{head} = {expr_str}; at x = {n_str}, {tail_label} = {dollar_str}"
     )
 
     corrected = Problem(
