@@ -480,7 +480,7 @@ def _render_upload_step() -> None:
         f'margin-bottom:1.25rem">Math-verified · Built for special education</div>'
         f'<h1 style="font-size:3rem;line-height:1.04;letter-spacing:-0.035em;'
         f'font-weight:700;color:{charcoal};margin:0 0 1.25rem 0">'
-        f'Test on Friday.<br>Practice by Monday.<br>'
+        f'Test in the morning.<br>Practice after lunch.<br>'
         f'<span style="color:{glacier}">Math you can trust.</span></h1>'
         f'<p style="font-size:1.0625rem;line-height:1.55;color:{muted};'
         f'max-width:38rem;margin:0 0 1.5rem 0">Upload the test your students '
