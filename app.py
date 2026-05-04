@@ -57,13 +57,21 @@ st.set_page_config(
 
 
 def _inject_theme() -> None:
-    """Read assets/theme.css and inject it as a <style> block. Uses st.html
-    rather than st.markdown(unsafe_allow_html=True) because Streamlit's
-    markdown sanitizer strips <style>/<script>/<iframe> tags even with the
-    flag set (the CSS leaks through as plain Markdown text otherwise)."""
-    if THEME_CSS.exists():
-        css = THEME_CSS.read_text()
-        st.html(f"<style>{css}</style>")
+    """Read assets/theme.css and inject it as a <style> block.
+
+    HTML's <style> element has CDATA-like content parsing: the browser
+    closes it at the first literal "</style>" and ignores CSS comments.
+    A stray occurrence inside a /* ... */ block in theme.css will close
+    the tag early and dump the rest of the file into the page as text.
+    Escape any closing-tag sequences before injection so a future edit
+    to theme.css can't reintroduce that footgun."""
+    if not THEME_CSS.exists():
+        return
+    css = THEME_CSS.read_text()
+    # Split the literal closing tag with a backslash; CSS treats "\/" inside
+    # a comment as harmless, but the HTML parser no longer sees </style>.
+    safe_css = css.replace("</style>", "<\\/style>")
+    st.html(f"<style>{safe_css}</style>")
 
 
 # ---------------------------------------------------------------------------
