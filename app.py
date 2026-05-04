@@ -22,7 +22,6 @@ Cloud's Secrets UI). Missing key surfaces a friendly inline error.
 
 from __future__ import annotations
 
-import base64
 import hashlib
 import io
 import os
@@ -269,64 +268,31 @@ def _render_upload_step() -> None:
         for icon, title, desc in FEATURES
     )
 
-    # Glacier wash gradient is applied to .stApp via :has(.upload-hero) in
-    # theme.css — automatic when the upload-hero markup is in the DOM.
+    st.markdown(
+        '<div class="upload-hero">'
+        '<div class="eyebrow-loud">Math-verified · Built for special education</div>'
+        '<h1 class="hero-headline">'
+        'Test on Friday.<br>'
+        'Practice by Monday.<br>'
+        '<span class="accent">Math you can trust.</span>'
+        '</h1>'
+        '<p class="hero-lead">Upload the test your students just took. Round Two '
+        'reads it, generates <strong>5 fresh practice problems per type</strong>, '
+        'verifies the math, and renders a printable PDF with worked examples '
+        'and an answer key.</p>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
 
-    hero_left, hero_right = st.columns([1.1, 1], gap="large")
-
-    with hero_left:
-        st.markdown(
-            '<div class="upload-hero">'
-            '<div class="eyebrow-loud">Math-verified · Built for special education</div>'
-            '<h1 class="hero-headline">'
-            'Test on Friday.<br>'
-            'Practice by Monday.<br>'
-            '<span class="accent">Math you can trust.</span>'
-            '</h1>'
-            '<p class="hero-lead">Upload the test your students just took. Round Two '
-            'reads it, generates <strong>5 fresh practice problems per type</strong>, '
-            'verifies the math, and renders a printable PDF with worked examples '
-            'and an answer key.</p>'
-            '</div>',
-            unsafe_allow_html=True,
+    sample_path = ASSETS_DIR / "reference" / "module16_practice_worksheet.pdf"
+    if sample_path.exists():
+        st.download_button(
+            "Download a sample worksheet",
+            data=sample_path.read_bytes(),
+            file_name="round_two_sample.pdf",
+            mime="application/pdf",
+            key="sample_download",
         )
-
-        # Single secondary CTA — the dropzone below is the primary affordance,
-        # so an explicit "Upload" button would be redundant. Letting teachers
-        # see the actual rendered output before they spend API credit is the
-        # higher-value action.
-        sample_path = ASSETS_DIR / "reference" / "module16_practice_worksheet.pdf"
-        if sample_path.exists():
-            st.download_button(
-                "Download a sample worksheet",
-                data=sample_path.read_bytes(),
-                file_name="round_two_sample.pdf",
-                mime="application/pdf",
-                key="sample_download",
-            )
-
-    with hero_right:
-        preview_path = BRAND_DIR / "preview-worksheet.png"
-        back_path = BRAND_DIR / "preview-answerkey.png"
-        if preview_path.exists():
-            front_b64 = base64.b64encode(preview_path.read_bytes()).decode("ascii")
-            back_html = ""
-            if back_path.exists():
-                back_b64 = base64.b64encode(back_path.read_bytes()).decode("ascii")
-                back_html = (
-                    f'<img class="preview-back" '
-                    f'src="data:image/png;base64,{back_b64}" '
-                    f'alt="Sample answer key">'
-                )
-            st.markdown(
-                '<div class="worksheet-preview">'
-                f'{back_html}'
-                f'<img class="preview-front" '
-                f'src="data:image/png;base64,{front_b64}" '
-                f'alt="Sample practice worksheet">'
-                '</div>',
-                unsafe_allow_html=True,
-            )
 
     st.markdown(f'<div class="features">{feature_cards}</div>', unsafe_allow_html=True)
 

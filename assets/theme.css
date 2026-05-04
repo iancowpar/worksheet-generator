@@ -374,14 +374,15 @@ section[data-testid="stSidebar"] .stMarkdown { margin: 0; }
 
 /* Glacier wash gradient. Scoped to the upload page via :has() — only    */
 /* applies when .upload-hero is present in the DOM, so internal steps    */
-/* keep their plain white background.                                    */
+/* keep their plain white background. !important survives Streamlit's   */
+/* default .stApp background-color setter.                               */
 .stApp:has(.upload-hero) {
   background:
     linear-gradient(180deg,
-      rgba(124, 192, 184, 0.11) 0%,
-      rgba(124, 192, 184, 0.05) 480px,
-      rgba(124, 192, 184, 0.00) 720px),
-    var(--bg);
+      rgba(124, 192, 184, 0.14) 0%,
+      rgba(124, 192, 184, 0.07) 420px,
+      rgba(124, 192, 184, 0.00) 700px),
+    var(--bg) !important;
 }
 
 .eyebrow-loud {
@@ -419,50 +420,8 @@ section[data-testid="stSidebar"] .stMarkdown { margin: 0; }
   font-weight: 600;
 }
 
-/* Floating worksheet preview — the social-proof image. The soft drop  */
-/* shadow on this element is the ONLY shadow allowed in the app per    */
-/* CLAUDE.md's two-tier exception.                                     */
-.worksheet-preview {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem 0 0 0;
-}
-.worksheet-preview .preview-front {
-  max-width: 100%;
-  border-radius: 0.625rem;
-  border: 1px solid var(--border);
-  box-shadow:
-    0 24px 48px rgba(11, 18, 32, 0.16),
-    0 8px 16px rgba(11, 18, 32, 0.08);
-  transform: rotate(-1.75deg);
-  transition: transform 0.35s ease;
-  position: relative;
-  z-index: 2;
-  background: #FFFFFF;
-}
-.worksheet-preview .preview-back {
-  position: absolute;
-  top: 1rem;
-  left: 1.25rem;
-  max-width: calc(100% - 2.25rem);
-  border-radius: 0.625rem;
-  border: 1px solid var(--border);
-  box-shadow:
-    0 16px 32px rgba(11, 18, 32, 0.10),
-    0 6px 12px rgba(11, 18, 32, 0.06);
-  transform: rotate(2.5deg);
-  opacity: 0.72;
-  z-index: 1;
-  background: #FFFFFF;
-}
-.worksheet-preview:hover .preview-front { transform: rotate(0deg); }
-.worksheet-preview:hover .preview-back { transform: rotate(1deg); opacity: 0.5; }
-
 @media (max-width: 720px) {
   .hero-headline { font-size: 2.25rem; }
-  .worksheet-preview { padding-top: 1.5rem; }
 }
 
 .hero { margin-bottom: 2rem; }

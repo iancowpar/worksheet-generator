@@ -101,16 +101,15 @@ surfaces).
 
 **Two-tier visual hierarchy.** The upload landing page (Step 1) is
 allowed bolder energy because it's the only marketing surface — a
-glacier-wash gradient hero, oversized headline (~3rem, three lines,
-tracking-tight), a floating worksheet-preview image with a soft drop
-shadow, the eyebrow at full glacier intensity. Steps 2/3/4 (Types,
+glacier-wash gradient hero and an oversized headline (~3rem, three
+lines, tracking-tight, third line in glacier). Steps 2/3/4 (Types,
 Problems, PDF) stay Notion-quiet — 1px borders, no shadows, calm
 typography, no gradients. The bold-on-landing converts curiosity; the
 quiet-on-workflow respects a teacher who uses this every week.
 
-The "no shadows" rule still binds for interior cards. The single
-exception is the upload-hero floating worksheet preview. The "no
-third color" and "no extra typeface" rules still bind everywhere.
+No shadows anywhere — including the upload hero. No third color, no
+extra typeface, no drop shadows. The bolder energy comes from
+typographic scale and the gradient wash, not from chrome.
 
 ## Visual style rules — DO NOT modify these
 
