@@ -345,22 +345,18 @@ STEPS = [
     ("pdf", "PDF"),
 ]
 
-# Bottom-of-sidebar changelog. Most-recent first. Keep entries terse —
-# they sit in a narrow column at small type. Only the highlights worth
-# showing a returning teacher; not every commit.
-CHANGELOG_ENTRIES = [
-    "Math + Language difficulty knobs",
-    "PDF blocked until flagged problems are resolved",
-    "Accept-anyway override on flagged problems",
-    "Loading overlay during long operations",
-    "SymPy auto-corrects polynomial substitution arithmetic",
-    "Custom output filename on upload",
-    "Sample worksheet download",
-]
+# Public-facing CHANGELOG.md hosted on GitHub. Opens in a new tab from
+# the "What's new" link at the bottom of the sidebar. Update both the
+# file and any future link redirect together.
+CHANGELOG_URL = (
+    "https://github.com/iancowpar/worksheet-generator/"
+    "blob/claude/add-skip-permissions-flag-EMWxA/CHANGELOG.md"
+)
 
 
 def _render_sidebar() -> None:
-    """Render brand lockup + step indicator with inline styles.
+    """Render brand lockup + step indicator with inline styles, plus a
+    bottom-anchored "What's new" link to the CHANGELOG on GitHub.
 
     Hard-learned lesson: Streamlit's HTML rendering is unreliable for
     custom CSS classes. st.markdown(unsafe_allow_html=True) drops class
@@ -369,6 +365,20 @@ def _render_sidebar() -> None:
     paths, so we lean on those instead of theme.css for these blocks."""
     glacier, charcoal, muted, faint, surface_soft = (
         "#7CC0B8", "#0B1220", "#475569", "#94A3B8", "rgba(11, 18, 32, 0.05)"
+    )
+
+    # Pin the "What's new" block to the bottom of the sidebar by setting the
+    # sidebar to position:relative and anchoring the link with absolute
+    # positioning. <style> goes through st.html (st.markdown sanitizes it
+    # away); the rule survives any class-stripping because we target the
+    # parent attribute selectors directly.
+    st.html(
+        '<style>'
+        'section[data-testid="stSidebar"] { position: relative !important; }'
+        'section[data-testid="stSidebar"] .r2-sidebar-bottom {'
+        '  position: absolute; left: 1rem; right: 1rem; bottom: 1.25rem;'
+        '}'
+        '</style>'
     )
 
     with st.sidebar:
@@ -410,22 +420,28 @@ def _render_sidebar() -> None:
             )
         st.markdown("".join(rows_html), unsafe_allow_html=True)
 
-        # Changelog at the bottom of the sidebar — a quiet running log of
-        # what's new. Edit CHANGELOG_ENTRIES to add a row.
-        changelog_html = "".join(
-            f'<div style="display:flex;gap:0.5rem;padding:0.25rem 0.5rem;'
-            f'font-size:0.75rem;line-height:1.35;color:{muted}">'
-            f'<span style="color:{glacier};flex:none;font-weight:600">+</span>'
-            f'<span>{entry}</span></div>'
-            for entry in CHANGELOG_ENTRIES
-        )
+        # Bottom-anchored "What's new" link. The wrapping div carries the
+        # r2-sidebar-bottom class that the injected CSS pins to the bottom
+        # of the sidebar via position:absolute. The link itself opens
+        # CHANGELOG.md on GitHub in a new tab — keeping the long-form
+        # release notes out of the sidebar so the steps stay focal.
         st.markdown(
-            f'<div style="margin-top:2.25rem;padding-top:1rem;'
-            f'border-top:1px solid #E5E5E2"></div>'
-            f'<div style="padding:0 0.5rem;margin:0 0 0.5rem 0;font-size:11px;'
-            f'font-weight:600;letter-spacing:0.08em;text-transform:uppercase;'
-            f'color:{faint}">What\'s new</div>'
-            f'{changelog_html}',
+            f'<div class="r2-sidebar-bottom">'
+            f'<div style="border-top:1px solid #E5E5E2;'
+            f'padding-top:0.875rem">'
+            f'<a href="{CHANGELOG_URL}" target="_blank" rel="noopener" '
+            f'style="display:flex;align-items:center;gap:0.375rem;'
+            f'padding:0.375rem 0.5rem;border-radius:0.375rem;'
+            f'text-decoration:none;color:{muted};font-size:0.8125rem;'
+            f'font-weight:500">'
+            f'<span style="font-size:11px;font-weight:600;'
+            f'letter-spacing:0.08em;text-transform:uppercase;color:{faint}">'
+            f'What\'s new</span>'
+            f'<span style="margin-left:auto;color:{faint};font-size:0.75rem">'
+            f'↗</span>'
+            f'</a>'
+            f'</div>'
+            f'</div>',
             unsafe_allow_html=True,
         )
 
