@@ -99,6 +99,19 @@ border, never a drop shadow. Primary CTAs are charcoal, never glacier
 or indigo (the brand color is reserved for the mark and brand
 surfaces).
 
+**Two-tier visual hierarchy.** The upload landing page (Step 1) is
+allowed bolder energy because it's the only marketing surface — a
+glacier-wash gradient hero, oversized headline (~3rem, three lines,
+tracking-tight), a floating worksheet-preview image with a soft drop
+shadow, the eyebrow at full glacier intensity. Steps 2/3/4 (Types,
+Problems, PDF) stay Notion-quiet — 1px borders, no shadows, calm
+typography, no gradients. The bold-on-landing converts curiosity; the
+quiet-on-workflow respects a teacher who uses this every week.
+
+The "no shadows" rule still binds for interior cards. The single
+exception is the upload-hero floating worksheet preview. The "no
+third color" and "no extra typeface" rules still bind everywhere.
+
 ## Visual style rules — DO NOT modify these
 
 These came from real failures. Breaking them ships unusable PDFs.
