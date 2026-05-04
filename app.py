@@ -365,9 +365,12 @@ def _render_upload_step() -> None:
             f'<div style="font-size:0.875rem;color:{muted};line-height:1.5">'
             f'{desc}</div></div>'
         )
+    # repeat(4, minmax(0, 1fr)) forces exactly four equal columns and lets
+    # them shrink to fit. auto-fit was wrapping to 3+1 because content
+    # widths in the longer description cards exceeded the 1fr calculation.
     st.markdown(
         f'<div style="display:grid;'
-        f'grid-template-columns:repeat(auto-fit,minmax(170px,1fr));'
+        f'grid-template-columns:repeat(4,minmax(0,1fr));'
         f'gap:0.75rem;margin:1.75rem 0 2rem 0">'
         f'{"".join(card_html)}</div>',
         unsafe_allow_html=True,
