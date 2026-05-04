@@ -372,18 +372,9 @@ section[data-testid="stSidebar"] .stMarkdown { margin: 0; }
 /* Two-tier visual: this loud treatment is the upload page only. Internal */
 /* steps (Types/Problems/PDF) stay Notion-quiet per CLAUDE.md.            */
 
-/* Glacier wash gradient. Scoped to the upload page via :has() — only    */
-/* applies when .upload-hero is present in the DOM, so internal steps    */
-/* keep their plain white background. !important survives Streamlit's   */
-/* default .stApp background-color setter.                               */
-.stApp:has(.upload-hero) {
-  background:
-    linear-gradient(180deg,
-      rgba(124, 192, 184, 0.14) 0%,
-      rgba(124, 192, 184, 0.07) 420px,
-      rgba(124, 192, 184, 0.00) 700px),
-    var(--bg) !important;
-}
+/* Glacier-wash gradient is injected inline at upload-step render time */
+/* (see app.py _render_upload_step). Doing it via :has() in this file  */
+/* didn't apply reliably on the live deploy.                            */
 
 .eyebrow-loud {
   display: block;
@@ -468,7 +459,7 @@ section[data-testid="stSidebar"] .stMarkdown { margin: 0; }
 
 .features {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 0.625rem;
   margin: 1.75rem 0 2rem 0;
 }
@@ -508,9 +499,6 @@ section[data-testid="stSidebar"] .stMarkdown { margin: 0; }
   line-height: 1.45;
 }
 
-@media (max-width: 720px) {
-  .features { grid-template-columns: repeat(2, 1fr); }
-}
 
 /* ---------- Ready-state grid (post-upload) ---------- */
 

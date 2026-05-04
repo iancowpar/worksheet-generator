@@ -49,33 +49,45 @@ ASSETS_DIR = Path(__file__).parent
 BRAND_DIR = ASSETS_DIR / "brand"
 THEME_CSS = ASSETS_DIR / "assets" / "theme.css"
 
-# Inline mark SVG — kept as a constant so we can drop it into hero chips,
-# done-states, etc. without re-reading from disk on every rerun.
-MARK_SVG = (
-    '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="brand-mark">'
-    '<path d="M 16 34 L 27 46 L 50 18" stroke="#7CC0B8" stroke-width="10" '
-    'stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
-    '<circle cx="50" cy="18" r="4.5" fill="#0B1220"/>'
-    '</svg>'
-)
+def _mark_svg(size: int) -> str:
+    """Inline brand mark at an explicit pixel size. Width/height are baked
+    into the SVG attributes (not CSS) so the icon renders at the intended
+    size even if assets/theme.css fails to load — the live deploy has been
+    flaky about CSS sizing of SVG descendants."""
+    return (
+        f'<svg viewBox="0 0 64 64" width="{size}" height="{size}" '
+        'fill="none" xmlns="http://www.w3.org/2000/svg">'
+        '<path d="M 16 34 L 27 46 L 50 18" stroke="#7CC0B8" stroke-width="10" '
+        'stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
+        '<circle cx="50" cy="18" r="4.5" fill="#0B1220"/>'
+        '</svg>'
+    )
+
+# Common sizes pre-rendered for ergonomic use at call sites.
+MARK_SVG = _mark_svg(22)        # sidebar
+MARK_SVG_LARGE = _mark_svg(32)  # PDF done state
 
 STEP_LABELS = {"upload": "Step 1 of 4", "types": "Step 2 of 4",
                "problems": "Step 3 of 4", "pdf": "Step 4 of 4"}
 
 # Sidebar status icons — checkmark for done steps, filled dot for the
-# currently active step, hollow circle for steps yet to come. Kept tiny
-# (14px) to match Notion's sidebar row density.
+# currently active step, hollow circle for steps yet to come. 14px to
+# match Notion's sidebar row density. Width/height baked in so they
+# render correctly even if theme.css doesn't apply.
 _SIDEBAR_CHECK = (
-    '<svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">'
+    '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" '
+    'xmlns="http://www.w3.org/2000/svg">'
     '<path d="M3 7.5 L6 10 L11 4" stroke="currentColor" stroke-width="1.75" '
     'stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>'
 )
 _SIDEBAR_DOT = (
-    '<svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">'
+    '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" '
+    'xmlns="http://www.w3.org/2000/svg">'
     '<circle cx="7" cy="7" r="3.5" fill="currentColor"/></svg>'
 )
 _SIDEBAR_CIRCLE = (
-    '<svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">'
+    '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" '
+    'xmlns="http://www.w3.org/2000/svg">'
     '<circle cx="7" cy="7" r="3.25" stroke="currentColor" stroke-width="1.25" '
     'fill="none"/></svg>'
 )
@@ -88,7 +100,7 @@ _SIDEBAR_CIRCLE = (
 _FEATURE_ICONS = {
     # Document with folded corner + two content lines
     "doc": (
-        '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">'
         '<path d="M6 3h8l5 5v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" '
         'stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/>'
         '<path d="M14 3v5h5" stroke="currentColor" stroke-width="1.75" '
@@ -102,7 +114,7 @@ _FEATURE_ICONS = {
     # Equality bars (=) on the left + brand-mark checkmark on the right,
     # with the signature charcoal dot at the checkmark tip
     "check": (
-        '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">'
         '<path d="M3 10h9" stroke="currentColor" stroke-width="1.75" '
         'stroke-linecap="round"/>'
         '<path d="M3 14h9" stroke="currentColor" stroke-width="1.75" '
@@ -114,7 +126,7 @@ _FEATURE_ICONS = {
     ),
     # Rounded "example box" silhouette with a corner dot tag + content lines
     "example": (
-        '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">'
         '<rect x="3.5" y="5" width="17" height="14" rx="2.5" '
         'stroke="currentColor" stroke-width="1.75"/>'
         '<circle cx="6.5" cy="9" r="1.25" fill="currentColor"/>'
@@ -128,7 +140,7 @@ _FEATURE_ICONS = {
     ),
     # Three rows of (answer bar + checkmark) — a literal answer key
     "key": (
-        '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">'
         '<path d="M3 6h7" stroke="currentColor" stroke-width="1.75" '
         'stroke-linecap="round"/>'
         '<path d="M14 6l2 2 4-4" stroke="currentColor" stroke-width="1.75" '
@@ -259,6 +271,22 @@ def _render_sidebar() -> None:
 # ---------------------------------------------------------------------------
 
 def _render_upload_step() -> None:
+    # Inject the glacier-wash gradient directly here rather than via
+    # .stApp:has(.upload-hero) in theme.css. The :has() rule wasn't
+    # showing up reliably on the live deploy; injecting the style only
+    # when this step renders gives us the same scoping (upload-only)
+    # without depending on browser :has() support or CSS load order.
+    st.html(
+        '<style>'
+        '.stApp { background: '
+        'linear-gradient(180deg, '
+        'rgba(124,192,184,0.16) 0%, '
+        'rgba(124,192,184,0.07) 420px, '
+        'rgba(124,192,184,0.00) 720px), '
+        '#FFFFFF !important; }'
+        '</style>'
+    )
+
     feature_cards = "".join(
         f'<div class="feature-card">'
         f'<div class="feature-icon">{_FEATURE_ICONS[icon]}</div>'
@@ -573,7 +601,7 @@ def _render_pdf_step() -> None:
     st.markdown(
         '<div class="hero">'
         + _eyebrow("pdf", st.session_state.pdf_out_name)
-        + f'<div class="done-block"><div class="done-mark">{MARK_SVG}</div>'
+        + f'<div class="done-block"><div class="done-mark">{MARK_SVG_LARGE}</div>'
         '<h1>Worksheet ready.</h1></div>'
         '<p class="hero-lead">Print or share — the answer key is the last page '
         'so you can fold it under or remove before handing out copies.</p>'
