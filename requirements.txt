@@ -4,3 +4,4 @@ reportlab>=4.2
 pdfplumber>=0.11
 sympy>=1.13
 pillow>=10.4
+pytest>=8.0
