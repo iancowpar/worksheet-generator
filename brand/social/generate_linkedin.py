@@ -28,17 +28,20 @@ OUT = Path(__file__).parent / "round-two-linkedin.png"
 
 
 # ---------------------------------------------------------------------------
-# Background — glacier wash (white at top, glacier ~12% at bottom)
+# Background — glacier wash flowing top down (saturated at top, white at bottom)
 # ---------------------------------------------------------------------------
 
 def render_background() -> Image.Image:
     img = Image.new("RGB", (W, H), WHITE)
     overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     px = overlay.load()
+    # Top of the card sits at ~43% glacier alpha and tapers to 0 at the
+    # bottom on a quadratic ease-out — the saturation collapses fast in
+    # the upper third so the tagline area lands on near-white for legibility.
+    max_alpha = 110
     for y in range(H):
-        # 0 alpha at top, ~30/255 (~12%) at bottom; ease quadratic for a softer wash.
         t = y / H
-        alpha = int(30 * (t * t))
+        alpha = int(max_alpha * (1 - t) * (1 - t))
         for x in range(W):
             px[x, y] = (*GLACIER, alpha)
     img.paste(overlay, (0, 0), overlay)
@@ -132,8 +135,8 @@ def main() -> None:
     tag_regular = ImageFont.truetype(DMSANS_REGULAR, 44)
     tag_bold = ImageFont.truetype(DMSANS_BOLD, 44)
     lines = [
-        ("Test on Friday.", tag_regular, MUTED),
-        ("Practice on Monday.", tag_regular, MUTED),
+        ("Test in the morning.", tag_regular, MUTED),
+        ("Practice after lunch.", tag_regular, MUTED),
         ("Math you can trust.", tag_bold, GLACIER),
     ]
 
