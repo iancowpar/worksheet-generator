@@ -205,8 +205,16 @@ code, pre, .stCode { font-family: var(--font-mono); }
   border-radius: 0.75rem 0.75rem 0 0;
 }
 
-/* Progress / status — softer */
-.stProgress > div > div > div { background: var(--glacier); }
+/* Progress bar — charcoal track, glacier fill. The inner element with */
+/* role="progressbar" is the track; its child div is the moving fill.  */
+/* Streamlit's primaryColor (charcoal in our config.toml) leaks onto   */
+/* the fill by default, so we override both layers explicitly.         */
+[role="progressbar"] {
+  background: var(--text-primary) !important;
+}
+[role="progressbar"] > div {
+  background: var(--glacier) !important;
+}
 
 /* Alerts — Notion callout treatment */
 [data-testid="stAlert"] {
