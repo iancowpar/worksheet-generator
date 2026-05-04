@@ -151,9 +151,8 @@ def main() -> None:
     tag_right = tag_left + tag_block_w
     tag_top = content_top + mark_size + breathing
 
-    # 4. Position lockup: right edge aligns with tagline right edge.
-    lockup_right = tag_right
-    lockup_left = lockup_right - lockup_w
+    # 4. Position lockup: left edge aligns with tagline left edge.
+    lockup_left = tag_left
     lockup_cy = content_top + mark_size // 2
 
     mark_cx = lockup_left + mark_size // 2
