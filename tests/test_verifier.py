@@ -11,7 +11,7 @@ from pathlib import Path
 # Make project root importable when pytest is run from the repo root.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from verifier import verify  # noqa: E402
+from verifier import correct_substitution_in_answer, verify  # noqa: E402
 from worksheet_renderer import Problem  # noqa: E402
 
 
@@ -146,3 +146,52 @@ def test_unknown_kind_returns_failure_not_exception():
     result = verify(p, kind="not_a_real_kind")
     assert not result.ok
     assert "unknown verifier kind" in result.reason
+
+
+# ---------------------------------------------------------------------------
+# correct_substitution_in_answer — the deterministic fix for word-blank math
+# ---------------------------------------------------------------------------
+
+def _profit_problem(answer: str) -> Problem:
+    return Problem(
+        label="3-A",
+        body="The revenue ... cost ... If the company sold 5 products, how much profit?",
+        answer=answer,
+    )
+
+
+def test_correct_substitution_rewrites_wrong_amount():
+    # From production: 20(1000) - 45(100) - 1300 = 14200, not 15200.
+    p = _profit_problem("Profit = 20x^3 - 45x^2 - 1300; at x = 10, profit = $15,200")
+    fixed, status = correct_substitution_in_answer(p)
+    assert status == "corrected"
+    assert "$14,200" in fixed.answer
+
+
+def test_correct_substitution_signals_regen_for_negative_profit():
+    # From production: 12(125) - 40(25) - 600 = -100, a negative profit.
+    # We don't want to ship a worksheet asking about profit with a negative
+    # answer — signal regeneration instead.
+    p = _profit_problem("Profit = 12x^3 - 40x^2 - 600; at x = 5, profit = $400")
+    _, status = correct_substitution_in_answer(p)
+    assert status == "regen"
+
+
+def test_correct_substitution_keeps_correct_answer():
+    # 5(16) + 100 = 180 — already correct.
+    p = Problem(
+        label="3-A",
+        body="...",
+        answer="Total Cost = 5x^2 + 100; at x = 4, total cost = $180",
+    )
+    fixed, status = correct_substitution_in_answer(p)
+    assert status == "already_correct"
+    assert fixed.answer == p.answer
+
+
+def test_correct_substitution_noop_for_unrelated_answer():
+    # A simple combine-like-terms answer; no substitution to recompute.
+    p = Problem(label="1-A", body="3x + 5 + 2x", answer="5x + 5")
+    fixed, status = correct_substitution_in_answer(p)
+    assert status == "noop"
+    assert fixed is p

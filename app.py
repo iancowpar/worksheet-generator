@@ -392,7 +392,7 @@ def _render_types_step() -> None:
                 unsafe_allow_html=True,
             )
 
-    col_back, col_next = st.columns([1, 1])
+    col_back, _, col_next = st.columns([2, 4, 3])
     with col_back:
         if st.button("← Re-upload"):
             for k in ("types", "generated"):
@@ -400,7 +400,8 @@ def _render_types_step() -> None:
             st.session_state.step = "upload"
             st.rerun()
     with col_next:
-        if st.button("Generate practice problems →", type="primary"):
+        if st.button("Generate practice problems →", type="primary",
+                     use_container_width=True):
             st.session_state.step = "problems"
             st.rerun()
 
@@ -506,14 +507,15 @@ def _render_problems_step() -> None:
                     gps[i] = new_gp
                     st.rerun()
 
-    col_back, col_next = st.columns([1, 1])
+    col_back, _, col_next = st.columns([2, 4, 3])
     with col_back:
         if st.button("← Back to types"):
             st.session_state.pop("generated", None)
             st.session_state.step = "types"
             st.rerun()
     with col_next:
-        if st.button("Generate PDF →", type="primary"):
+        if st.button("Generate PDF →", type="primary",
+                     use_container_width=True):
             st.session_state.step = "pdf"
             st.rerun()
 

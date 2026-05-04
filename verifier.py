@@ -374,6 +374,97 @@ def _extract_a_r(text: str) -> tuple[Rational | None, Rational | None]:
     return None, None
 
 
+# --- Word-blank substitution correction ------------------------------------
+
+# Captures answer formats produced for word-problem types where the student
+# must (a) simplify a polynomial and (b) evaluate it at a given x. Examples:
+#   "Profit = 12x^3 - 40x^2 - 600; at x = 5, profit = $400"
+#   "Profit = 20x^3 - 45x^2 - 1300; at x = 10, profit = $15,200"
+#   "Total Cost = 5x^2 + 100; at x = 4, total cost = $180"
+_SUBSTITUTION_PATTERN = re.compile(
+    r"^\s*(?P<head>[A-Za-z][A-Za-z0-9 _]*?)\s*=\s*"
+    r"(?P<expr>[^;]+?)\s*;\s*"
+    r"at\s+x\s*=\s*(?P<n>-?\d+(?:\.\d+)?)\s*,?\s*"
+    r"(?P<tail_label>[A-Za-z][A-Za-z0-9 _]*?)\s*=\s*"
+    r"(?P<sign>-?)\s*\$?\s*(?P<amount>[\d,]+(?:\.\d+)?)\s*$",
+    re.IGNORECASE,
+)
+
+
+def correct_substitution_in_answer(problem: Problem) -> tuple[Problem, str]:
+    """For word-problem answers of the form
+        "<Label> = <polynomial>; at x = N, <label> = $<amount>"
+    recompute the dollar amount arithmetically with SymPy and rewrite the
+    answer if Claude's claimed value is wrong.
+
+    This is the deterministic fix for the highest-stakes failure mode in the
+    pipeline: Claude consistently simplifies the polynomial correctly but
+    flubs the multi-digit arithmetic in the substitution. A teacher who sees
+    a wrong dollar amount loses confidence in the whole worksheet.
+
+    Returns a (Problem, status) tuple where status is one of:
+      'corrected'         the answer was rewritten with the computed value
+      'already_correct'   the claim already matched the computation
+      'regen'             the computed value is non-positive — a worksheet
+                          asking about "profit" with a negative answer reads
+                          as a generation bug, so signal regeneration
+      'noop'              the answer doesn't match the expected pattern
+    """
+    m = _SUBSTITUTION_PATTERN.match(problem.answer)
+    if not m:
+        return problem, "noop"
+
+    expr_str = m.group("expr").strip()
+    n_str = m.group("n")
+
+    try:
+        from sympy import Symbol
+        expr = _parse(expr_str)
+        computed = simplify(expr.subs(Symbol("x"), _parse_rational(n_str)))
+    except Exception:
+        return problem, "noop"
+
+    try:
+        if computed <= 0:
+            return problem, "regen"
+    except Exception:
+        return problem, "noop"
+
+    if computed == int(computed):
+        formatted_amount = f"{int(computed):,}"
+    else:
+        formatted_amount = f"{float(computed):,.2f}"
+
+    claimed_str = m.group("amount").replace(",", "")
+    sign = m.group("sign")
+    try:
+        claimed_num = Rational(("-" if sign else "") + claimed_str)
+    except Exception:
+        claimed_num = None
+
+    if claimed_num is not None and simplify(computed - claimed_num) == 0:
+        return problem, "already_correct"
+
+    head = m.group("head").strip()
+    tail_label = m.group("tail_label").strip()
+    new_answer = (
+        f"{head} = {expr_str}; at x = {n_str}, {tail_label} = ${formatted_amount}"
+    )
+
+    corrected = Problem(
+        label=problem.label,
+        body=problem.body,
+        answer=new_answer,
+        prompt=problem.prompt,
+        setup=problem.setup,
+        blanks=problem.blanks,
+        options=problem.options,
+        correct_letter=problem.correct_letter,
+        answer_label=problem.answer_label,
+    )
+    return corrected, "corrected"
+
+
 # --- Dispatch table --------------------------------------------------------
 
 _VERIFIERS: dict[str, Callable[[Problem], VerificationResult]] = {

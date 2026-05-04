@@ -37,7 +37,7 @@ from prompts import (
     VERIFY_WORD_PROBLEM_SYSTEM,
     VERIFY_WORD_PROBLEM_USER,
 )
-from verifier import VerificationResult, verify
+from verifier import VerificationResult, correct_substitution_in_answer, verify
 from worksheet_renderer import Problem, ProblemType
 
 
@@ -205,19 +205,38 @@ def generate_problem_with_retry(
     max_retries: int = 2,
 ) -> GeneratedProblem:
     """Generate then verify, retrying on failure up to `max_retries` times.
-    Returns the best-effort result with the verification status attached so
-    the caller can flag failures for human review without blocking output."""
+
+    Two safeguards beyond the literal retry:
+      1. For word-blank answers (e.g. "Profit = ...; at x = N, profit = $K"),
+         recompute K with SymPy before verifying. Claude is unreliable for
+         multi-digit polynomial arithmetic, and a wrong dollar amount is
+         the highest-stakes failure mode — wife-won't-use-it territory.
+      2. Failed attempts get appended to the excluded list so the next
+         retry doesn't regenerate the same wrong body.
+    """
     last_problem: Problem | None = None
     last_result: VerificationResult | None = None
+    seen = list(excluded)  # local copy — don't mutate the caller's list
+
     for attempt in range(max_retries + 1):
-        problem = generate_problem(spec, label, excluded)
+        problem = generate_problem(spec, label, seen)
+
+        problem, status = correct_substitution_in_answer(problem)
+        if status == "regen":
+            seen.append(problem)
+            continue
+
         if spec.verifier_kind == "claude_second_pass":
             result = verify_word_problem(problem, spec)
         else:
             result = verify(problem, spec.verifier_kind)
+
         if result.ok:
             return GeneratedProblem(problem=problem, verification=result, attempts=attempt + 1)
+
         last_problem, last_result = problem, result
+        seen.append(problem)
+
     return GeneratedProblem(
         problem=last_problem,  # type: ignore[arg-type]
         verification=last_result,  # type: ignore[arg-type]
@@ -320,9 +339,15 @@ def _extract_json(text: str) -> dict:
 
 
 def _parse_type_spec(data: dict) -> ExtractedTypeSpec:
-    """Build an ExtractedTypeSpec from the JSON returned by EXTRACT_TYPES."""
+    """Build an ExtractedTypeSpec from the JSON returned by EXTRACT_TYPES.
+
+    Runs the extracted example_problem through correct_substitution_in_answer
+    so the worked example shown to students has correct arithmetic — wrong
+    example math is the most visible failure (it sits in a tan-bordered box
+    at the top of the section labelled "Look at this before you begin")."""
     example_data = data.get("example_problem") or {}
     example_problem = _parse_problem(example_data, data.get("layout", "centered"))
+    example_problem, _ = correct_substitution_in_answer(example_problem)
     return ExtractedTypeSpec(
         number=int(data["number"]),
         title=str(data["title"]),
