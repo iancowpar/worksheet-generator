@@ -57,10 +57,13 @@ st.set_page_config(
 
 
 def _inject_theme() -> None:
-    """Read assets/theme.css and inject it as a <style> block. Idempotent."""
+    """Read assets/theme.css and inject it as a <style> block. Uses st.html
+    rather than st.markdown(unsafe_allow_html=True) because Streamlit's
+    markdown sanitizer strips <style>/<script>/<iframe> tags even with the
+    flag set (the CSS leaks through as plain Markdown text otherwise)."""
     if THEME_CSS.exists():
         css = THEME_CSS.read_text()
-        st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+        st.html(f"<style>{css}</style>")
 
 
 # ---------------------------------------------------------------------------
