@@ -79,37 +79,68 @@ _SIDEBAR_CIRCLE = (
     'fill="none"/></svg>'
 )
 
-# Capability-card icons used on the upload hero. 24x24 line icons in
-# currentColor so .feature-icon's glacier tone takes over.
+# Capability-card icons used on the upload hero. Custom 24x24 SVGs that
+# share Round Two's visual vocabulary: round caps and joins (matching the
+# brand mark), 1.75 stroke weight on outlines, 2.25 on the brand-style
+# checkmark in `check`. The math-verified icon carries the signature
+# charcoal dot at the checkmark tip — a direct echo of the brand mark.
 _FEATURE_ICONS = {
+    # Document with folded corner + two content lines
     "doc": (
         '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
-        '<path d="M14 3H6.5C5.67 3 5 3.67 5 4.5v15c0 .83.67 1.5 1.5 1.5h11c.83 0 '
-        '1.5-.67 1.5-1.5V8l-5-5z" stroke="currentColor" stroke-width="1.5" '
-        'stroke-linejoin="round"/><path d="M14 3v5h5" stroke="currentColor" '
-        'stroke-width="1.5" stroke-linejoin="round"/></svg>'
+        '<path d="M6 3h8l5 5v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" '
+        'stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/>'
+        '<path d="M14 3v5h5" stroke="currentColor" stroke-width="1.75" '
+        'stroke-linejoin="round"/>'
+        '<path d="M8.5 13h7" stroke="currentColor" stroke-width="1.75" '
+        'stroke-linecap="round"/>'
+        '<path d="M8.5 16.5h4.5" stroke="currentColor" stroke-width="1.75" '
+        'stroke-linecap="round"/>'
+        '</svg>'
     ),
+    # Equality bars (=) on the left + brand-mark checkmark on the right,
+    # with the signature charcoal dot at the checkmark tip
     "check": (
         '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
-        '<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>'
-        '<path d="M8 12.5 L11 15.5 L16.5 9.5" stroke="currentColor" '
-        'stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" '
-        'fill="none"/></svg>'
+        '<path d="M3 10h9" stroke="currentColor" stroke-width="1.75" '
+        'stroke-linecap="round"/>'
+        '<path d="M3 14h9" stroke="currentColor" stroke-width="1.75" '
+        'stroke-linecap="round"/>'
+        '<path d="M14.5 13.5l2.25 2.25 4.75-4.75" stroke="currentColor" '
+        'stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>'
+        '<circle cx="21.5" cy="11" r="1.4" fill="#0B1220"/>'
+        '</svg>'
     ),
+    # Rounded "example box" silhouette with a corner dot tag + content lines
     "example": (
         '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
-        '<rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" '
-        'stroke-width="1.5"/><path d="M8 9 L16 9 M8 13 L13 13 M8 17 L11 17" '
-        'stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
+        '<rect x="3.5" y="5" width="17" height="14" rx="2.5" '
+        'stroke="currentColor" stroke-width="1.75"/>'
+        '<circle cx="6.5" cy="9" r="1.25" fill="currentColor"/>'
+        '<path d="M9 9h7" stroke="currentColor" stroke-width="1.5" '
+        'stroke-linecap="round"/>'
+        '<path d="M6.5 13h11" stroke="currentColor" stroke-width="1.5" '
+        'stroke-linecap="round"/>'
+        '<path d="M6.5 16.5h7" stroke="currentColor" stroke-width="1.5" '
+        'stroke-linecap="round"/>'
+        '</svg>'
     ),
+    # Three rows of (answer bar + checkmark) — a literal answer key
     "key": (
         '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
-        '<path d="M5 6 L7.5 8.5 L11 5" stroke="currentColor" stroke-width="1.5" '
-        'stroke-linecap="round" stroke-linejoin="round"/><path d="M14 7 L20 7" '
-        'stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>'
-        '<path d="M5 14 L7.5 16.5 L11 13" stroke="currentColor" stroke-width="1.5" '
-        'stroke-linecap="round" stroke-linejoin="round"/><path d="M14 15 L20 15" '
-        'stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
+        '<path d="M3 6h7" stroke="currentColor" stroke-width="1.75" '
+        'stroke-linecap="round"/>'
+        '<path d="M14 6l2 2 4-4" stroke="currentColor" stroke-width="1.75" '
+        'stroke-linecap="round" stroke-linejoin="round"/>'
+        '<path d="M3 12h7" stroke="currentColor" stroke-width="1.75" '
+        'stroke-linecap="round"/>'
+        '<path d="M14 12l2 2 4-4" stroke="currentColor" stroke-width="1.75" '
+        'stroke-linecap="round" stroke-linejoin="round"/>'
+        '<path d="M3 18h7" stroke="currentColor" stroke-width="1.75" '
+        'stroke-linecap="round"/>'
+        '<path d="M14 18l2 2 4-4" stroke="currentColor" stroke-width="1.75" '
+        'stroke-linecap="round" stroke-linejoin="round"/>'
+        '</svg>'
     ),
 }
 
