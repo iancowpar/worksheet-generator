@@ -367,35 +367,25 @@ def _render_sidebar() -> None:
         "#7CC0B8", "#0B1220", "#475569", "#94A3B8", "rgba(11, 18, 32, 0.05)"
     )
 
-    # Pin the "What's new" block to the bottom of the sidebar by making
-    # the sidebar's inner content area a flex column at full viewport
-    # height, then setting margin-top:auto on the last child. The position-
-    # absolute approach was unreliable — Streamlit wraps each block in
-    # nested divs whose positioning context isn't the sidebar section.
-    # <style> goes through st.html (st.markdown sanitizes it away).
+    # Pin "What's new" to the bottom of the sidebar with a single targeted
+    # override on the vertical-block container. Earlier attempts touched
+    # the outer wrappers too — that broke the layout (vertical-centered
+    # the whole sidebar). Just make the vertical block a full-height flex
+    # column with align-items:stretch and justify-content:flex-start, and
+    # the last child gets margin-top:auto.
     st.html(
         '<style>'
-        'section[data-testid="stSidebar"] > div:first-child {'
+        'section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {'
         '  display: flex !important;'
         '  flex-direction: column !important;'
-        '  min-height: 100vh !important;'
-        '}'
-        'section[data-testid="stSidebar"] > div:first-child > div {'
-        '  display: flex !important;'
-        '  flex-direction: column !important;'
-        '  flex: 1 1 auto !important;'
-        '}'
-        'section[data-testid="stSidebar"] [data-testid="stVerticalBlock"],'
-        'section[data-testid="stSidebar"] [data-testid*="stVerticalBlock"] {'
-        '  display: flex !important;'
-        '  flex-direction: column !important;'
-        '  flex: 1 1 auto !important;'
-        '  height: 100% !important;'
+        '  align-items: stretch !important;'
+        '  justify-content: flex-start !important;'
+        '  min-height: calc(100vh - 4rem) !important;'
         '}'
         'section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] '
         '  > div:last-child,'
-        'section[data-testid="stSidebar"] [data-testid*="stVerticalBlock"] '
-        '  > div:last-child {'
+        'section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] '
+        '  > [data-testid="stElementContainer"]:last-child {'
         '  margin-top: auto !important;'
         '}'
         '</style>'
