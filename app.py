@@ -79,6 +79,51 @@ _SIDEBAR_CIRCLE = (
     'fill="none"/></svg>'
 )
 
+# Capability-card icons used on the upload hero. 24x24 line icons in
+# currentColor so .feature-icon's glacier tone takes over.
+_FEATURE_ICONS = {
+    "doc": (
+        '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        '<path d="M14 3H6.5C5.67 3 5 3.67 5 4.5v15c0 .83.67 1.5 1.5 1.5h11c.83 0 '
+        '1.5-.67 1.5-1.5V8l-5-5z" stroke="currentColor" stroke-width="1.5" '
+        'stroke-linejoin="round"/><path d="M14 3v5h5" stroke="currentColor" '
+        'stroke-width="1.5" stroke-linejoin="round"/></svg>'
+    ),
+    "check": (
+        '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        '<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>'
+        '<path d="M8 12.5 L11 15.5 L16.5 9.5" stroke="currentColor" '
+        'stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" '
+        'fill="none"/></svg>'
+    ),
+    "example": (
+        '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        '<rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" '
+        'stroke-width="1.5"/><path d="M8 9 L16 9 M8 13 L13 13 M8 17 L11 17" '
+        'stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
+    ),
+    "key": (
+        '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        '<path d="M5 6 L7.5 8.5 L11 5" stroke="currentColor" stroke-width="1.5" '
+        'stroke-linecap="round" stroke-linejoin="round"/><path d="M14 7 L20 7" '
+        'stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>'
+        '<path d="M5 14 L7.5 16.5 L11 13" stroke="currentColor" stroke-width="1.5" '
+        'stroke-linecap="round" stroke-linejoin="round"/><path d="M14 15 L20 15" '
+        'stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
+    ),
+}
+
+FEATURES = [
+    ("doc", "Any test PDF",
+     "Drop in a scan or export — Round Two extracts every problem type."),
+    ("check", "Math-verified",
+     "Every generated answer is checked algebraically with SymPy."),
+    ("example", "Worked examples",
+     "Each type opens with a clean example so students see the pattern."),
+    ("key", "Answer key included",
+     "Final pages are a full key — fold under or remove before printing."),
+]
+
 
 def _eyebrow(step_key: str, extra: str | None = None) -> str:
     """Eyebrow text rendered above an H1. Pairs the step label with an
@@ -159,26 +204,25 @@ def _render_sidebar() -> None:
 # ---------------------------------------------------------------------------
 
 def _render_upload_step() -> None:
+    feature_cards = "".join(
+        f'<div class="feature-card">'
+        f'<div class="feature-icon">{_FEATURE_ICONS[icon]}</div>'
+        f'<div class="feature-title">{title}</div>'
+        f'<div class="feature-desc">{desc}</div>'
+        f'</div>'
+        for icon, title, desc in FEATURES
+    )
     st.markdown(
         '<div class="hero">'
-        f'<div class="brand-chip">{MARK_SVG} Round Two</div>'
-        '<h1>Practice worksheets in under a minute.</h1>'
+        '<div class="eyebrow-loud">Math-verified · Built for special education</div>'
+        f'<div class="hero-title"><div class="hero-mark">{MARK_SVG}</div>'
+        '<h1>Round Two</h1></div>'
         '<p class="hero-lead">Upload the test your students just took. Round Two '
         'reads it, generates <strong>5 fresh practice problems per type</strong>, '
         'verifies the math, and renders a printable PDF with worked examples '
         'and an answer key.</p>'
         '</div>'
-        '<div class="how">'
-        '<div class="how-card"><div class="how-num">01 — UPLOAD</div>'
-        '<div class="how-title">Drop in the test PDF</div>'
-        '<div class="how-desc">A scan or export of the test the kids just took.</div></div>'
-        '<div class="how-card"><div class="how-num">02 — REVIEW</div>'
-        '<div class="how-title">Confirm what we extracted</div>'
-        '<div class="how-desc">Skim the problem types so nothing slips through.</div></div>'
-        '<div class="how-card"><div class="how-num">03 — PRINT</div>'
-        '<div class="how-title">Download a printable PDF</div>'
-        '<div class="how-desc">Worked examples, 5 practice problems each, answer key.</div></div>'
-        '</div>',
+        f'<div class="features">{feature_cards}</div>',
         unsafe_allow_html=True,
     )
 
