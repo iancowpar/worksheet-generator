@@ -266,12 +266,18 @@ def _draw_problem_word_setup(c, problem: Problem, y: float, block_h: float) -> N
 
 
 def _draw_problem_word_blanks(c, problem: Problem, y: float, block_h: float) -> None:
-    """Bold label · paragraph (wrapped) · two-column row of bold-label + underscore blank.
+    """Bold label · paragraph (wrapped) · two-column row of bold answer cues.
 
-    Layout from module 16 Type 4:
+    Layout from module 16 Type 4 (and any profit/substitution word problem):
       Problem 4-A.
       The revenue for a company selling x products is modeled by ... if x = 5.
-        Profit expression: ____________     If x = 5, profit = ____________
+        Profit expression:                If x = 5, profit =
+
+    No fill-in-the-blank rules are drawn after the cues — the teacher decided
+    those eat working space and the student is better served by an open
+    expanse beneath the cues to show their work freehand. The two-column
+    label arrangement is binding for this layout regardless of what's in
+    `problem.blanks`.
     """
     c.setFillColor(BLACK)
     c.setFont("Helvetica-Bold", 10)
@@ -282,18 +288,12 @@ def _draw_problem_word_blanks(c, problem: Problem, y: float, block_h: float) -> 
     last_y = _draw_paragraph(c, MARGIN_LEFT, body_y, problem.body, "Helvetica", 9, 13, max_w)
 
     if problem.blanks:
-        blanks_y = last_y - 19
+        cues_y = last_y - 19
         c.setFillColor(BLACK)
         c.setFont("Helvetica-Bold", 9)
-        # Up to 2 blanks per row, in the two columns.
         col_xs = [COL1_X, COL2_X]
         for i, label in enumerate(problem.blanks[:2]):
-            x = col_xs[i]
-            c.drawString(x, blanks_y, label)
-            label_w = c.stringWidth(label, "Helvetica-Bold", 9)
-            blank_x = x + label_w + 6
-            blank_end = (col_xs[i + 1] - 8) if i + 1 < len(col_xs) else (PAGE_W - MARGIN_RIGHT)
-            _draw_blank(c, blank_x, blanks_y - 2, blank_end - blank_x)
+            c.drawString(col_xs[i], cues_y, label)
 
 
 def _draw_problem_mc_2col(c, problem: Problem, y: float, block_h: float) -> None:
