@@ -376,9 +376,9 @@ def _render_sidebar() -> None:
 
     with st.sidebar:
         st.markdown(
-            f'<div style="display:flex;align-items:center;gap:0.5rem;'
+            f'<div style="display:flex;align-items:center;gap:0.375rem;'
             f'padding:0.375rem 0.5rem;margin-bottom:1.25rem;font-weight:700;'
-            f'font-size:0.9375rem;color:{charcoal};letter-spacing:-0.015em">'
+            f'font-size:0.9375rem;color:{charcoal};letter-spacing:-0.025em">'
             f'{MARK_SVG}<span>Round Two</span></div>'
             f'<div style="padding:0 0.5rem;margin:0 0 0.5rem 0;font-size:11px;'
             f'font-weight:600;letter-spacing:0.08em;text-transform:uppercase;'
@@ -464,12 +464,12 @@ def _render_upload_step() -> None:
         "#7CC0B8", "#0B1220", "#475569", "#E5E5E2", "#FFFFFF"
     )
     # Brand lockup above the headline. Sized big enough to carry real
-    # weight on the page — 56 px mark + 2.25 rem wordmark — so it reads
-    # as a proper logo, not a small label. Generous bottom margin gives
-    # the eyebrow room to breathe before the H1.
+    # weight on the page — 56 px mark + 2.25 rem wordmark — with a tight
+    # 0.5 rem gap so mark and wordmark read as one element. Generous
+    # bottom margin gives the eyebrow room to breathe before the H1.
     st.markdown(
         f'<div style="padding:2rem 0 0 0">'
-        f'<div style="display:flex;align-items:center;gap:0.875rem;'
+        f'<div style="display:flex;align-items:center;gap:0.5rem;'
         f'margin-bottom:2.75rem">'
         f'{_mark_svg(56)}'
         f'<span style="font-weight:700;font-size:2.25rem;color:{charcoal};'
