@@ -487,6 +487,39 @@ def _render_types_step() -> None:
                 unsafe_allow_html=True,
             )
 
+    # Difficulty knobs — two independent axes. A special-ed student often
+    # has a math/reading split, so the teacher can dial math up while
+    # keeping language scaffolded (or vice versa). Defaults to "Same".
+    # Widget keys equal the session-state keys we read in _render_problems_step,
+    # so Streamlit stores selections directly at the right place.
+    st.session_state.setdefault("math_difficulty", "Same")
+    st.session_state.setdefault("language_difficulty", "Same")
+    st.markdown(
+        '<div style="margin: 1.5rem 0 0.25rem 0; font-size: 11px; '
+        'font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; '
+        'color: #94A3B8">Difficulty</div>',
+        unsafe_allow_html=True,
+    )
+    diff_options = ["Easier", "Same", "Harder"]
+    st.radio(
+        "Math",
+        diff_options,
+        key="math_difficulty",
+        horizontal=True,
+        help="Easier: smaller coefficients, fewer terms, cleaner substitutions. "
+             "Harder: larger coefficients, an extra term, substitutions that "
+             "need real arithmetic.",
+    )
+    st.radio(
+        "Language",
+        diff_options,
+        key="language_difficulty",
+        horizontal=True,
+        help="Easier: short sentences, common vocabulary, explicit step cues. "
+             "Harder: longer paragraphs, sophisticated vocabulary, embedded "
+             "numbers, no scaffolding.",
+    )
+
     col_back, _, col_next = st.columns([2, 4, 3])
     with col_back:
         if st.button("← Re-upload"):
@@ -497,6 +530,11 @@ def _render_types_step() -> None:
     with col_next:
         if st.button("Generate practice problems →", type="primary",
                      use_container_width=True):
+            # Clear any prior generation so a difficulty change here
+            # actually triggers fresh problems.
+            st.session_state.pop("generated", None)
+            st.session_state.pop("pdf_out_bytes", None)
+            st.session_state.pop("pdf_out_name", None)
             st.session_state.step = "problems"
             st.rerun()
 
@@ -509,6 +547,12 @@ PROBLEM_LETTERS = "ABCDE"
 
 
 def _render_problems_step() -> None:
+    # Difficulty selections were captured in session_state on the Types step.
+    # Convert UI labels ("Same", "Easier", "Harder") to the lowercase enum
+    # keys the generator expects.
+    math_diff = st.session_state.get("math_difficulty", "Same").lower()
+    lang_diff = st.session_state.get("language_difficulty", "Same").lower()
+
     if "generated" not in st.session_state:
         types: list[ExtractedTypeSpec] = st.session_state.types
         n_total = sum(len(PROBLEM_LETTERS) for _ in types)
@@ -523,7 +567,11 @@ def _render_problems_step() -> None:
                 excluded = [gp.problem for gp in generated_by_type[spec.number]]
                 excluded.append(spec.example_problem)
                 try:
-                    gp = generate_problem_with_retry(spec, label, excluded)
+                    gp = generate_problem_with_retry(
+                        spec, label, excluded,
+                        math_difficulty=math_diff,
+                        language_difficulty=lang_diff,
+                    )
                 except MissingAPIKey as e:
                     progress.empty()
                     _render_api_key_error(str(e))
@@ -595,7 +643,11 @@ def _render_problems_step() -> None:
                     excluded.append(spec.example_problem)
                     with st.spinner(f"Regenerating {gp.problem.label}..."):
                         try:
-                            new_gp = generate_problem_with_retry(spec, gp.problem.label, excluded)
+                            new_gp = generate_problem_with_retry(
+                                spec, gp.problem.label, excluded,
+                                math_difficulty=math_diff,
+                                language_difficulty=lang_diff,
+                            )
                         except Exception as e:
                             _render_generic_error(f"Regeneration failed for {gp.problem.label}", e)
                             return

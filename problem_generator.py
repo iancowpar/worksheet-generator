@@ -34,9 +34,17 @@ from prompts import (
     EXTRACT_TYPES_USER,
     GENERATE_PROBLEM_SYSTEM,
     GENERATE_PROBLEM_USER,
+    LANGUAGE_DIFFICULTY_GUIDANCE,
+    MATH_DIFFICULTY_GUIDANCE,
     VERIFY_WORD_PROBLEM_SYSTEM,
     VERIFY_WORD_PROBLEM_USER,
 )
+
+
+# Difficulty level keys used by generate_problem and the Streamlit UI.
+# Default is "same" (mirror the canonical example).
+DIFFICULTY_LEVELS = ("easier", "same", "harder")
+DEFAULT_DIFFICULTY = "same"
 from verifier import VerificationResult, correct_substitution_in_answer, verify
 from worksheet_renderer import Problem, ProblemType
 
@@ -149,9 +157,18 @@ def extract_problem_types(pdf_bytes: bytes) -> list[ExtractedTypeSpec]:
     return [_parse_type_spec(item) for item in data["types"]]
 
 
-def generate_problem(spec: ExtractedTypeSpec, label: str, excluded: list[Problem]) -> Problem:
+def generate_problem(
+    spec: ExtractedTypeSpec,
+    label: str,
+    excluded: list[Problem],
+    math_difficulty: str = DEFAULT_DIFFICULTY,
+    language_difficulty: str = DEFAULT_DIFFICULTY,
+) -> Problem:
     """Generate one fresh problem variant for `spec`, using `excluded` as
-    de-duplication context. The returned Problem carries `label` verbatim."""
+    de-duplication context. `math_difficulty` and `language_difficulty` are
+    independent axes — special-ed students often have a math/reading split
+    so the teacher can dial them separately. The returned Problem carries
+    `label` verbatim."""
     example_json = json.dumps(_problem_to_dict(spec.example_problem), indent=2)
     excluded_bodies = "\n".join(f"  - {p.body}" for p in excluded) or "  (none)"
 
@@ -161,6 +178,8 @@ def generate_problem(spec: ExtractedTypeSpec, label: str, excluded: list[Problem
         pattern_description=spec.pattern_description,
         example_json=example_json,
         excluded_bodies=excluded_bodies,
+        math_difficulty_guidance=MATH_DIFFICULTY_GUIDANCE[math_difficulty],
+        language_difficulty_guidance=LANGUAGE_DIFFICULTY_GUIDANCE[language_difficulty],
         label=label,
     )
 
@@ -203,6 +222,8 @@ def generate_problem_with_retry(
     label: str,
     excluded: list[Problem],
     max_retries: int = 2,
+    math_difficulty: str = DEFAULT_DIFFICULTY,
+    language_difficulty: str = DEFAULT_DIFFICULTY,
 ) -> GeneratedProblem:
     """Generate then verify, retrying on failure up to `max_retries` times.
 
@@ -219,7 +240,11 @@ def generate_problem_with_retry(
     seen = list(excluded)  # local copy — don't mutate the caller's list
 
     for attempt in range(max_retries + 1):
-        problem = generate_problem(spec, label, seen)
+        problem = generate_problem(
+            spec, label, seen,
+            math_difficulty=math_difficulty,
+            language_difficulty=language_difficulty,
+        )
 
         problem, status = correct_substitution_in_answer(problem)
         if status == "regen":

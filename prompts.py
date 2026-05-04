@@ -160,7 +160,61 @@ Example (for reference only — do not reproduce or trivially modify):
 Already generated for this type (avoid duplicating):
 {excluded_bodies}
 
+Difficulty calibration:
+- Math: {math_difficulty_guidance}
+- Language: {language_difficulty_guidance}
+
 Generate problem {label} as JSON only."""
+
+
+# Per-level guidance text injected into the difficulty calibration block
+# in GENERATE_PROBLEM_USER. The "same" guidance instructs the model to
+# mirror the canonical example; "easier" and "harder" describe concrete
+# adjustments. Two axes (math + language) are deliberately independent
+# because special-ed students often have a math/reading split — they can
+# do the math but the wordy stems trip them up, or vice versa.
+
+MATH_DIFFICULTY_GUIDANCE = {
+    "easier": (
+        "Make the math gentler than the example. Use single-digit coefficients "
+        "where possible, fewer terms, and substitution values (typically x = 2, "
+        "5, or 10) that yield clean integer answers. Skip cubic terms when a "
+        "quadratic would teach the same concept. Avoid negative leading terms."
+    ),
+    "same": (
+        "Mirror the example's mathematical complexity exactly — same coefficient "
+        "magnitudes, same number of terms, same substitution-value range, same "
+        "sign distribution. The student should feel the test's difficulty."
+    ),
+    "harder": (
+        "Push slightly past the example's difficulty. Use 2-digit coefficients "
+        "freely, include one extra term where natural, pick substitution values "
+        "(say x = 7, 12, or 15) that demand real arithmetic, and use negative "
+        "leading terms occasionally. Don't go to absurd numbers — this is a "
+        "stretch, not a different course."
+    ),
+}
+
+LANGUAGE_DIFFICULTY_GUIDANCE = {
+    "easier": (
+        "Use short sentences (under 12 words). Stick to common vocabulary — "
+        "say 'cost' not 'operating expense', 'price' not 'unit revenue'. State "
+        "every number explicitly rather than burying it in narrative. Cue the "
+        "steps the student should take ('First, find the profit expression. "
+        "Then evaluate at x = 5.'). One idea per sentence."
+    ),
+    "same": (
+        "Match the example's reading level — sentence length, vocabulary, and "
+        "scaffolding density should feel like the same author."
+    ),
+    "harder": (
+        "Use longer multi-clause sentences. Reach for more sophisticated "
+        "vocabulary ('revenue stream', 'operating expenses', 'net profit') "
+        "where it fits naturally. Embed numbers in the story rather than "
+        "calling them out. Drop scaffolding cues — the student must identify "
+        "what to compute on their own. Don't introduce unfamiliar contexts."
+    ),
+}
 
 
 # ---------------------------------------------------------------------------
