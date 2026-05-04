@@ -367,16 +367,36 @@ def _render_sidebar() -> None:
         "#7CC0B8", "#0B1220", "#475569", "#94A3B8", "rgba(11, 18, 32, 0.05)"
     )
 
-    # Pin the "What's new" block to the bottom of the sidebar by setting the
-    # sidebar to position:relative and anchoring the link with absolute
-    # positioning. <style> goes through st.html (st.markdown sanitizes it
-    # away); the rule survives any class-stripping because we target the
-    # parent attribute selectors directly.
+    # Pin the "What's new" block to the bottom of the sidebar by making
+    # the sidebar's inner content area a flex column at full viewport
+    # height, then setting margin-top:auto on the last child. The position-
+    # absolute approach was unreliable — Streamlit wraps each block in
+    # nested divs whose positioning context isn't the sidebar section.
+    # <style> goes through st.html (st.markdown sanitizes it away).
     st.html(
         '<style>'
-        'section[data-testid="stSidebar"] { position: relative !important; }'
-        'section[data-testid="stSidebar"] .r2-sidebar-bottom {'
-        '  position: absolute; left: 1rem; right: 1rem; bottom: 1.25rem;'
+        'section[data-testid="stSidebar"] > div:first-child {'
+        '  display: flex !important;'
+        '  flex-direction: column !important;'
+        '  min-height: 100vh !important;'
+        '}'
+        'section[data-testid="stSidebar"] > div:first-child > div {'
+        '  display: flex !important;'
+        '  flex-direction: column !important;'
+        '  flex: 1 1 auto !important;'
+        '}'
+        'section[data-testid="stSidebar"] [data-testid="stVerticalBlock"],'
+        'section[data-testid="stSidebar"] [data-testid*="stVerticalBlock"] {'
+        '  display: flex !important;'
+        '  flex-direction: column !important;'
+        '  flex: 1 1 auto !important;'
+        '  height: 100% !important;'
+        '}'
+        'section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] '
+        '  > div:last-child,'
+        'section[data-testid="stSidebar"] [data-testid*="stVerticalBlock"] '
+        '  > div:last-child {'
+        '  margin-top: auto !important;'
         '}'
         '</style>'
     )
@@ -420,15 +440,12 @@ def _render_sidebar() -> None:
             )
         st.markdown("".join(rows_html), unsafe_allow_html=True)
 
-        # Bottom-anchored "What's new" link. The wrapping div carries the
-        # r2-sidebar-bottom class that the injected CSS pins to the bottom
-        # of the sidebar via position:absolute. The link itself opens
-        # CHANGELOG.md on GitHub in a new tab — keeping the long-form
-        # release notes out of the sidebar so the steps stay focal.
+        # Bottom-anchored "What's new" link. The injected CSS makes this
+        # the last child of the sidebar's vertical block and pushes it to
+        # the bottom via margin-top:auto. Opens CHANGELOG.md on GitHub in
+        # a new tab so long-form release notes stay out of the sidebar.
         st.markdown(
-            f'<div class="r2-sidebar-bottom">'
-            f'<div style="border-top:1px solid #E5E5E2;'
-            f'padding-top:0.875rem">'
+            f'<div style="border-top:1px solid #E5E5E2;padding-top:0.875rem">'
             f'<a href="{CHANGELOG_URL}" target="_blank" rel="noopener" '
             f'style="display:flex;align-items:center;gap:0.375rem;'
             f'padding:0.375rem 0.5rem;border-radius:0.375rem;'
@@ -440,7 +457,6 @@ def _render_sidebar() -> None:
             f'<span style="margin-left:auto;color:{faint};font-size:0.75rem">'
             f'↗</span>'
             f'</a>'
-            f'</div>'
             f'</div>',
             unsafe_allow_html=True,
         )
