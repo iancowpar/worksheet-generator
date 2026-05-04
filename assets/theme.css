@@ -2,8 +2,13 @@
  * Round Two — Streamlit theme
  *
  * Translates the cold-open Tailwind tokens (tailwind.config.js) and component
- * styles (index.css) into plain CSS that Streamlit can ingest via
- * st.markdown(<style>...</style>, unsafe_allow_html=True).
+ * styles (index.css) into plain CSS that Streamlit injects as a style block
+ * via st.html() at app startup.
+ *
+ * NOTE: do not include the literal string `[slash]style` inside any comment
+ * here. Inside an HTML style element the parser scans for that closing tag
+ * and ignores CSS comments — a stray occurrence will close the style block
+ * early and leak the rest of this file into the page as plain text.
  *
  * Two layers:
  *   1. Override Streamlit's default chrome to read as Notion-ish (typography,
