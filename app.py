@@ -25,6 +25,7 @@ from __future__ import annotations
 import hashlib
 import io
 import os
+import re
 from pathlib import Path
 
 import streamlit as st
@@ -154,6 +155,29 @@ FEATURES = [
     ("key", "Answer key included",
      "Final pages are a full key — fold under or remove before printing."),
 ]
+
+
+def _slugify(name: str) -> str:
+    """Lowercase, replace runs of whitespace/punctuation with underscores,
+    drop anything non-alphanumeric. Used for the download filename so a
+    title like "Module 16 — Practice Worksheet" becomes
+    "module_16_practice_worksheet"."""
+    s = name.strip().lower()
+    s = re.sub(r"[^\w\s-]", "", s, flags=re.UNICODE)
+    s = re.sub(r"[\s_-]+", "_", s).strip("_")
+    return s or "practice_worksheet"
+
+
+def _default_title_from_filename(pdf_name: str) -> str:
+    """Seed the worksheet title from the uploaded file stem. Strips trailing
+    punctuation, collapses underscores/dashes to spaces, title-cases the
+    result. Filenames like "module16_test.pdf" become "Module16 Test"; the
+    teacher edits from there."""
+    stem = Path(pdf_name).stem.rstrip(" .-_")
+    words = re.split(r"[\s_-]+", stem)
+    cleaned = " ".join(w for w in words if w).strip()
+    base = cleaned.title() if cleaned else "Practice"
+    return f"{base} — Practice Worksheet"
 
 
 def _eyebrow(step_key: str, extra: str | None = None) -> str:
@@ -290,6 +314,22 @@ def _render_upload_step() -> None:
         '</div>',
         unsafe_allow_html=True,
     )
+
+    # Worksheet title input — drives both the on-PDF title and the
+    # downloaded filename. Reset the seeded default when the upload changes
+    # so the field doesn't carry over a stale title from a prior file.
+    if st.session_state.get("title_seed_hash") != file_hash:
+        st.session_state.worksheet_title = _default_title_from_filename(uploaded.name)
+        st.session_state.title_seed_hash = file_hash
+    title = st.text_input(
+        "Worksheet title",
+        value=st.session_state.worksheet_title,
+        key="worksheet_title_input",
+        help="Appears at the top of the PDF and as the download filename.",
+    )
+    st.session_state.worksheet_title = title
+    if title.strip():
+        st.caption(f"Will save as `{_slugify(title)}.pdf`")
 
     if st.button("Continue →", type="primary"):
         st.session_state.step = "types"
@@ -491,19 +531,22 @@ def _render_pdf_step() -> None:
             problems = [gp.problem for gp in st.session_state.generated[type_num]]
             worksheet_types.append(spec.to_problem_type(problems))
 
-        worksheet = Worksheet(
-            title=_derive_worksheet_title(st.session_state.types, st.session_state.pdf_name),
-            types=worksheet_types,
-        )
+        # Prefer the teacher-supplied title from the upload step; fall back
+        # to the derived title only if they cleared the field.
+        title = (st.session_state.get("worksheet_title") or "").strip()
+        if not title:
+            title = _derive_worksheet_title(
+                st.session_state.types, st.session_state.pdf_name
+            )
+
+        worksheet = Worksheet(title=title, types=worksheet_types)
 
         with st.spinner("Rendering PDF..."):
             buf = io.BytesIO()
             tmp = Path("/tmp") / f"round_two_{st.session_state.pdf_hash[:12]}.pdf"
             render_worksheet(worksheet, tmp)
             st.session_state.pdf_out_bytes = tmp.read_bytes()
-            st.session_state.pdf_out_name = (
-                Path(st.session_state.pdf_name).stem + "_practice.pdf"
-            )
+            st.session_state.pdf_out_name = f"{_slugify(title)}.pdf"
 
     n_types = len(st.session_state.get("types", []))
     n_problems = sum(len(gps) for gps in st.session_state.get("generated", {}).values())

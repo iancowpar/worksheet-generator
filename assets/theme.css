@@ -104,6 +104,17 @@ code, pre, .stCode { font-family: var(--font-mono); }
   box-shadow: var(--shadow-card);
 }
 
+/* Streamlit wraps button labels in a <p>; the global `p { color: ... }` */
+/* rule beats the button's color, leaving primary buttons charcoal-on-  */
+/* charcoal. Force the label to inherit from its button.                */
+.stButton > button p,
+.stDownloadButton > button p,
+.stButton > button div,
+.stDownloadButton > button div {
+  color: inherit;
+  margin: 0;
+}
+
 /* Streamlit's "primary" kind="primary" — charcoal fill, white text */
 .stButton > button[kind="primary"],
 .stDownloadButton > button[kind="primary"] {
