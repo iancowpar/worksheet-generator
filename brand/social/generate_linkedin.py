@@ -111,9 +111,10 @@ def main() -> None:
     gap = 14  # tight pixel gap between mark and wordmark
     lockup_w = mark_size + gap + wm_w
 
-    # Position lockup horizontally centered, slightly above vertical center.
+    # Position lockup horizontally centered. Three-line tagline below
+    # needs more room than a two-line one, so push the lockup higher.
     lockup_cx = W // 2
-    lockup_cy = int(H * 0.42)
+    lockup_cy = int(H * 0.34)
 
     mark_cx = lockup_cx - lockup_w // 2 + mark_size // 2
     mark_cy = lockup_cy
@@ -125,22 +126,23 @@ def main() -> None:
     draw.text((wm_x, wm_y), word_a, font=wm_regular, fill=CHARCOAL)
     draw.text((wm_x + a_w, wm_y), word_b, font=wm_bold, fill=CHARCOAL)
 
-    # Tagline below the lockup.
-    tag_top_font = ImageFont.truetype(DMSANS_REGULAR, 36)
-    tag_bottom_font = ImageFont.truetype(DMSANS_BOLD, 36)
-    tag_top = "Practice worksheets in under a minute."
-    tag_bottom = "Math you can trust."
+    # Three-line tagline below the lockup. Same copy as the app's hero
+    # headline so the social card primes recognition. First two lines in
+    # charcoal-muted regular, third in glacier bold as the visual hook.
+    tag_regular = ImageFont.truetype(DMSANS_REGULAR, 44)
+    tag_bold = ImageFont.truetype(DMSANS_BOLD, 44)
+    lines = [
+        ("Test on Friday.", tag_regular, MUTED),
+        ("Practice on Monday.", tag_regular, MUTED),
+        ("Math you can trust.", tag_bold, GLACIER),
+    ]
 
     tag_y = lockup_cy + mark_size // 2 + 56
-
-    tt_bbox = draw.textbbox((0, 0), tag_top, font=tag_top_font)
-    tt_w = tt_bbox[2] - tt_bbox[0]
-    draw.text(((W - tt_w) // 2, tag_y), tag_top, font=tag_top_font, fill=MUTED)
-
-    tb_bbox = draw.textbbox((0, 0), tag_bottom, font=tag_bottom_font)
-    tb_w = tb_bbox[2] - tb_bbox[0]
-    draw.text(((W - tb_w) // 2, tag_y + 50), tag_bottom,
-              font=tag_bottom_font, fill=GLACIER)
+    line_h = 60
+    for i, (text, font, color) in enumerate(lines):
+        bbox = draw.textbbox((0, 0), text, font=font)
+        w = bbox[2] - bbox[0]
+        draw.text(((W - w) // 2, tag_y + i * line_h), text, font=font, fill=color)
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     img.save(OUT, "PNG", optimize=True)
