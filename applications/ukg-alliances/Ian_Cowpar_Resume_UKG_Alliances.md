@@ -1,16 +1,16 @@
 **Ian Cowpar**
 
-Senior PM at UKG  |  platform ecosystem thinking  |  enterprise customer-facing  |  cross-functional execution
+Former UKG Senior PM  |  platform ecosystem thinking  |  enterprise customer-facing  |  cross-functional execution
 
 ian.cowpar@gmail.com  |  351-235-0365  |  linkedin.com/in/ian-cowpar  |  theunofficialleader.substack.com
 
 **SUMMARY**
 
-Senior PM at UKG with a track record of operating at the seams — between platforms, between functions, and between customers and the roadmap. I've spent the last two years doing alliances-shaped work without the title: serving as the product-side voice in enterprise escalation and pre-upgrade rooms, coordinating Product / Services / Engineering through the rebuild of a cross-platform migration tool now in production, and building orchestration systems that turn portfolio chaos into a single highest-leverage action per view. The skill set transfers cleanly: deep UKG product knowledge, exec-room composure, and a bias toward removing friction at the boundary between two systems that are supposed to work together.
+Former Senior PM at UKG (June 2024 – April 2026) with a track record of operating at the seams — between platforms, between functions, and between customers and the roadmap. I spent the last two years doing alliances-shaped work without the title: serving as the product-side voice in enterprise escalation and pre-upgrade rooms, coordinating Product / Services / Engineering through the rebuild of a cross-platform migration tool now in production, and building orchestration systems that turn portfolio chaos into a single highest-leverage action per view. The skill set transfers cleanly: deep UKG product knowledge, exec-room composure, and a bias toward removing friction at the boundary between two systems that are supposed to work together.
 
 **EXPERIENCE**
 
-**Senior Product Manager** Jun 2024 – Present
+**Senior Product Manager** Jun 2024 – Apr 2026
 
 *UKG  |  Lowell, MA  |  $250M ARR  |  Platform delivery, enterprise customer trust, and cross-functional execution*
 
