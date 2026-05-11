@@ -6,7 +6,7 @@ ian.cowpar@gmail.com  |  351-235-0365  |  linkedin.com/in/ian-cowpar  |  theunof
 
 **SUMMARY**
 
-Senior PM with a track record of building data products, AI tooling, and self-serve flows inside compliance-heavy enterprise environments. Two years at UKG protecting 300 enterprise customers ($250M ARR) through a multi-year migration off legacy workforce management — built the data products that let services consultants and engineering leads catch problems before customers felt them, scaled UKG product's first organized AI capability layer across the team without a top-down mandate, and shipped a 0→1 self-serve migration tool I wrote the working prototype for myself in Claude Code. Ten years before that at Broadridge running 40+ enterprise deployments in compliance-grade financial services.
+Senior PM building data products, AI tooling, and self-serve flows inside compliance-heavy enterprise environments. Two years at UKG protecting 300 enterprise customers ($250M ARR) through migration off legacy workforce management — built the data products that let services and engineering catch problems before customers felt them, scaled UKG product's first organized AI capability layer without a top-down mandate, and shipped a 0→1 migration tool with the prototype I wrote myself in Claude Code. Ten years prior at Broadridge: 40+ enterprise deployments in compliance-grade financial services.
 
 **EXPERIENCE**
 
