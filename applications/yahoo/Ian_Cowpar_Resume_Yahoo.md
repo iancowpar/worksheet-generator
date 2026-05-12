@@ -6,7 +6,7 @@ ian.cowpar@gmail.com  |  351-235-0365  |  linkedin.com/in/ian-cowpar  |  theunof
 
 **SUMMARY**
 
-Product manager who builds platform-internal systems that reduce cognitive load for the engineers and PMs running on top of them. I find the manual, repeated work — feedback synthesis, defect triage, status reporting — and replace it with AI-assisted workflows that compound at the team level rather than depending on me staying in the room. At UKG I owned a product representing $250M ARR: scaling a PM automation library into shared team capability, designing a five-panel defect triage system across four products with daily refresh and a single highest-leverage action surfaced per view, and building sprint health instrumentation refreshing every 15 minutes across two engineering teams — all of it built for signal, not ceremony.
+Product manager who builds platform-internal systems that reduce cognitive load for the engineers and PMs running on top of them. I find the manual, repeated work — feedback synthesis, defect triage, status reporting — and replace it with AI-assisted workflows that compound at the team level rather than depending on me staying in the room. At UKG I owned a product representing $250M ARR: scaling a PM automation library into shared team capability, designing a five-panel defect triage system across four products with a Claude Code function I built into the tool surfacing the highest-leverage action per panel, and building sprint health instrumentation refreshing every 15 minutes across two engineering teams — all of it built for signal, not ceremony.
 
 **EXPERIENCE**
 
@@ -15,7 +15,7 @@ Product manager who builds platform-internal systems that reduce cognitive load 
 *UKG  |  Lowell, MA  |  $250M ARR  |  Platform infrastructure, AI-first PM workflows, and team adoption*
 
   - Built a PM automation library then scaled it into a team-wide AI capability layer — the first organized AI adoption effort within the product org. Designed from the start as shared infrastructure rather than personal tooling; adoption spread without a top-down mandate.
-  - Designed a five-panel defect triage system classifying open issues across customer escalations, code defects, internal bugs, and CVEs; auto-refreshed daily across four products, surfacing a highest-leverage action per view. Replaced manual feedback synthesis with a workflow the team runs without me.
+  - Designed a five-panel defect triage system classifying open issues across customer escalations, code defects, internal bugs, CVEs, and noise; auto-refreshed daily across four products, with a Claude Code function I built into the tool surfacing the highest-leverage action per panel. Replaced manual feedback synthesis with a workflow the team runs without me.
   - Designed sprint health instrumentation refreshing every 15 minutes across two engineering teams, with documented rejection of burndown, velocity, and story-point anti-patterns — each with technical rationale. Built to reduce the cognitive load on the engineers it reported on, not to manufacture status updates.
   - Led ARR-focused risk tracking for the UTA upgrade program: automated weekly reporting routes every open blocker to the program lead; live tracking surfaces aging issues before escalation.
   - Led product definition and UX for a migration tool now in active production; rebuilt it as a self-service flow so the Services org runs migrations without an engineering ticket — removing the primary friction point between licensing the platform and actually using it.
