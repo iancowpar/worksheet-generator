@@ -1,6 +1,6 @@
 **Ian Cowpar**
 
-Strategic operator  |  technical translator  |  AI-fluent execution  |  zero-translation systems
+Strategic operator  |  technical translator  |  AI as operating leverage  |  zero-translation systems
 
 ian.cowpar@gmail.com  |  351-235-0365  |  linkedin.com/in/ian-cowpar  |  theunofficialleader.substack.com
 
@@ -16,18 +16,18 @@ Strategic operator with 20+ years of experience translating between executive vi
 
   - **Built UKG product's first organized AI capability layer.** Started as a personal automation library, scaled into team-wide shared capability without a top-down mandate. Adoption spread because the thing worked better than what it replaced — the only kind of adoption that lasts. Ran peer groups to make sure the practice stuck across the team.
   - **Owned a 0→1 self-serve migration product, idea to production.** Took it from concept through three business-epic decomposition (UI, rules, deployment), wrote the working prototype myself in Claude Code, designed the UX feedback loop and persona, and handed engineering the full delivery package — bepics, epics, stories, Gantt, roadmap. Now in active production; the Services org runs migrations independently without an engineering ticket.
-  - **Led ARR-focused risk tracking for the UTA upgrade program:** automated weekly reporting routes every open blocker to the program lead; live tracking surfaces aging issues before escalation. Built for the way executive stakeholders actually want to see a portfolio.
+  - **Partnered with the UTA upgrade program lead and engineering leadership on ARR-focused risk tracking** — designed the executive reporting cadence and routing logic that surfaced aging issues to leadership before they escalated. Built for the way executive stakeholders actually want to see a portfolio.
   - **Served as the product-side voice on enterprise customer escalation and pre-upgrade calls** — synthesizing what 300 UTA customers ($250M ARR) actually needed versus what was on the roadmap, feeding that gap back into prioritization decisions. The synthesis and exec-room composure that translate directly to a Chief of Staff function.
-  - **Designed a five-panel operational analytics product** classifying open issues across customer escalations, code defects, internal bugs, CVEs, and noise across four products; auto-refreshed daily, with a Claude Code function I built into the tool surfacing the single highest-leverage action per panel. Opinionated routing, not a dashboard.
-  - **Designed sprint health instrumentation** refreshing every 15 minutes across two engineering teams, with documented rejection criteria for burndown, velocity, and story-point anti-patterns — each with technical rationale. Built for signal, not ceremony.
+  - **Designed and operationalized a five-panel operational analytics product** that surfaced a single highest-leverage action per panel across customer escalations, code defects, internal bugs, CVEs, and noise — auto-refreshed daily across four products, with a Claude Code function I built into the tool to drive the leverage analysis. The system replaced manual feedback synthesis across multiple engineering leads.
+  - **Designed sprint health instrumentation across two engineering teams** to give engineering leadership a continuous view of delivery health, with documented rejection criteria for burndown, velocity, and story-point anti-patterns — each with technical rationale. Built for signal, not ceremony.
 
-*Brand Champion, UKG North America Regional Lead 2026  |  Fire Up ERG (women and allies), Business Innovation workstream lead*
+*Drove cross-org collaboration as a regional brand champion (UKG North America) and Business Innovation workstream lead in the Fire Up ERG, building relationships with senior leaders across the org that translated into the cross-functional partnerships I relied on for delivery.*
 
 **Business Analyst** Jan 2014 – Jun 2024
 
 *Broadridge Financial Solutions  |  Andover, MA*
 
-  - Led 40+ enterprise client deployments end-to-end in a compliance-grade financial services environment; developed strong instincts for regulatory consequence, requirements quality, multi-stakeholder coordination, and the difference between a delivery that closes and a program that keeps producing.
+  - Program owner across 40+ enterprise client deployments end-to-end in a compliance-grade financial services environment; developed strong instincts for regulatory consequence, requirements quality, multi-stakeholder coordination, and the difference between a delivery that closes and a program that keeps producing.
   - Internal SME for an omni-channel communication product adopted across the full client base; translated complex compliance capabilities into workflows non-technical buyers and executives could operate without support.
 
 **Sr. Document Development Analyst** Jan 2006 – Jan 2014
