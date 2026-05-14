@@ -6,6 +6,39 @@ This is the deep prep file. Use selectively today through Lisa Martin (recruiter
 
 ---
 
+## NEW INTEL — surfaced May 14, 2026 (post-Lisa Martin screen + Lynette follow-up)
+
+### Lisa Rabideau is UK-origin
+
+Lisa Martin surfaced this in the recruiter screen — *"she was in the UK and hence the funny accent."* Ian was born and grew up in the UK. This is a real shared background, not network speculation. **For Monday: don't force it, but be ready to surface naturally if she opens with anything personal.** Two UK-origin people in a US enterprise SaaS company is genuinely uncommon and worth a few minutes of real conversation.
+
+### Lynette's direct advice on what Rabideau values
+
+From Lynette Kenney (VP at Deltek, who knows Rabideau personally), advice for the Monday interview:
+
+> *"Highlight importance of knowing the audience, personas, role, product functionality to enable and measure adoption."*
+
+This is essentially Lisa Rabideau's evaluation rubric. Translated:
+- **Audience** = different segments of P&T (PMs, Engineers, UX, Cloud, PMO — the JD list)
+- **Personas** = role-specific archetypes (junior PM vs. senior engineer need different enablement)
+- **Role-specific use cases** = not generic AI training, but tailored to the actual work
+- **Product functionality** = which AI capabilities matter for which roles
+- **Enable AND measure adoption** = both halves count equally
+
+Ian's existing material maps to this directly — migration tool persona work + UX feedback loop, five-panel triage system's role-specific routing, AI capability layer scaling through role-calibrated peer groups, the measurement framework with extinction-over-addition and the fallback principle. **Lead with this thread on Monday.**
+
+### Lynette's framing of Rabideau's leadership style
+
+> *"She's been at Deltek for over 20 years but is not a complacent person! Definitely a driver of innovation for people experienced, and well organized."*
+
+Long tenure + non-complacency is rare. She rewards builders who push, doesn't tolerate coasting. Your *"adoption that holds is adoption that doesn't need a mandate"* and *"deliberate sunset, not more programs"* lines land squarely in that posture.
+
+> *"I can't say enough positive things about Lisa Rabideau as the leader of this group."*
+
+Two senior people inside Deltek (Lynette + the network intel earlier) now independently corroborating the same picture: data savvy, creative, systems thinker, people oriented, drives innovation, not complacent. Calibrate the Monday prep to a real person, not speculation.
+
+---
+
 ## Career arc
 
 Pre-Deltek history is not publicly indexed — LinkedIn doesn't surface it, ZoomInfo / TheOrg / RocketReach all start her timeline at Deltek. **Treat any pre-Deltek company as unknown — do not assume.**
