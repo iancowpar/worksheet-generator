@@ -8,9 +8,11 @@ This is the deep prep file. Use selectively today through Lisa Martin (recruiter
 
 ## NEW INTEL — surfaced May 14, 2026 (post-Lisa Martin screen + Lynette follow-up)
 
-### Lisa Rabideau is UK-origin
+### Geographic context
 
-Lisa Martin surfaced this in the recruiter screen — *"she was in the UK and hence the funny accent."* Ian was born and grew up in the UK. This is a real shared background, not network speculation. **For Monday: don't force it, but be ready to surface naturally if she opens with anything personal.** Two UK-origin people in a US enterprise SaaS company is genuinely uncommon and worth a few minutes of real conversation.
+Lisa Rabideau is **Boston-based (Northborough, MA)** — confirmed earlier in the dossier. Ian is in Methuen, MA — same geographic region, ~1 hour apart. If location surfaces in conversation, that's a real geographic connection (and may inform whether any future rounds happen in person at Deltek's Herndon HQ vs. local).
+
+**Note:** The UK connection from today's recruiter screen was with **Lisa Martin** (the recruiter), not Lisa Rabideau. That rapport already played out and apparently worked well — don't carry it into Monday's conversation as if it applies to Rabideau.
 
 ### Lynette's direct advice on what Rabideau values
 
