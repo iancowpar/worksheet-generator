@@ -73,6 +73,36 @@ If someone uses Claude Code daily but *also still writes specs the old way*, you
 
 If the legacy version isn't decaying, the new version isn't winning.
 
+### The fallback principle (the mechanism behind extinction)
+
+**Adoption is slow when the fallback exists.**
+
+This is the mechanism that explains why parallel workflows are the most expensive failure mode. When two systems run in parallel, people don't split evenly between them — they revert to the familiar one under any kind of stress. Comfort wins under load. The presence of a fallback is itself the drag on adoption, regardless of how good the new tool is or how loudly leadership pushes it.
+
+**Real-world proof point:** at UKG post-Ulti/Kronos merger, the org migrated from Slack to Teams. Slack later made a "heralded return" — Ulti veterans were genuinely happy. Engineering leadership pushed adoption. But Teams remained for non-P&T comms, so even willing users ended up running both (Slack for engineering, Teams for everyone else). When even *willing* users get pulled into parallel workflows, you've identified the structural problem: the fallback isn't a backup plan, it's the gravitational pull that prevents adoption from sticking.
+
+**The diagnostic question to ask of any adoption program:**
+
+*"What is the user's fallback if they don't use the new tool? Is that fallback still sanctioned, available, and free of friction?"*
+
+If the answer is *yes* to all three, your adoption program is fighting gravity. You can run champion networks, training programs, and recognition systems indefinitely without moving the needle.
+
+### The corollary: deliberate sunset
+
+**The highest-leverage move an enablement function can make isn't more training, more champions, or better internal marketing — it's removing the fallback.**
+
+Every successful AI adoption push is paired with a deliberate sunset plan for the displaced workflow:
+
+- Hard-deprecate the legacy tool with a date
+- Remove the manual report from the cadence (don't make it "optional," remove it)
+- Stop maintaining the old training materials
+- Remove access to the fallback for new hires entirely
+- Tie performance reviews to using the new workflow, not just to outcomes
+
+This is politically harder than running adoption programs, which is why most enablement functions default to programs. But programs without sunset plans produce parallel workflows, which produce the metric you don't want to see: high usage of *both* systems, declining usage of *neither*.
+
+**For a measurement framework:** track the "fallback availability ratio" — for each major AI workflow being adopted, is the legacy workflow still (a) sanctioned, (b) available, (c) frictionless to use? Three yeses means adoption will plateau. Adoption that holds requires at least one of those three to flip to no.
+
 ### The "voluntary effort" frame
 
 When people pay for something with their own time, they've adopted. Voluntary creation is costly — nobody builds a custom slash command for a tool they don't trust. Track:
