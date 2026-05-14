@@ -52,7 +52,7 @@ Lisa Rabideau publicly framed this role as: *"Not the strategy deck — the meas
 
 ---
 
-## The four load-bearing moves
+## The five load-bearing moves
 
 ### Move 1: Mirror Lisa Rabideau's quote back
 
@@ -85,6 +85,36 @@ Within the first 5-7 minutes:
 > *"One thing I want to flag because you may already know — Lynette Kenney introduced me to the team through my friend Nick. After our conversation she suggested I might also be a fit for the Chief of Staff role to Dinakar and asked me to update my resume to align with that framing. So there's a parallel conversation in motion. I wanted to flag that so we can coordinate rather than have it become awkward later. The AI Adoption & Enablement role is the one I originally applied for — and honestly, given what I've been writing about for a year, it's the work I'd most want to be doing. CoS is the path I'd want to talk about after I've understood what this role actually looks like."*
 
 This is the move that turns you from "interesting candidate" to "candidate with internal advocacy who's also disciplined about not playing both paths against each other." Lisa Martin will respect this and likely become your second advocate.
+
+### Move 5: The Slack/Teams story — your adoption-measurement receipt
+
+**When to deploy:** If Lisa Martin asks any of these:
+- *"How do you think about measuring AI adoption?"*
+- *"What makes adoption programs succeed or fail?"*
+- *"How would you approach the first 30/60/90 days?"*
+- *"What's your view on token usage as a metric?"*
+
+**The line that lands:** *"Adoption is slow when the fallback exists."*
+
+**The story (~75 seconds):**
+
+> *"Most orgs measure usage, but usage is the same shape whether someone's curious or genuinely integrated. The clearest lived example I have is from UKG post-merger. Ulti folks were on Slack; Kronos folks were on Teams. When Slack came back after a period away, it was a heralded return — Ulti veterans were genuinely happy. Engineering leadership pushed hard. But Teams stayed in place for non-P&T comms. Which meant even willing users like me ended up running both — Slack for engineering, Teams for everyone else. When even willing users get pulled into parallel workflows, the fallback is the structural problem.*
+>
+> *AI adoption is the same shape. If the manual version of a workflow is still sanctioned and frictionless, no amount of champion-network programming will move the needle. The highest-leverage move an enablement function can make isn't more training — it's removing the fallback. Deliberate sunset. That's politically harder than running programs, which is why most orgs default to programs."*
+
+**Why this lands:**
+
+- Real, lived, recent — not theoretical
+- Names the *structural* problem (fallback), not user behavior (resistance, training gaps, change fatigue)
+- Articulates a principle Lisa Rabideau will recognize as load-bearing — she devalues strategy decks because she knows real adoption requires real workflow change, not narrative
+- Frames "deliberate sunset" as the actual work — politically hard, cross-functional, requires executive cover. That's exactly the kind of muscle the role requires
+- Echoes her own framing of the role: *"the programs that actually change how engineers and product managers work day to day"*
+
+**If natural, close with the first-30-days extension:**
+
+> *"In the first 30 days I'd run a fallback availability ratio across the workflows P&T is trying to push AI into — for each one, is the legacy still sanctioned, available, frictionless? Three yeses means the program is fighting gravity. The work is identifying which fallbacks need a sunset plan and building the political cover for that sunset. That's not glamorous, but it's the operating discipline that makes the Clarity-study ROI gap close inside an organization."*
+
+This extension does three things at once: signals you'd have a concrete first-quarter plan, ties back to the 45% Clarity stat, and demonstrates you think in cross-functional / political terms — which is what a "Senior Manager" role with a 70% IC focus actually needs.
 
 ---
 
