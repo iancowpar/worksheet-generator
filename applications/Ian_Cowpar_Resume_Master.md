@@ -6,7 +6,7 @@ ian.cowpar@gmail.com  |  351-235-0365  |  linkedin.com/in/ian-cowpar  |  theunof
 
 **SUMMARY**
 
-Senior PM building data products, AI tooling, and self-serve flows inside compliance-heavy enterprise environments. Two years at UKG protecting 300 enterprise customers ($250M ARR) through migration off legacy workforce management — built the data products that let services and engineering catch problems before customers felt them, scaled UKG product's first organized AI capability layer without a top-down mandate, and shipped a 0→1 migration tool with the prototype I wrote myself in Claude Code. Ten years prior at Broadridge: 40+ enterprise deployments in compliance-grade financial services.
+Senior Product Manager operating at principal scope, building data products, AI tooling, and self-serve flows in compliance-heavy enterprise environments. I ship the working prototype, not just the spec — I wrote the 0→1 migration tool's prototype myself in Claude Code, and it's in production today. Two years at UKG protecting 300 enterprise customers ($250M ARR) through a multi-year migration off legacy workforce management: owned product strategy and roadmap, ran cross-functional delivery across product, engineering, and services, and scaled the org's first organized AI capability layer without a top-down mandate. Ten years prior at Broadridge: 40+ enterprise deployments in compliance-grade financial services.
 
 **EXPERIENCE**
 
@@ -36,13 +36,13 @@ Senior PM building data products, AI tooling, and self-serve flows inside compli
 
 **SKILLS AND FOCUS AREAS**
 
-**Product:**  0→1 product building, data products, self-serve flow design, MVP definition, end-to-end delivery from prototype to production, customer discovery, persona and UX feedback loops, B2B SaaS
+**Product:**  Product strategy & roadmap, prioritization and tradeoff decisions, 0→1 product building, data products, MVP definition, end-to-end delivery from prototype to production, customer discovery, persona and UX feedback loops, Agile/Scrum, cross-functional delivery, B2B SaaS
 
 **AI as Co-Builder:**  Claude Code prototyping, agentic workflows, AI-fluent product development, PM automation, zero-translation building
 
 **Data & Analytics:**  Operational analytics products, opinionated instrumentation, KPI definition, automated reporting cadence, qualitative-to-structured synthesis
 
-**Compliance & Enterprise:**  Regulatory-consequence delivery, compliance-grade financial services, multi-stakeholder coordination, executive customer engagement, escalation room presence
+**Compliance & Enterprise:**  Regulatory-consequence delivery, compliance-grade financial services, stakeholder management across multi-org programs, executive customer engagement, escalation room presence
 
 **Tooling:**  Jira, Confluence, GitHub, SQL, Slack MCP, Claude Code CLI
 
