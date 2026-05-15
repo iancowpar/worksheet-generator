@@ -2,9 +2,17 @@
 
 ## Headline (current — locked May 2026)
 
-> Senior Product Manager operating at principal scope. I ship the working prototype, not just the spec. AI-fluent, data products with opinion. Zero-Translation Building
+**Recommended (middle-dot · — LinkedIn-native, lightest scan):**
 
-~166 / 220 characters. Truncates cleanly after the first sentence in search results / connection requests.
+> Senior Product Manager operating at principal scope · I ship the working prototype, not just the spec · AI-fluent, data products with opinion · Zero-Translation Building
+
+**Alternate (pipe | — exact visual parallel with the résumé tagline):**
+
+> Senior Product Manager operating at principal scope | I ship the working prototype, not just the spec | AI-fluent, data products with opinion | Zero-Translation Building
+
+~166 / 220 characters either way. Both truncate cleanly after the first clause in search results / connection requests.
+
+Use the **middle-dot** version on LinkedIn — it's the platform-native separator (matches LinkedIn's own metadata styling like "Methuen, MA · Contact info") and reads lighter than periods or pipes. The pipe version exists if you want the headline to visually mirror the résumé tagline exactly.
 
 ## Banner text (keep — brand line, do not duplicate in headline)
 
