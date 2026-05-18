@@ -22,16 +22,19 @@ not more tailored docs. Shift from *generate* to *convert*.
 
 ---
 
-## TIER 2 — High fit, docs done, submit + push now
+## TIER 2 — High fit, applied (May 2026) — awaiting
 
 ### 3. Alteryx — Lead PM  ·  $160–180K + bonus + equity
-Top-tier domain fit (data products = your tagline). JD forgives the tenure caveat. **Submit; high conviction.**
+**APPLIED — awaiting.** Top-tier domain fit. No further action unless inbound.
 
 ### 4. Fluxon — PM  ·  $160–200K + profit-share
-Strong fit — their core requirement (cross-domain ramp + ambiguity) is your through-line. **Submit; high conviction.**
+**APPLIED — awaiting.** Strong fit. No further action unless inbound.
 
 ### 5. OnePay — PM Core App
-Genuine bridges (AI + UKG-is-an-HCM-partner), HM-sourced via Michelle's LinkedIn post. **Execute the sequence:** apply → public comment → connection note → follow-up (all drafted, `onepay/`).
+**APPLIED — awaiting.** OPEN: the warm sequence is the differentiated value —
+confirm the public comment + connection note/DM to Michelle were done, not just
+the portal application. The HM-sourced LinkedIn path is the whole edge here;
+the application alone leaves it on the table. Assets drafted in `onepay/`.
 
 ---
 
@@ -40,7 +43,7 @@ Genuine bridges (AI + UKG-is-an-HCM-partner), HM-sourced via Michelle's LinkedIn
 | Role | State | Trigger / gate |
 |---|---|---|
 | **Suffolk** | HM screen done; take-home pending | Act fast when take-home lands (≈1-wk turnaround). Ready. |
-| **Envestnet** | Warm path (Jess/Dara) | Comp-viable **only** if Jess re-levels. Resume when Jess is back; honor the go/no-go. |
+| **Envestnet** | Warm path (Jess/Dara) — still silent, nothing yet | Disciplined hold is correct; do NOT cold-submit the ATS. A *light* status touch to Dara is OK to keep it warm; do NOT escalate to Jess. Comp-viable **only** if Jess re-levels — honor the go/no-go. |
 | **Cresta** | Submitted, strong fit | No action unless they respond (no warm channel noted). |
 | **SPM ROI** | Docs done | **Verify the recruiter + real req before investing further.** $180–245K if legit. |
 | **EOTSS (MA)** | Docs done; contract not FTE | Friend's-wife **intel first** (term/rate/conversion). Bridge/parallel value, not a destination. |
