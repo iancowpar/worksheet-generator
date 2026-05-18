@@ -147,11 +147,19 @@ just built.
 3. **CoS once, disarmed, then never again in that call.** "Not leverage" is what
    makes it leverage.
 
-## Walk-away discipline (the version where you DON'T win)
+## The win has two faces — both are winning
 
-If she comes back with "Senior Manager, $150K, no movement, no review" — that's
-the floor-breach. You don't accept on that call. *"I understand — let me sit
-with that. The level and the scope have to reconcile for this to work, and I'd
-rather be straight with you than say yes to something that won't hold."* Then
-take it to the CoS path or pass — **and keep Lynette intact.** Losing this req
-at the wrong level beats winning it at the wrong level.
+**Winning = proper comp, OR a clean walk.** There is no losing branch. The only
+loss is accepting the wrong level/number because you negotiated yourself into it
+in the room. The definition itself forecloses that.
+
+- **Win A — it reconciles:** level/comp matches the scope → you take it.
+- **Win B — it doesn't:** *"I understand — let me sit with that. The level and
+  the scope have to reconcile for this to work, and I'd rather be straight with
+  you than say yes to something that won't hold."* Then the CoS path or pass —
+  **Lynette intact, pipeline intact.** That is a win, not a consolation.
+
+The power source: Win B has to be genuinely acceptable to you, not a bluff. It
+is — the CoS path, Suffolk, UKG-ESE, and the rest of the pipeline make walking
+real. Martin will *feel* that you can walk even though you never threaten it.
+Calm comes from optionality. That calm is the leverage.
