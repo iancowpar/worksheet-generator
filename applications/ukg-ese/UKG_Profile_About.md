@@ -36,19 +36,37 @@ services. I know this environment well and can contribute from week one.
 
 The uploaded-resume parser produced garbage tags (Tool Making, Apache Velocity,
 Command Line Interface, Omnichannel Strategy, +59). UKG recruiters filter by
-skill tags internally — junk tags actively hurt search match. Delete all, keep
-~10 real ones:
+skill tags internally — junk tags actively hurt search match. Delete all.
 
-- Product Strategy
-- Product Roadmap
-- 0→1 Product Development
-- Internal Tooling / Platform Tooling
-- AI Enablement
-- Claude Code / AI-Fluent Prototyping
-- Cross-Functional Leadership
-- Stakeholder Management
-- Data & Analytics
-- Enterprise SaaS
+UKG's picker uses a **fixed taxonomy** — bespoke tags ("0→1", "AI Enablement",
+"Claude Code") do not exist. Use the canonical equivalents the taxonomy carries:
+
+**Substitutes for the bespoke tags that failed:**
+- Generative AI  (the real term for what you do; stronger than bare "AI")
+- Prompt Engineering  (honest for Claude Code / agentic prototyping)
+- Change Management  (the canonical proxy for "AI adoption / enablement")
+- New Product Development  (taxonomy stand-in for "0→1")
+
+**Core PM:** Product Management · Product Strategy · Technical Product
+Management · Product Lifecycle Management · Roadmapping · Requirements
+Analysis · Agile Methodologies · Workflow Automation · Business Process
+Improvement
+
+**Domain discoverability (internal UKG search):** Workforce Management ·
+HRIS · Enterprise Software / SaaS · Financial Services · Regulatory Compliance
+
+**Strategic Alliances angle (Leah's role):** Strategic Partnerships ·
+Business Alliances · Go-to-Market Strategy
+
+**Tools:** SQL · Jira · Confluence · GitHub
+
+**Top 8 by recruiter-search weight:** Product Management · Product Strategy ·
+Generative AI · Change Management · Workforce Management · Stakeholder
+Management · Enterprise Software · Strategic Partnerships
+
+**Do NOT add (even if offered):** Machine Learning · Data Science · Deep
+Learning · AI/ML Engineering. No model work in your background — those tags
+pull you into searches and interview questions you can't defend.
 
 ---
 
