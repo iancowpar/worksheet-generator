@@ -7,11 +7,19 @@ Salesforce-platform depth is the role's emphasized core (a real gap).
 
 ## Channel map — who actually has the power
 
-- **Atul Singh — owns the two upcoming Lead PM roles.** This is the
-  hiring-side decision-maker for the actual target. Getting to Atul, well-
-  positioned and at the right level, is the whole game. Ian has no direct line
-  yet — the open question is the path *to* Atul (via Dara, via Nick if he's
-  connected, or network).
+- **Prakash Kota (PK) — UKG CIO, owns all of ESE (everything rolls up to
+  him).** Ian has traded LinkedIn comments with him multiple times → **name
+  familiarity, not a relationship.** Top-of-org tailwind: a CIO who already
+  knows the name, then hears from Dara/Nick/Atul that Ian's in the pipeline,
+  is the ideal cascade. **Discipline: never a direct "hire me" to the CIO.**
+  Use it two ways only — (1) a credibility amplifier the other channels can
+  lean on ("you may know him from LinkedIn"); (2) *optionally* a light,
+  senior, **zero-ask** awareness touch (see PK section). Over-reaching here
+  reads as presumptuous and undercuts the credible mid-level paths.
+- **Atul Singh — owns the two upcoming Lead PM roles.** The hiring-side
+  decision-maker for the actual target. Getting to Atul, well-positioned and
+  leveled, is the whole game. No direct line yet — path is via Dara, via Nick
+  (if connected), with PK familiarity as passive tailwind.
 - **Dara — Director, Talent Acquisition.** All reqs (PO, Lead, likely
   Alliances) roll up to her; she owns routing/leveling mechanics and is
   already advocating. The strongest *reliable* lever toward Atul — she can put
@@ -25,14 +33,18 @@ Salesforce-platform depth is the role's emphasized core (a real gap).
   tie — just not the UKG-Lead lever. **Key unknown to resolve.**
 - **Steve Marshall — recruiter on the PO req, reports to Dara.** Hired Ian the
   first time → warm firsthand reference. Reinforcing voice upward; not routing.
-- **Leah — Strategic Alliances channel** (ownership of that role still TBD).
+- **Tech Strategic Alliances Manager — owned by Matt Hammack. NOT YET
+  POSTED.** Leah is the flagger/connector, not the owner. Path to that target
+  is Matt Hammack (via Leah's intro, and/or Dara once it posts). Because it's
+  unposted, the move is warm pre-positioning through Leah → Matt now, before
+  it hits the ATS.
 - **Strong standing UKG network** — referral reinforcement toward Atul's Lead
   reqs.
 
 Order of force toward the Lead PM target: **Atul (the decision) ← Dara
 (reliable mechanical path + advocating) and/or Nick (high-trust path *iff* he
-knows Atul) ← Steve / network (reinforcing voices up).** One consistent story
-across all of them.
+knows Atul) ← Steve / network (reinforcing voices up), with PK familiarity as
+passive top-of-org tailwind over all of it.** One consistent story across all.
 
 The application is done. The moves below concentrate on Nick (primary),
 position correctly with Dara, keep Steve warm, and prep the likely screen.
@@ -134,6 +146,27 @@ Register: peer, warm, honest about the Salesforce gap, but unambiguous that the
 Lead Product + Strategic Alliances seats are the target — not a soft
 "also-interested," the headline. Keeps the Dara/Leah channels coordinated.
 
+## 1b. PK (CIO) — optional zero-ask awareness touch (handle with care)
+
+Only if it feels natural given the actual LinkedIn rapport. PK owns all of ESE;
+he knows the name, not the person. The entire value is **passive awareness** —
+a CIO who's heard the name, then hears from Dara/Atul/Nick that Ian's in the
+pipeline, is the perfect cascade. **The message contains no ask. None.** The
+moment it asks for anything it becomes a CIO cold-pitch and damages the
+credible mid-level paths.
+
+> PK — always enjoy our back-and-forths on [topic]. Quick personal note, no
+> ask attached: I'm exploring a return to UKG, specifically the product / AI-
+> capability work in ESE. Not looking for you to do anything with it — just
+> didn't want my name surfacing in that context to be a surprise. Always value
+> your perspective; hope to keep the exchanges going either way.
+
+Why zero-ask works: it gives a senior leader nothing to manage and everything
+to passively note. If he chooses to mention it downward, that's his call from
+a position of comfort — which is exactly how CIO tailwinds actually happen.
+Do **not** send this before the Nick/Dara conversations are in motion; it's a
+reinforcer, not an opener.
+
 ---
 
 ## 2. Salesforce-gap framing (for the likely screen on this role)
@@ -184,8 +217,12 @@ probability path to the Lead/Alliances seats — but only if it's disciplined:
 
 ## Target hierarchy (explicit)
 
-- **The target / the aim:** Lead Product roles (posting soon, Dara's lane) +
-  the Strategic Alliances role (Leah's lane). This is the level and scope.
+- **The target / the aim:**
+  - Two **Lead PM roles** — owner **Atul Singh** (posting soon; path via Dara,
+    and Nick iff he knows Atul; PK familiarity as tailwind).
+  - **Tech Strategic Alliances Manager** — owner **Matt Hammack** (NOT yet
+    posted; warm pre-position via Leah → Matt before it hits the ATS).
+  - All of ESE rolls up to **PK (CIO)** — passive awareness asset only.
 - **The floor:** ESE CX Product Owner (applied). A foot-in-door / conversation
   starter only — never the anchor. Band $102–147K is below parity and below
   the Lead step-up.
