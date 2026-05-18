@@ -34,10 +34,13 @@ Salesforce-platform depth is the role's emphasized core (a real gap).
 - **Steve Marshall — recruiter on the PO req, reports to Dara.** Hired Ian the
   first time → warm firsthand reference. Reinforcing voice upward; not routing.
 - **Tech Strategic Alliances Manager — owned by Matt Hammack. NOT YET
-  POSTED.** Leah is the flagger/connector, not the owner. Path to that target
-  is Matt Hammack (via Leah's intro, and/or Dara once it posts). Because it's
-  unposted, the move is warm pre-positioning through Leah → Matt now, before
-  it hits the ATS.
+  POSTED. WARM PATH ALREADY ACTIVE.** Leah has *already given Matt Ian's name
+  + resume and vouched for him*, ahead of the posting. This is the strongest-
+  positioned UKG target: owner has the resume + a trusted vouch before the req
+  exists. Leah has spent real capital — the move now is NOT to push her
+  harder. Thank her genuinely, don't over-ask, don't cold-push Matt before he
+  signals or it posts, keep everything consistent with the resume she
+  forwarded, and be ready to move fast and warm the instant it posts.
 - **Strong standing UKG network** — referral reinforcement toward Atul's Lead
   reqs.
 
@@ -221,7 +224,11 @@ probability path to the Lead/Alliances seats — but only if it's disciplined:
   - Two **Lead PM roles** — owner **Atul Singh** (posting soon; path via Dara,
     and Nick iff he knows Atul; PK familiarity as tailwind).
   - **Tech Strategic Alliances Manager** — owner **Matt Hammack** (NOT yet
-    posted; warm pre-position via Leah → Matt before it hits the ATS).
+    posted; **warm path already active — Leah delivered Ian's name + resume +
+    a vouch to Matt ahead of posting**). Strongest-positioned UKG target.
+    Open item: confirm *which* resume Leah forwarded, and have an
+    Alliances-tailored version ready that is *consistent with* it for the
+    formal apply / any direct Matt contact.
   - All of ESE rolls up to **PK (CIO)** — passive awareness asset only.
 - **The floor:** ESE CX Product Owner (applied). A foot-in-door / conversation
   starter only — never the anchor. Band $102–147K is below parity and below
