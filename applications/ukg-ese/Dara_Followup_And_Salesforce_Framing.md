@@ -7,69 +7,72 @@ Salesforce-platform depth is the role's emphasized core (a real gap).
 
 ## Channel map — who actually has the power
 
-- **Nick — THE KEYSTONE.** Ian's neighbor and personal advocate; the ESE
-  roles report up to him (hiring-side org leader / demand owner); and he is
-  the person who introduced Ian to Lynette — i.e., the connective node behind
-  *both* of Ian's strongest opportunities (UKG-ESE and Deltek). The
-  highest-leverage relationship in the entire search. The "position up to
-  Lead/Alliances" outcome is fundamentally **a Nick conversation** — he is the
-  leader the roles report to AND already in Ian's corner. Personal/neighbor
-  register: candid, warm, direct, in person if possible — not a formal note.
-- **Dara — Director, Talent Acquisition.** All reqs roll up to her; she owns
-  routing/leveling mechanics and is already advocating (a Director telling her
-  recruiter "Ian applied" is real). The **machinery** lever — executes the
-  level/slotting Nick's pull creates. Concentrate the *written* positioning
-  here; the *demand-side* pull comes from Nick.
-- **Steve Marshall — recruiter, reports to Dara.** Hired Ian the first time →
-  warm + firsthand reference. Reinforcing voice *upward to Dara/HMs*; not the
-  routing decision.
-- **Leah — Strategic Alliances channel.** Keep coordinated.
-- **Lynette — Deltek advocate, Nick-originated.** Cross-opportunity; same
-  consistent story.
-- **Strong standing UKG network** — referral reinforcement, aimed at the
-  Lead/Alliances target.
+- **Atul Singh — owns the two upcoming Lead PM roles.** This is the
+  hiring-side decision-maker for the actual target. Getting to Atul, well-
+  positioned and at the right level, is the whole game. Ian has no direct line
+  yet — the open question is the path *to* Atul (via Dara, via Nick if he's
+  connected, or network).
+- **Dara — Director, Talent Acquisition.** All reqs (PO, Lead, likely
+  Alliances) roll up to her; she owns routing/leveling mechanics and is
+  already advocating. The strongest *reliable* lever toward Atul — she can put
+  Ian in front of Atul's reqs at the right level. Concentrate written
+  positioning here.
+- **Nick — personal advocate + Lynette/Deltek connector.** Ian's neighbor;
+  introduced Ian to Lynette (the node behind the Deltek path). He does **not**
+  own the Lead PM roles. His value to the UKG target is conditional: *does
+  Nick know Atul, and can he vouch / make a warm intro?* If yes, he's a
+  high-trust path to Atul. If no, he's still a valued advocate and the Deltek
+  tie — just not the UKG-Lead lever. **Key unknown to resolve.**
+- **Steve Marshall — recruiter on the PO req, reports to Dara.** Hired Ian the
+  first time → warm firsthand reference. Reinforcing voice upward; not routing.
+- **Leah — Strategic Alliances channel** (ownership of that role still TBD).
+- **Strong standing UKG network** — referral reinforcement toward Atul's Lead
+  reqs.
 
-Order of force: **Nick (demand-side pull) → Dara (TA machinery) → Steve
-(firsthand voice up).** One consistent story across all of them.
+Order of force toward the Lead PM target: **Atul (the decision) ← Dara
+(reliable mechanical path + advocating) and/or Nick (high-trust path *iff* he
+knows Atul) ← Steve / network (reinforcing voices up).** One consistent story
+across all of them.
 
 The application is done. The moves below concentrate on Nick (primary),
 position correctly with Dara, keep Steve warm, and prep the likely screen.
 
 ---
 
-## 00. Nick — the primary move (neighbor + advocate + the org it reports to)
+## 00. Nick — advocate + the question that decides his role here
 
-Nick is the keystone: personal advocate, neighbor, the leader the ESE roles
-report to, and the person who connected Ian to Lynette. This is **not** a
-formal note — it's a candid, in-person (or call) conversation between people
-who know and trust each other. Over-formalizing it would be a tell. Talking
-points, not a script:
+Nick is a genuine personal advocate, a neighbor, and the source of the
+Lynette/Deltek intro. He does **not** own the Lead PM roles (Atul Singh does),
+so his leverage for the UKG target hinges on one question: **does Nick know
+Atul Singh well enough to vouch for you / make a warm intro?** Resolve that
+first — it determines whether the Nick conversation is "open the door to Atul"
+or "valued advocate + Deltek loop-close."
 
-- **Warm and direct, not pitchy.** He already advocates for you; you're not
-  selling, you're aligning. "You've probably heard the ESE thing is in
-  motion — I want to be straight with you about where I actually fit."
+Candid, in-person/neighbor register — not a formal note. Talking points:
+
+- **Lead with the relationship, not the ask.** Close the Deltek/Lynette loop
+  first — he'll value knowing his intro paid off (the HM round went well).
+  That's genuine *and* it reinforces that backing you pays off.
 - **The honest frame:** the CX Product Owner role was the open door and you
-  took it (applied via Dara), but it's below the level and the work you'd come
-  back for, and Salesforce-admin depth is genuinely light for you. Say that
-  plainly — he's an advocate; candor protects his credibility when he vouches.
-- **The target, stated once, clearly:** the **Lead Product roles** and the
-  **Strategic Alliances role** — building the internal-tooling / AI-capability
-  function from the ground up, principal scope. That's exactly what you did at
-  UKG and the level you'd return at. Near-zero ramp because it's the same work.
-- **The specific ask only Nick can grant:** as the leader these report to —
-  make sure you're considered and *leveled to the scope, not the title*, for
-  the Lead/Alliances seats when they post; and that Dara/Steve route you
-  accordingly. He can shape this from the demand side in a way TA cannot.
-- **Protect the relationship.** He's a neighbor and the source of the Lynette
-  intro — don't transactionalize it. Gratitude is real; the warmth outlasts
-  any single req. One clear ask, not a campaign.
-- **Close the loop to Lynette/Deltek lightly** if natural — he'll appreciate
-  knowing his intro is bearing fruit (the Deltek HM round went well). It
-  reinforces that his advocacy pays off, which makes the UKG ask land easier.
+  took it (applied via Dara), but it's below the level/work you'd return for,
+  and Salesforce-admin depth is light for you. Candor protects his credibility
+  when he vouches.
+- **The target, once, clearly:** the two **Lead PM roles** (Atul Singh's) and
+  the **Strategic Alliances role** — building the internal-tooling /
+  AI-capability function from the ground up, principal scope. Exactly the work
+  you did at UKG; near-zero ramp.
+- **The pivotal ask — calibrated to his actual reach:** *"Do you know Atul
+  Singh? Those Lead PM roles are his. If you've got a relationship there, a
+  warm intro or a word from you would matter more than anything I can do
+  through the portal."* If he doesn't know Atul: ask who he'd point you to,
+  and let him stay the advocate + Deltek tie without forcing a connection he
+  doesn't have.
+- **Protect the relationship.** Neighbor + your most valuable advocate + the
+  Lynette source — one clear ask, real gratitude, not a campaign. The warmth
+  outlasts any single req.
 
-Optional one-line opener if you want to start it over text before an in-person
-talk: *"Got time this week? The UKG ESE thing is moving and I want your read
-on how I play it — and a Deltek update you'll like."*
+Optional one-line opener before an in-person talk: *"Got time this week? A
+Deltek update you'll like, and I want your read on the UKG ESE move."*
 
 ## 0. Steve reconnect — warm reinforcing voice (not the routing lever)
 
