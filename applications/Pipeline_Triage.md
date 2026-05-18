@@ -15,10 +15,10 @@ not more tailored docs. Shift from *generate* to *convert*.
 - **Why #1:** most advanced, advocate in place, comp solvable, decision window is days.
 
 ### 2. UKG-ESE — Lead/Senior Product (boomerang) + Leah's Alliances
-- **Stage:** Roles opening, not all posted. Profile + About + skills set. Warm channels: **Dara** (roles), **Leah** (alliances).
-- **Comp:** Strong if anchored to Lead step-up — don't let "glad to have you back" discount it.
-- **Action NOW:** work Dara/Leah for intro + intel before reqs formally post (warm-before-ATS discipline). This is relational and time-sensitive.
-- **Why #2:** strongest *structural* fit in the whole pipeline (internal tooling = exactly your work) + near-zero ramp. Channels are warm right now.
+- **Stage:** **APPLIED to ESE CX Product Owner (SRPRO018282) via Dara**, using the ESE resume. That role is Salesforce-centric (real gap) and band $102–147K (below Lead anchor). Lead/Senior Product builder roles still the primary target.
+- **Comp:** PO role is below parity AND below the Lead step-up — treat as foot-in-door, not anchor. Lead seats stay primary.
+- **Action NOW:** send the Dara follow-up that thanks + positions up to the Lead/builder seats and names the Salesforce gap honestly (drafted: `ukg-ese/Dara_Followup_And_Salesforce_Framing.md`). Prep the Salesforce-screen framing in case the PO role advances.
+- **Why #2:** strongest *structural* fit in the pipeline (internal tooling = exactly your work) + near-zero ramp + warm channel actively producing. Risk to manage: don't let the PO band become the silent ceiling.
 
 ---
 
