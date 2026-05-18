@@ -14,11 +14,11 @@ not more tailored docs. Shift from *generate* to *convert*.
 - **Action NOW:** (a) send the Lynette note today — drafted, `deltek/Followup_Note_Lynette_PostHM.md`; (b) be ready for Lisa Martin — comp prep + role-play done; (c) thank-you already sent.
 - **Why #1:** most advanced, advocate in place, comp solvable, decision window is days.
 
-### 2. UKG-ESE — Lead/Senior Product (boomerang) + Leah's Alliances
-- **Stage:** **APPLIED to ESE CX Product Owner (SRPRO018282) via Dara**, using the ESE resume. That role is Salesforce-centric (real gap) and band $102–147K (below Lead anchor). Lead/Senior Product builder roles still the primary target.
-- **Comp:** PO role is below parity AND below the Lead step-up — treat as foot-in-door, not anchor. Lead seats stay primary.
-- **Action NOW:** send the Dara follow-up that thanks + positions up to the Lead/builder seats and names the Salesforce gap honestly (drafted: `ukg-ese/Dara_Followup_And_Salesforce_Framing.md`). Prep the Salesforce-screen framing in case the PO role advances.
-- **Why #2:** strongest *structural* fit in the pipeline (internal tooling = exactly your work) + near-zero ramp + warm channel actively producing. Risk to manage: don't let the PO band become the silent ceiling.
+### 2. UKG-ESE — Lead Product (posting soon, Dara) + Strategic Alliances (Leah)
+- **The target:** Lead Product roles posting soon + the Strategic Alliances role. That is the level/scope being aimed at. The ESE CX Product Owner role (applied via Dara, ESE resume) is a **foot-in-door floor only** — Salesforce-centric (real gap), band $102–147K, not the goal.
+- **Comp:** Lead/Alliances seats anchored to the Lead step-up per `Boomerang_Positioning_Note.md`. PO band does not reset the target if it advances.
+- **Action NOW:** send the Dara follow-up — thanks for the PO flag, names the Salesforce gap honestly, and makes the **Lead + Alliances seats the explicit headline target** (drafted: `ukg-ese/Dara_Followup_And_Salesforce_Framing.md`). Keep Dara/Leah channels coordinated.
+- **Why #2:** strongest *structural* fit in the pipeline (internal tooling = exactly your work) + near-zero ramp + warm channel actively producing. The job now is to be routed to the Lead/Alliances seats, not to ride the PO application.
 
 ---
 
