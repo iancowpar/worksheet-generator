@@ -5,25 +5,84 @@ Ian applied using `Ian_Cowpar_Resume_UKG_ESE.md`. Band $102,300–$147,050 +
 bonus + RSUs — below the Lead step-up the boomerang strategy anchored to, and
 Salesforce-platform depth is the role's emphasized core (a real gap).
 
-The application is done. These two moves protect the level/comp position and
-prep the likely screen.
+## Channel map — who actually has the power
+
+- **Nick — THE KEYSTONE.** Ian's neighbor and personal advocate; the ESE
+  roles report up to him (hiring-side org leader / demand owner); and he is
+  the person who introduced Ian to Lynette — i.e., the connective node behind
+  *both* of Ian's strongest opportunities (UKG-ESE and Deltek). The
+  highest-leverage relationship in the entire search. The "position up to
+  Lead/Alliances" outcome is fundamentally **a Nick conversation** — he is the
+  leader the roles report to AND already in Ian's corner. Personal/neighbor
+  register: candid, warm, direct, in person if possible — not a formal note.
+- **Dara — Director, Talent Acquisition.** All reqs roll up to her; she owns
+  routing/leveling mechanics and is already advocating (a Director telling her
+  recruiter "Ian applied" is real). The **machinery** lever — executes the
+  level/slotting Nick's pull creates. Concentrate the *written* positioning
+  here; the *demand-side* pull comes from Nick.
+- **Steve Marshall — recruiter, reports to Dara.** Hired Ian the first time →
+  warm + firsthand reference. Reinforcing voice *upward to Dara/HMs*; not the
+  routing decision.
+- **Leah — Strategic Alliances channel.** Keep coordinated.
+- **Lynette — Deltek advocate, Nick-originated.** Cross-opportunity; same
+  consistent story.
+- **Strong standing UKG network** — referral reinforcement, aimed at the
+  Lead/Alliances target.
+
+Order of force: **Nick (demand-side pull) → Dara (TA machinery) → Steve
+(firsthand voice up).** One consistent story across all of them.
+
+The application is done. The moves below concentrate on Nick (primary),
+position correctly with Dara, keep Steve warm, and prep the likely screen.
 
 ---
 
-## 0. Recruiter reconnect — the strongest channel, lead with this
+## 00. Nick — the primary move (neighbor + advocate + the org it reports to)
 
-The recruiter on the ESE CX PO req was **part of the team that hired Ian into
-UKG the first time.** That makes him the highest-leverage contact in the entire
-ESE track: an internal TA voice who *already vouched for Ian once*, with
-firsthand knowledge of his work, who also controls req routing and leveling.
-Cold reqs can't compete with that. Reach out directly, peer/reconnect register
-— old colleague, not candidate-to-recruiter.
+Nick is the keystone: personal advocate, neighbor, the leader the ESE roles
+report to, and the person who connected Ian to Lynette. This is **not** a
+formal note — it's a candid, in-person (or call) conversation between people
+who know and trust each other. Over-formalizing it would be a tell. Talking
+points, not a script:
 
-> [Name] — didn't expect to see you attached to this req; good to reconnect.
+- **Warm and direct, not pitchy.** He already advocates for you; you're not
+  selling, you're aligning. "You've probably heard the ESE thing is in
+  motion — I want to be straight with you about where I actually fit."
+- **The honest frame:** the CX Product Owner role was the open door and you
+  took it (applied via Dara), but it's below the level and the work you'd come
+  back for, and Salesforce-admin depth is genuinely light for you. Say that
+  plainly — he's an advocate; candor protects his credibility when he vouches.
+- **The target, stated once, clearly:** the **Lead Product roles** and the
+  **Strategic Alliances role** — building the internal-tooling / AI-capability
+  function from the ground up, principal scope. That's exactly what you did at
+  UKG and the level you'd return at. Near-zero ramp because it's the same work.
+- **The specific ask only Nick can grant:** as the leader these report to —
+  make sure you're considered and *leveled to the scope, not the title*, for
+  the Lead/Alliances seats when they post; and that Dara/Steve route you
+  accordingly. He can shape this from the demand side in a way TA cannot.
+- **Protect the relationship.** He's a neighbor and the source of the Lynette
+  intro — don't transactionalize it. Gratitude is real; the warmth outlasts
+  any single req. One clear ask, not a campaign.
+- **Close the loop to Lynette/Deltek lightly** if natural — he'll appreciate
+  knowing his intro is bearing fruit (the Deltek HM round went well). It
+  reinforces that his advocacy pays off, which makes the UKG ask land easier.
+
+Optional one-line opener if you want to start it over text before an in-person
+talk: *"Got time this week? The UKG ESE thing is moving and I want your read
+on how I play it — and a Deltek update you'll like."*
+
+## 0. Steve reconnect — warm reinforcing voice (not the routing lever)
+
+Steve hired Ian the first time and reports to Dara. His unique value is being
+a **credible firsthand voice to Dara and the hiring managers** — not routing
+or leveling (Dara owns that). So the ask to Steve is lighter: reconnect, be a
+voice, stay in touch. Peer/old-colleague register.
+
+> Steve — didn't expect to see you attached to this req; good to reconnect.
 > You were part of the team that brought me into UKG the first time, so you
 > know the work better than most.
 >
-> Dara's probably already mentioned I applied to the ESE CX Product Owner
+> Dara's probably already told you I applied to the ESE CX Product Owner
 > role. Straight with you, since you'll see it anyway — the lighter piece for
 > me there is hands-on Salesforce-admin depth; I've worked *with* Salesforce
 > data but haven't owned the platform.
@@ -31,18 +90,14 @@ Cold reqs can't compete with that. Reach out directly, peer/reconnect register
 > Where I'm actually aiming is the **Lead Product roles** coming in ESE and
 > the **Strategic Alliances role Leah flagged** — building the internal-tooling
 > and AI-capability function from the ground up is exactly what I did here, and
-> that's the level and the work I'd come back for. The thing only you can
-> really do: flag me when those post, help make sure I'm routed and leveled to
-> the scope rather than the title, and put me in front of the right hiring
-> managers. You've seen me do this work — I'd value you being a voice on it
-> internally.
->
-> Either way, genuinely good to be back in touch.
+> that's the level and the work I'd come back for. You've seen me do that work
+> firsthand — if you'd be a voice on it with Dara and the hiring managers when
+> those come up, it'd mean a lot. Genuinely good to be back in touch either
+> way.
 
-Register: warm reconnect, confident (he rated you once already), honest about
-the Salesforce gap so the story is consistent across channels, and a specific
-ask only an inside recruiter who knows you can deliver — routing, leveling,
-HM access.
+Register: warm reconnect, honest Salesforce gap (story consistent across
+channels), and an ask scoped to what Steve can actually do — vouch upward to
+Dara/HMs — not the routing decision itself.
 
 ## 1. Dara follow-up — thank, then aim at the real target (send promptly)
 
