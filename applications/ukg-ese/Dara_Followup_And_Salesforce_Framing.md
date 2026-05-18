@@ -10,6 +10,40 @@ prep the likely screen.
 
 ---
 
+## 0. Recruiter reconnect — the strongest channel, lead with this
+
+The recruiter on the ESE CX PO req was **part of the team that hired Ian into
+UKG the first time.** That makes him the highest-leverage contact in the entire
+ESE track: an internal TA voice who *already vouched for Ian once*, with
+firsthand knowledge of his work, who also controls req routing and leveling.
+Cold reqs can't compete with that. Reach out directly, peer/reconnect register
+— old colleague, not candidate-to-recruiter.
+
+> [Name] — didn't expect to see you attached to this req; good to reconnect.
+> You were part of the team that brought me into UKG the first time, so you
+> know the work better than most.
+>
+> Dara's probably already mentioned I applied to the ESE CX Product Owner
+> role. Straight with you, since you'll see it anyway — the lighter piece for
+> me there is hands-on Salesforce-admin depth; I've worked *with* Salesforce
+> data but haven't owned the platform.
+>
+> Where I'm actually aiming is the **Lead Product roles** coming in ESE and
+> the **Strategic Alliances role Leah flagged** — building the internal-tooling
+> and AI-capability function from the ground up is exactly what I did here, and
+> that's the level and the work I'd come back for. The thing only you can
+> really do: flag me when those post, help make sure I'm routed and leveled to
+> the scope rather than the title, and put me in front of the right hiring
+> managers. You've seen me do this work — I'd value you being a voice on it
+> internally.
+>
+> Either way, genuinely good to be back in touch.
+
+Register: warm reconnect, confident (he rated you once already), honest about
+the Salesforce gap so the story is consistent across channels, and a specific
+ask only an inside recruiter who knows you can deliver — routing, leveling,
+HM access.
+
 ## 1. Dara follow-up — thank, then aim at the real target (send promptly)
 
 The target is the **Lead Product roles posting soon (Dara's lane) and the
@@ -68,6 +102,27 @@ they do; confident, not apologetic.
   fast-ramp + the genuine competency fit is the honest, strong position.
 
 ---
+
+## Network activation — the real boomerang engine
+
+Dara is proactively telling the recruiter you applied; you have a **strong
+standing network at UKG.** That network, aimed correctly, is the highest-
+probability path to the Lead/Alliances seats — but only if it's disciplined:
+
+- **Aim it at the target, not the floor.** Activate advocates for the **Lead
+  Product / Strategic Alliances** seats, not the PO role. A network spent
+  vouching for the low seat anchors you there.
+- **One consistent story across everyone** (Dara, Leah, the recruiter, and
+  your network): *back at UKG by choice, aiming at the Lead/builder scope,
+  principal-level, near-zero ramp because the work is exactly what I already
+  did here.* Inconsistent framings across many advocates dilute the signal.
+- **Pre-position before the reqs post.** Line up 2–3 specific advocates who
+  can speak to the work firsthand — former manager(s), the two PMs you coached
+  on the AI layer, Services partners from the migration tool. When the Lead
+  roles post, you want to already be a championed known quantity, not an
+  applicant in a queue.
+- **Don't over-spend the network on the PO role.** Reserve its weight for the
+  Lead/Alliances conversations where it actually changes the level outcome.
 
 ## Target hierarchy (explicit)
 

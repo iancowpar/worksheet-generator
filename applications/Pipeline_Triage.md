@@ -17,8 +17,10 @@ not more tailored docs. Shift from *generate* to *convert*.
 ### 2. UKG-ESE — Lead Product (posting soon, Dara) + Strategic Alliances (Leah)
 - **The target:** Lead Product roles posting soon + the Strategic Alliances role. That is the level/scope being aimed at. The ESE CX Product Owner role (applied via Dara, ESE resume) is a **foot-in-door floor only** — Salesforce-centric (real gap), band $102–147K, not the goal.
 - **Comp:** Lead/Alliances seats anchored to the Lead step-up per `Boomerang_Positioning_Note.md`. PO band does not reset the target if it advances.
-- **Action NOW:** send the Dara follow-up — thanks for the PO flag, names the Salesforce gap honestly, and makes the **Lead + Alliances seats the explicit headline target** (drafted: `ukg-ese/Dara_Followup_And_Salesforce_Framing.md`). Keep Dara/Leah channels coordinated.
-- **Why #2:** strongest *structural* fit in the pipeline (internal tooling = exactly your work) + near-zero ramp + warm channel actively producing. The job now is to be routed to the Lead/Alliances seats, not to ride the PO application.
+- **Channels:** Dara (line to roles, proactively telling the recruiter Ian applied) · Leah (Strategic Alliances) · **the recruiter — part of the team that hired Ian originally, the strongest single asset** (internal TA voice + firsthand knowledge + controls routing/leveling) · **strong standing UKG network** (referral/advocacy engine).
+- **Action NOW:** (a) recruiter reconnect — peer/old-colleague register, aims at Lead/Alliances, names Salesforce gap honestly; (b) Dara follow-up making Lead+Alliances the headline target; (c) pre-position 2–3 network advocates for the Lead reqs *before* they post. All drafted in `ukg-ese/Dara_Followup_And_Salesforce_Framing.md`.
+- **Discipline:** one consistent story across all channels; aim the network at the Lead/Alliances target, never the PO floor; don't over-spend the network on the low role.
+- **Why #2 (arguably #1 on probability):** strongest structural fit + near-zero ramp + a warm, self-coordinating internal network actively producing. The job now is to be routed/leveled to the Lead/Alliances seats, not to ride the PO application.
 
 ---
 
