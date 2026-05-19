@@ -8,12 +8,23 @@ firsthand reference, ally, reports to Dara. Consistent with
 
 ---
 
+## ▸ ORG / OPEN INTEL (read this first — it reframes everything below)
+- **PO/SF role HM: UNKNOWN.** Intel goal for the screen — ask Steve directly.
+  Tells you who he relays to and whether they connect to ESE leadership.
+- **Atul = HM for the Lead roles** (unposted). **Lead roles are NOT likely
+  Salesforce roles.**
+- Therefore decouple: **Salesforce + the MCP idea = a direct strength for
+  THIS SF role.** The bridge to **Lead** is the **AI-capability-builder
+  identity** (function from zero), NOT Salesforce. Don't conflate them — a
+  "my SF fluency is why I fit Lead" pitch is a non-sequitur if Lead isn't SF.
+
 ## ▸ THE ONE THING
-Salesforce is **not** the liability this screen is organized around — it's an
-asset, and the **MCP × UKG-Anthropic vision is the differentiator that
-bridges to Lead.** Win = screen credibly for PO on its real merits AND make
-the upward case to a warm ally who relays it. Dual-track, never dismissive of
-the PO seat.
+For the **PO/SF role**: Salesforce operational fluency + the MCP/Anthropic
+idea is a real differentiator — screen credibly, it's a strength not a gap.
+For **Lead** (Atul, not SF): the fit is the AI-capability-from-zero builder
+track record; MCP/Anthropic is evidence of how you operate at that level
+*generally*. Dual-track to a warm ally who relays upward — never dismissive
+of the PO seat, never conflating the two arguments.
 
 ## ▸ OPEN — reconnect register
 Warm, peer, "good to reconnect" — he knows you from 2024. Brief, genuine.
@@ -47,29 +58,35 @@ Not an adjective, not a hedge, not a pre-empted "gap." The specifics:
   the owners." That's the role's own division of labor.
 - Do NOT claim certs/admin/Setup. Required quals are squarely yours.
 
-## ▸ THE MCP × ANTHROPIC VISION — the differentiator (crisp, then let it travel)
+## ▸ THE MCP × ANTHROPIC VISION — differentiator for the SF role; pattern-evidence for Lead
 One breath, vision-level — Steve relays, doesn't evaluate. Reserve depth for
-Atul/HM rounds.
+HM/Atul rounds.
 > "One thing I'd flag, given UKG's enterprise direction with Anthropic: the
 > need for a Salesforce MCP is strong — connecting the Claude tooling UKG is
 > standing up to the Salesforce workflows and data I lived in. I haven't
-> built one; I'm flagging it because that intersection — AI capability +
-> Salesforce + where UKG's going — is exactly the work I'd want to drive,
-> and it's bigger than a backlog seat."
+> built one; I'm flagging it because connecting UKG's tools to its Anthropic
+> stack is exactly the kind of AI-capability work I did from zero before — and
+> Salesforce is one obvious place it pays off."
+- For the **PO/SF role**: this is a direct, concrete differentiator.
+- For **Lead** (not SF): frame it as *one instance of the general builder
+  pattern* — "I connect UKG's tools to its AI stack; the AI-capability
+  function I built from nothing is the through-line." NOT "Salesforce is why
+  I fit Lead."
 - Honesty line: *sees the need / would build it* — has NOT built a Salesforce
   MCP. Same precision discipline as the rest of the screen.
-- This is inherently a **builder/Lead-level** idea — it makes the position-up
-  concrete, not aspirational. Don't over-architect it to a recruiter.
+- Don't over-architect it to a recruiter.
 
-## ▸ POSITION UP — now powered by the vision, not a soft ask
+## ▸ POSITION UP — decoupled, honest, not a non-sequitur
 *"I'm glad Dara flagged this — it's a genuine door back into ESE and I'd do
-it well. Straight with you because you know my work: the PO scope sits below
-where I'd come back in. Where I'm strongest is the Lead level Atul owns and
-the Alliances role — the AI-capability + Salesforce-AI bridge I just
-described is the work I'd want to build. Where do you honestly see me
-slotting, and would you be a voice on that with Dara and Atul?"*
-Calibrated: glad about the door, credible for it, clear on the real fit,
-ask scoped to what an ally recruiter can do.
+it well; the Salesforce operational fluency is real. Straight with you
+because you know my work: the PO scope still sits below where I'd come back
+in. The Lead roles Atul owns are the fit — not because of Salesforce, but
+because building the AI-capability function from zero is exactly what I did
+here. The MCP/Anthropic thinking is how I'd operate at that level
+generally; Salesforce is just one place it lands. Where do you honestly see
+me slotting, and would you be a voice on that with Dara and Atul?"*
+Calibrated: credible for the SF role, clear on real fit, Lead argument
+stands on the builder identity (not SF), ask scoped to an ally.
 
 ## ▸ COMP — do NOT anchor to the PO band
 PO band $102.3–147K. If asked: reframe to level — *"Candidly both the PO
@@ -99,6 +116,15 @@ never to the PO band. Steve's a friendly who knows your worth.
 8. **Silent one — consistency.** Steve relays to Dara. Everything must match
    the honest operate-vs-build framing + target hierarchy Dara/Leah carry.
    Consistency *is* the strategy.
+
+## ▸ ASK STEVE (intel + ally questions; #1 is priority)
+1. **"Who's the hiring manager for this Sr PM role?"** — priority intel:
+   who Steve relays to, whether they connect to ESE leadership/Atul.
+2. Timing on Atul's Lead roles — when do they post, what's he looking for?
+3. The Alliances role (Matt Hammack) — status; is Leah's intro landing?
+4. How does leveling work — can a candidate be slotted to scope vs. title?
+5. Honestly, given what you know of my work — where's the best mutual fit?
+6. Most useful thing I can do to help you advocate internally?
 
 ## ▸ LAND THESE (so the screen succeeds on its own terms)
 Genuinely affirm the PO competencies that *are* you — structured intake,
