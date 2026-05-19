@@ -1,36 +1,41 @@
 # LinkedIn Post — Frontline / AI Revaluation + Democratized Belonging
 
-Status: draft, post-ready. **LinkedIn long-form** (not Substack). ~320 words.
-Provenance-clean.
+Status: draft, post-ready. **LinkedIn long-form.** ~310 words. Provenance-clean
+— company NOT named anywhere.
 
 ## Strategic notes (read before posting)
 
-- **Provenance discipline — stricter on LinkedIn.** Feed reaches the UKG
-  network (Nick/Dara/Steve) and likely Blink-adjacent people. NEVER reference
-  the Blink screen/rejection — not in the post, not in comments. Your own
-  thesis is fair game (it's your thinking); your candidacy is invisible.
-- **"A customer in this space," not "a Blink customer."** On LinkedIn, naming
-  Blink right after screening there reads pointed to anyone who knows. The
-  news peg up top already does the citing; the thesis doesn't need the name.
-- **Drop the internal codename.** Thesis is the asset; codename is
-  former-employer IP. Keep it for 1:1 interviews only.
+- **Do not name the company anywhere — not even the news peg.** The
+  persuasive weight is Danny Meyer / EHI + Shake Shack + the thesis; the
+  startup's name adds ~zero analytically and carries all the risk with the
+  people who know you screened there. Peg to "a frontline engagement
+  platform" + EHI + Shake Shack.
+- **The discipline is non-association, not information secrecy.** Anyone can
+  Google "$17M Enlightened Hospitality Shake Shack" and identify the company
+  in seconds — fine. The rule is *you* don't publicly attach your name to the
+  company that passed on you. A reader connecting dots is fine; you pointing
+  at it is not.
+- **Never reference the screen/rejection** — post or comments. Your thesis is
+  your IP and fair game; your candidacy is invisible.
+- **No internal codename.** Thesis is the asset; codename is former-employer
+  IP — keep it for 1:1 interviews only.
 - **Precision:** "a thesis I've spent two years working on" — developed, not a
-  product shipped. Humility: idea-converging-in-the-market, NOT "I called it."
+  shipped product. Humility: idea-converging-in-the-market, NOT "I called it."
 - **Don't claim AI caused the frontline shift** (predates the AI wave). AI is
   revaluing/accelerating it.
-- **Net-positive for UKG-ESE:** public sharp frontline/AI/belonging thinking
+- **Net-positive for UKG-ESE:** sharp public frontline/AI/belonging thinking
   reinforces the AI-capability-builder brand the Lead-roles play runs on.
-- **Format:** first line must stand alone (survives the "…see more" cutoff);
-  1–3 sentence stanzas, white space between each; no emojis; no tags; no Blink
-  tag. Let the last line land — no engagement bait.
-- Optional restrained close (on-brand if you want a prompt): *"Curious whether
-  the people building for the 80% see it the same way."*
+- **Format:** first line stands alone (survives the "…see more" cut); 1–3
+  sentence stanzas; no emojis; no tags. Let the last line land — no
+  engagement bait. Optional restrained close: *"Curious whether the people
+  building for the 80% see it the same way."*
+- Timely while the EHI/Shake Shack news is current — sooner is better.
 
 ## Post
 
 The most interesting AI signal this week wasn't a model release. It was a $17M check written to frontline workers.
 
-Blink — an engagement platform for the deskless 80% — raised $17M from Enlightened Hospitality Investments and announced a partnership with Shake Shack.
+A frontline employee-engagement platform just raised $17M from Enlightened Hospitality Investments, alongside a new partnership with Shake Shack.
 
 Look at who wrote the check. EHI sits in Danny Meyer's orbit — a man whose entire career is one argument: hospitality is the product. When that money goes into frontline software, it isn't a software bet. It's a bet that the frontline worker is the competitive edge, not the cost line.
 
