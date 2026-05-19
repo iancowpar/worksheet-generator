@@ -23,18 +23,23 @@ ESE seat without hesitation. I'm choosing this from a position of options
 [Deltek + others live] — not coming back by default."* One pass, no grievance,
 move on.
 
-## ▸ SALESFORCE GAP — pre-empt before he asks (consistent story)
-*"Straight with you since you'll see it anyway: I'm not a Salesforce admin.
-I've worked *with* Salesforce data — built an ARR-risk model that used
-Salesforce sentiment as an input — but I haven't owned the platform. The JD
-lists admin-level as strongly preferred, not required."* Then bridge:
-- Required quals are squarely yours: 4+ yrs PO/BA in tech, translate
-  business→technical, cross-functional business+eng (Broadridge decade + UKG).
-- The role's stated value-add — structured intake, **root problem vs. stated
-  solution**, trusted-advisor-not-order-taker, pragmatic config-vs-custom — is
-  your zero-translation profile almost verbatim.
-- You ramp platforms fast and **defer to the experts**, not out-expert them.
-- Do NOT claim certs/admin. Data-adjacency + fast ramp + competency fit.
+## ▸ SALESFORCE — lead with the concrete operational narrative (NOT an adjective)
+True altitude is high — say the specifics, not "lots of experience" or a hedge:
+- **Heavy operational Service Cloud use, in the UTA upgrade program Ian ran:**
+  created SRs, entered effort across every handoff, routed through approval
+  stages, managed full case/SR workflow lifecycle, worked cases with support.
+- Knows the case/SR object model + that workflow from the inside, on **UKG's
+  actual instance** — fluency no external candidate has.
+- **The clean line (keep razor-sharp):** operated the platform at depth,
+  did NOT build it — moved records *through* flows; did not author Flows,
+  validation rules, or data model in Setup. Operate ≠ configure.
+- Bridge: JD scopes this as partnering with architects on config + advocating
+  clicks-over-code → "I know the workflow and data cold; I challenge/guide on
+  the build and defer to the owners." That's the role's own division of labor.
+- Required quals squarely yours (4+ yrs PO/BA in tech, translate
+  business→technical, cross-functional). Do NOT claim certs/admin/Setup.
+- Consistency: this is a *sharper* version of the Dara/Leah story
+  ("operated it heavily, didn't own the build"), not a contradiction.
 
 ## ▸ POSITION UP — honest, not bait-and-switch
 *"I applied because Dara flagged it and it's a genuine door back into ESE — I'm
@@ -73,6 +78,31 @@ Don't trash the PO role · don't clumsy bait-and-switch · don't anchor comp to
 PO band · keep story consistent with Dara/Leah + the submitted resume · don't
 over-ask Steve (ally, not fixer — one clear ask: be a voice upward) · RIF flat,
 never bitter · don't name Deltek specifics (just "other live processes").
+
+## ▸ CHALLENGES — the hard follow-ups + handles
+
+**1. "If Salesforce admin depth is core and you don't have it, why advance you for THIS role?"**
+→ The JD itself scopes this as intake/translation/trusted-advisor *partnering with architects on config* — not an admin seat. Required quals are mine; the value-add it emphasizes is mine; I'm a daily Service Cloud user fluent in UKG's data. Candidly that's also why Lead/Alliances is the cleaner mutual fit — but if the team's open to the user/translator profile, I do this well. Don't make him choose; let him see both.
+
+**2. "You're aiming for Lead/people-leader roles — this is an IC PO seat. Flight risk?"**
+→ Reframe flight-risk into placement: "UKG is where I want to be, by choice. I've been straight that PO isn't my ceiling *because* I'd rather be slotted where it sticks than jammed into a seat I'd outgrow in six months. That's why I'm asking for your honest read and a voice with Dara/Atul — so this lasts." Don't deny the ambition; convert it to "place me right."
+
+**3. "Why did the RIF hit you?"**
+→ One pass, flat: role elimination, not performance. No grievance. Pivot forward immediately. Don't over-explain — over-explaining reads as wound.
+
+**4. Comp: "What are your expectations?"** (the trap)
+→ Do NOT give a PO-band number. Reframe to level: "Candidly, both the PO scope and that band sit below where I'd return — the conversation I actually want is the Lead/Alliances level; what's realistic there?" Steve's a friendly who knows your worth; honest level-talk is the right move, anchoring low is not.
+
+**5. "Only two years as a titled PM."**
+→ ~20 yrs functional, principal scope the last two — and *you saw the level I operated at in 2024 firsthand.* Lean on his direct knowledge; he's not evaluating a stranger.
+
+**6. "Lead roles aren't open — I can only move you for what's posted (PO)."**
+→ "Understood — I'm not asking you to invent a req. The ask is: you know my work firsthand; be an honest voice with Dara and Atul on where I best fit when those open, and keep me visible. I'm glad to be in the PO process meanwhile if the team's open to the profile." Patience + ask scoped to what he can actually do.
+
+**7. "Interviewing elsewhere? How far along?"**
+→ Calm truth: yes, several live processes, being deliberate. Signals options (supports the level play) without brandishing. No company names, no "other offers" leverage tone — just unhurried.
+
+**8. The silent one — consistency.** Steve relays to Dara. Anything you say that contradicts the honest Salesforce framing or the target hierarchy Dara/Leah already have breaks the warm-path. Same story, every channel. Consistency *is* the strategy.
 
 ## ▸ AFTER
 Short same-day thank-you: reconnect warmth + one line reaffirming the
