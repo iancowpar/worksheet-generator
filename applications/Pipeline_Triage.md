@@ -6,6 +6,16 @@ not more tailored docs. Shift from *generate* to *convert*.
 
 ---
 
+## REALITY CHECK — actual live tracks
+
+"Applied with no response" ≠ live. Genuinely live as of now:
+- **Suffolk** (post-HM)
+- **Deltek** (post-HM, comp pending)
+- **UKG-ESE** (Steve screen Thu AM; Lead reqs pending approval; Alliances pre-seeded)
+- **Envestnet** (Jess engaged, asking around — low-probability optionality)
+
+Everything in Tier 2/4 below is *optionality*, not concurrent risk-mitigation. Plan accordingly: the thinner live surface raises the bar for walking away from any reasonable UKG offer.
+
 ## TIER 1 — Live, advanced, time-sensitive (this is where the next energy goes)
 
 ### 1. Deltek — Sr Mgr, AI Adoption & Enablement
@@ -50,7 +60,7 @@ the application alone leaves it on the table. Assets drafted in `onepay/`.
 | Role | State | Trigger / gate |
 |---|---|---|
 | **Suffolk** | HM screen done; take-home pending | Act fast when take-home lands (≈1-wk turnaround). Ready. |
-| **Envestnet** | Warm path (Jess/Dara) — still silent, nothing yet | Disciplined hold is correct; do NOT cold-submit the ATS. A *light* status touch to Dara is OK to keep it warm; do NOT escalate to Jess. Comp-viable **only** if Jess re-levels — honor the go/no-go. |
+| **Envestnet** | Jess responded — MoneyGuide isn't in her purview; she's *asking around*. Warm path weaker than originally mapped (Jess isn't the direct lever). | Low-probability optionality, not active progress. Send a light no-pressure thank-you to Jess; let her ask-around play; don't over-pull. Re-leveling play is functionally dead unless her asking surfaces a VP-level connection on the actual role. Protect Jess for future Envestnet roles in her purview. |
 | **Cresta** | Submitted, strong fit | No action unless they respond (no warm channel noted). |
 | **SPM ROI** | Docs done | **Verify the recruiter + real req before investing further.** $180–245K if legit. |
 | **EOTSS (MA)** | Docs done; contract not FTE | Friend's-wife **intel first** (term/rate/conversion). Bridge/parallel value, not a destination. |
