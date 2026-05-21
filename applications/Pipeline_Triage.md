@@ -25,10 +25,10 @@ Everything in Tier 2/4 below is *optionality*, not concurrent risk-mitigation. P
 ## TIER 1 — Live, advanced, time-sensitive (this is where the next energy goes)
 
 ### 1. Deltek — Sr Mgr, AI Adoption & Enablement
-- **Stage:** HM interview done, went well (good signal, likely advancing). Inside advocate (Lynette).
-- **Comp:** Published $103–160K, no equity — only viable via the HM-sourced leveling argument (now real, not asserted). Target $160K + $20–25K sign-on, or re-level; CoS path via Lynette as the alternative.
-- **Action NOW:** (a) send the Lynette note today — drafted, `deltek/Followup_Note_Lynette_PostHM.md`; (b) be ready for Lisa Martin — comp prep + role-play done; (c) thank-you already sent.
-- **Why #1:** most advanced, advocate in place, comp solvable, decision window is days.
+- **Stage:** Advancing past HM. Rabideau completed first stage, requested next steps. **VP Engineering (Jamie Forgan) 1-hr Teams round scheduled (May 26-29 window).** Then panel/presentation round with VPs across Product, Engineering, Cloud (June 1 or 2 tentatively held). Inside advocate (Lynette).
+- **Comp:** Lisa Martin did NOT raise comp in advance email — good signal, they want to progress before negotiating. Pre-call card and role-play ready for when she does. Published $103–160K, no equity; HM-sourced leveling argument still the wedge. Target $160K + $20–25K sign-on, or re-level; CoS path via Lynette as the alternative.
+- **Action NOW:** (a) confirm Jamie Forgan slot (Tues afternoon or Wed 1pm preferred); (b) start prep for Jamie — different rubric from Rabideau, technical-credibility / engineer-as-user / built-with-engineering through-line; (c) hold on panel/presentation prep until Lisa shares the brief.
+- **Why #1 on stage:** most advanced track in pipeline, multi-stage process in motion, comp solvable, advocate in place.
 
 ### 2. UKG-ESE — Lead Product (posting soon, Dara) + Strategic Alliances (Leah)
 - **The target:** Lead Product roles posting soon + the Strategic Alliances role. That is the level/scope being aimed at. The ESE CX Product Owner role (applied via Dara, ESE resume) is a **foot-in-door floor only** — Salesforce-centric (real gap), band $102–147K, not the goal.
