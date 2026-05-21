@@ -9,8 +9,9 @@ firsthand reference, ally, reports to Dara. Consistent with
 ---
 
 ## ▸ ORG / OPEN INTEL (read this first — it reframes everything below)
-- **PO/SF role HM: UNKNOWN.** Intel goal for the screen — ask Steve directly.
-  Tells you who he relays to and whether they connect to ESE leadership.
+- **PO/SF role HM: Tasos** (confirmed during Steve screen — Steve volunteered
+  the name unprompted). HM has a stated preference for UKG-impacted
+  candidates. Ian was first to apply (Dara sent over the moment approved).
 - **Atul = HM for the Lead roles** (unposted). **Lead roles are NOT likely
   Salesforce roles.**
 - Therefore decouple: **Salesforce + the MCP idea = a direct strength for

@@ -22,13 +22,13 @@ Steve —
 Genuinely good to reconnect this morning. Strange and good kind of
 full-circle to be in a conversation with you again.
 
-Appreciated you sharing [HM name] and walking through where the role
+Appreciated you sharing Tasos's name and walking through where the role
 actually sits — especially that the customer is the internal CX teams
 who in turn support our customers using UKG products. That's the layer
 I want to be exact about, because it's the one I'd most enjoy building
 for.
 
-To put what I'd want [HM name] to hear in writing, in case it's useful
+To put what I'd want Tasos to hear in writing, in case it's useful
 when you carry it: I'd come in on day 1 already in the data — fluent in
 UKG's Salesforce environment, the case/SR object model and the
 operational workflow from inside the UTA upgrade program, and the data
@@ -45,7 +45,8 @@ Ian
 
 ## Notes
 
-- **Drop the HM's actual name** into both `[HM name]` slots before sending.
+- **HM confirmed: Tasos** (volunteered by Steve during the screen). HM has
+  a stated preference for hiring UKG-impacted candidates.
 - **Don't acknowledge the favorable intel** Steve volunteered (HM
   preference, first-to-apply). Reads as grabby. Absorb it silently; let
   continued engagement be the gratitude.
