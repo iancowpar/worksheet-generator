@@ -17,6 +17,16 @@ firsthand reference, ally, reports to Dara. Consistent with
   THIS SF role.** The bridge to **Lead** is the **AI-capability-builder
   identity** (function from zero), NOT Salesforce. Don't conflate them — a
   "my SF fluency is why I fit Lead" pitch is a non-sequitur if Lead isn't SF.
+- **TITLE/JD MISMATCH:** posted as "Sr PM" but the JD is a Product Owner.
+  Band $102.3–$147K is low for a real Sr PM, reasonable for a PO/Sr-BA. The
+  **band tells the truth; "Sr PM" is wrapper.** Almost certainly comp-grade
+  gaming (no PO job family in ESE/CIO HR, or "Sr PM" pulls a better applicant
+  pool than "PO" would). This *confirms* the level read: real target is
+  Atul's Lead reqs, not re-leveling this one. The band here is firm.
+- **Smart calibrated question to ask Steve** (curiosity, not pushback):
+  *"I noticed the title is Sr PM but the JD reads as Product Owner — help
+  me understand how this is leveled internally."* Demonstrates discernment;
+  gets intel.
 
 ## ▸ THE ONE THING
 For the **PO/SF role**: Salesforce operational fluency + the MCP/Anthropic
@@ -136,6 +146,19 @@ translation, structure-from-ambiguity. Don't perform too-good-for-it.
 claiming you built an MCP / Salesforce admin → no · anchoring comp to PO
 band → no · trashing the PO role or the Salesforce instance → no · RIF
 grievance → no · Deltek by name → "other live processes."
+
+**Two new ones:**
+- **Don't be anchored by the "Sr PM" title.** Band/scope say PO; title is
+  wrapper. Your level read holds.
+- **Don't reflexively accept "next step on the PO funnel"** without
+  clarifying the slate. Keep BOTH tracks live: *"Happy to keep talking on
+  this — and I want to make sure I'm also being considered for the Lead
+  seats when they open."*
+- **Don't drop Nick or Leah's names** unprompted. Atul is fine in the
+  natural Lead-roles context; Nick (neighbor/advocate) and Leah (Alliances)
+  don't belong in this screen.
+- **Listening discipline.** Don't monologue. Say the position-up, stop, let
+  Steve respond. Same pause-before-the-punchline lesson as Rabideau.
 
 ## ▸ AFTER
 Same-day thank-you: reconnect warmth + one line reaffirming the
