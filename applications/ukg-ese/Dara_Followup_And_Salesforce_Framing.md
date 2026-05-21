@@ -20,8 +20,10 @@ Salesforce-platform depth is the role's emphasized core (a real gap).
   volunteered the name unprompted). **Stated preference for hiring
   UKG-impacted candidates** — structural bias toward Ian's exact profile. Ian
   was first to apply (Dara sent the req over the moment it was approved).
-  Steve is the relay to Tasos. Day-1-partner pitch + UKG-Salesforce-data
-  fluency in writing, easy for Steve to forward.
+  Steve is the relay to Tasos and will carry the message **Tuesday** after
+  the extended Memorial Day weekend. Day-1-partner pitch + UKG-Salesforce-data
+  fluency now in writing (post-screen follow-up sent), easy for Steve to
+  forward. PM-vs-PO title/scope distinction also clarified in the Steve call.
 - **Atul Singh — owns the two Lead PM roles. STATUS: PENDING APPROVAL**
   (per inside channel; not yet approved at this week's new-req meeting, not
   posted, timeline genuinely uncertain). The hiring-side decision-maker for
