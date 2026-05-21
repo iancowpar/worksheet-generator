@@ -16,6 +16,7 @@ from docx.shared import Pt, Inches
 
 SECTION_HEADERS = {
     "**SUMMARY**",
+    "**SELECTED OUTCOMES**",
     "**EXPERIENCE**",
     "**SKILLS AND FOCUS AREAS**",
     "**EDUCATION**",
@@ -30,6 +31,7 @@ def parse_resume_md(text):
         "tagline": "",
         "contact": "",
         "summary": "",
+        "outcomes": [],
         "experience": [],
         "skills": [],
         "education": [],
@@ -55,6 +57,11 @@ def parse_resume_md(text):
             i += 1
             continue
 
+        # skip markdown horizontal rules (source-file organization only)
+        if re.fullmatch(r"-{3,}", line):
+            i += 1
+            continue
+
         if line in SECTION_HEADERS:
             section = line.strip("*").strip().lower().split(" ")[0]
             # normalize
@@ -62,6 +69,8 @@ def parse_resume_md(text):
                 section = "skills"
             elif line == "**WRITING AND THOUGHT LEADERSHIP**":
                 section = "writing"
+            elif line == "**SELECTED OUTCOMES**":
+                section = "outcomes"
             i += 1
             continue
 
@@ -77,6 +86,17 @@ def parse_resume_md(text):
 
         if section == "summary":
             out["summary"] = line
+            i += 1
+            continue
+
+        if section == "outcomes":
+            if line.startswith("- "):
+                bullet_text = line[2:].strip()
+                m = re.match(r"^\*\*([^*]+?)\*\*\s*(.*)$", bullet_text)
+                if m:
+                    out["outcomes"].append((m.group(1).strip(), m.group(2).strip()))
+                else:
+                    out["outcomes"].append(("", bullet_text))
             i += 1
             continue
 
@@ -194,6 +214,18 @@ def build_docx(parsed, output_path):
     # === SUMMARY ===
     add_section_header("SUMMARY")
     add_body([(parsed["summary"], False, False)], space_after=4)
+
+    # === SELECTED OUTCOMES ===
+    if parsed.get("outcomes"):
+        add_section_header("SELECTED OUTCOMES")
+        for lead, rest in parsed["outcomes"]:
+            p = doc.add_paragraph(style="List Bullet")
+            p.paragraph_format.space_before = Pt(0)
+            p.paragraph_format.space_after = Pt(3)
+            p.paragraph_format.left_indent = Inches(0.25)
+            if lead:
+                add_run(p, lead + " ", bold=True)
+            add_run(p, rest, bold=False)
 
     # === EXPERIENCE ===
     add_section_header("EXPERIENCE")

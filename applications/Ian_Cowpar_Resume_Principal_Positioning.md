@@ -6,7 +6,7 @@ ian.cowpar@gmail.com  ·  351-235-0365  ·  linkedin.com/in/ian-cowpar  ·  gith
 
 ---
 
-**PROFILE**
+**SUMMARY**
 
 Product leader operating at principal scope inside AI-first SaaS. Builds the internal platforms product teams depend on, ships the working prototype in Claude Code rather than handing the spec over a wall, and measures whether behavior actually changed rather than whether the dashboard moved. Two years owning product across a $250M ARR enterprise platform serving 300 customers, including the organization's first organized AI capability layer (built from zero, scaled across the PM org without top-down mandate) and a zero-to-one self-serve product taken from concept to production in a one-week prototype cycle. A decade prior at Broadridge in compliance-grade financial services, where client confidentiality and regulatory consequence were the operating environment, not a footnote. Maintains twenty custom slash commands and a personal Claude Code productivity OS in active daily use. Originator of the Zero-Translation Building framework with weekly published thought leadership on AI adoption realism.
 
@@ -54,23 +54,23 @@ Product leader operating at principal scope inside AI-first SaaS. Builds the int
 
 **Senior Document Development Analyst**  ·  Broadridge Financial Solutions  ·  Andover, MA  ·  Jan 2006 – Jan 2014
 
-Built and maintained complex client-facing document and communication systems in a regulated financial services environment.
+*Built and maintained complex client-facing document and communication systems in a regulated financial services environment.*
 
 ---
 
-**SKILLS & FOCUS AREAS**
+**SKILLS AND FOCUS AREAS**
 
-**Product Strategy & Leadership** — Principal Product Manager-scope ownership, two-to-three-year product vision, OKR-to-execution, roadmap and prioritization in ambiguous spaces, cross-functional leadership without direct authority, mentorship of junior PMs, recognized subject-matter expert, outcomes over output, Agile / Scrum, B2B SaaS
+**Product Strategy & Leadership:**  Principal Product Manager-scope ownership, two-to-three-year product vision, OKR-to-execution, roadmap and prioritization in ambiguous spaces, cross-functional leadership without direct authority, mentorship of junior PMs, recognized subject-matter expert, outcomes over output, Agile / Scrum, B2B SaaS
 
-**AI as Core Multiplier** — AI capability platform building, embedded AI features inside internal products, Claude Code prototyping, twenty custom slash commands and a personal Claude Code productivity OS in active daily use, agentic workflows, responsible and customer-centric AI judgment, AI adoption measurement (extinction-over-addition, the fallback principle)
+**AI as Core Multiplier:**  AI capability platform building, embedded AI features inside internal products, Claude Code prototyping, twenty custom slash commands and a personal Claude Code productivity OS in active daily use, agentic workflows, responsible and customer-centric AI judgment, AI adoption measurement (extinction-over-addition, the fallback principle)
 
-**Technical Credibility** — APIs and system architecture, data flows and integration dependencies, deployment-model and platform product thinking, technical-systems fluency with engineering, requirements engineering, SQL
+**Technical Credibility:**  APIs and system architecture, data flows and integration dependencies, deployment-model and platform product thinking, technical-systems fluency with engineering, requirements engineering, SQL
 
-**Data & Experimentation** — Opinionated analytics products, composite scoring and risk modeling, success-metric and KPI definition, hypothesis-driven development, qualitative-to-structured synthesis, signal-versus-noise routing
+**Data & Experimentation:**  Opinionated analytics products, composite scoring and risk modeling, success-metric and KPI definition, hypothesis-driven development, qualitative-to-structured synthesis, signal-versus-noise routing
 
-**Enterprise SaaS** — Compliance-grade regulated delivery, client confidentiality as table stakes, enterprise customer escalation-room presence, multi-org program coordination, executive synthesis, stakeholder management
+**Enterprise SaaS:**  Compliance-grade regulated delivery, client confidentiality as table stakes, enterprise customer escalation-room presence, multi-org program coordination, executive synthesis, stakeholder management
 
-**Tooling** — Jira, Confluence, GitHub, SQL, Claude Code CLI, Slack MCP, Salesforce Service Cloud (operator)
+**Tooling:**  Jira, Confluence, GitHub, SQL, Claude Code CLI, Slack MCP, Salesforce Service Cloud (operator)
 
 ---
 
@@ -82,8 +82,8 @@ Manning School of Business, UMass Lowell  ·  1999
 
 ---
 
-**THOUGHT LEADERSHIP**
+**WRITING AND THOUGHT LEADERSHIP**
 
-***The Unofficial Leader*** (Substack) · theunofficialleader.substack.com
+**The Unofficial Leader** (Substack) · theunofficialleader.substack.com
 
 Weekly publication on where AI actually earns its place, adoption realism, and what's happening beneath the surface of how teams work. Originator of the Zero-Translation Building framework. Active LinkedIn audience engagement on product strategy, AI adoption, and team dynamics.

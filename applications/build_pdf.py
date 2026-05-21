@@ -76,6 +76,16 @@ def build_pdf(parsed, output_path):
     story.append(Paragraph("SUMMARY", section_style))
     story.append(Paragraph(esc(parsed["summary"]), summary_style))
 
+    # Selected Outcomes
+    if parsed.get("outcomes"):
+        story.append(Paragraph("SELECTED OUTCOMES", section_style))
+        for lead, rest in parsed["outcomes"]:
+            if lead:
+                bullet_html = f"<b>{esc(lead)}</b> {esc(rest)}"
+            else:
+                bullet_html = esc(rest)
+            story.append(Paragraph(bullet_html, bullet_style, bulletText="•"))
+
     # Experience
     story.append(Paragraph("EXPERIENCE", section_style))
     for role in parsed["experience"]:
