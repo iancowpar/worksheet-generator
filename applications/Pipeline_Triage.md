@@ -60,7 +60,7 @@ the application alone leaves it on the table. Assets drafted in `onepay/`.
 | Role | State | Trigger / gate |
 |---|---|---|
 | **Suffolk** | HM screen done; take-home pending | Act fast when take-home lands (≈1-wk turnaround). Ready. |
-| **Envestnet** | Jess responded — MoneyGuide isn't in her purview; she's *asking around*. Warm path weaker than originally mapped (Jess isn't the direct lever). | Low-probability optionality, not active progress. Send a light no-pressure thank-you to Jess; let her ask-around play; don't over-pull. Re-leveling play is functionally dead unless her asking surfaces a VP-level connection on the actual role. Protect Jess for future Envestnet roles in her purview. |
+| **Envestnet** | Jess responded warmly + proactively: MoneyGuide is a separate business line, "let me find out more!" — actively spending capital, VP-to-VP cross-org cascade in motion. | Genuinely live warm path (one-hop intro structure, not direct-purview pull). Light thank-you sent matching her tone; do NOT pressure or follow up — let her digging produce a routing or not. Re-leveling play still requires a VP-level advocate on the role itself, but Jess's outreach could surface one. Protect Jess for future roles in her purview regardless. |
 | **Cresta** | Submitted, strong fit | No action unless they respond (no warm channel noted). |
 | **SPM ROI** | Docs done | **Verify the recruiter + real req before investing further.** $180–245K if legit. |
 | **EOTSS (MA)** | Docs done; contract not FTE | Friend's-wife **intel first** (term/rate/conversion). Bridge/parallel value, not a destination. |
