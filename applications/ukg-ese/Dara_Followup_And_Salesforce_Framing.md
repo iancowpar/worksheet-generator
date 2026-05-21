@@ -16,10 +16,14 @@ Salesforce-platform depth is the role's emphasized core (a real gap).
   lean on ("you may know him from LinkedIn"); (2) *optionally* a light,
   senior, **zero-ask** awareness touch (see PK section). Over-reaching here
   reads as presumptuous and undercuts the credible mid-level paths.
-- **Atul Singh — owns the two upcoming Lead PM roles.** The hiring-side
-  decision-maker for the actual target. Getting to Atul, well-positioned and
-  leveled, is the whole game. No direct line yet — path is via Dara, via Nick
-  (if connected), with PK familiarity as passive tailwind.
+- **Atul Singh — owns the two Lead PM roles. STATUS: PENDING APPROVAL**
+  (per inside channel; not yet approved at this week's new-req meeting, not
+  posted, timeline genuinely uncertain). The hiring-side decision-maker for
+  the actual target. No direct line yet — path is via Dara, via Nick (if
+  connected), with PK familiarity as passive tailwind. **Discipline: don't
+  reference the pending status externally (Steve screen, etc.) — burns the
+  private intel channel.** Position-up signal stays lighter: "strong
+  candidate when those open," not "I'm waiting for those."
 - **Dara — Director, Talent Acquisition.** All reqs (PO, Lead, likely
   Alliances) roll up to her; she owns routing/leveling mechanics and is
   already advocating. The strongest *reliable* lever toward Atul — she can put
