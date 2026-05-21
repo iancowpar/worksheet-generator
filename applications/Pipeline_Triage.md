@@ -16,6 +16,12 @@ not more tailored docs. Shift from *generate* to *convert*.
 
 Everything in Tier 2/4 below is *optionality*, not concurrent risk-mitigation. Plan accordingly: the thinner live surface raises the bar for walking away from any reasonable UKG offer.
 
+**Honest comp comparison (Envestnet vs UKG PO):**
+- Envestnet MoneyGuide SPM: $114–142K, exec-only equity → ~$150K at ceiling
+- UKG ESE PO ("Sr PM"): $102.3–147K + RSUs broadly + bonus → **~$160–170K at ceiling**
+- UKG has the higher ceiling AND the equity. Envestnet has the higher floor (tighter band). At top-of-band UKG PO is the better comp; at floor Envestnet is better. Neither is at $170–185K parity without something extra (re-leveling / top-of-band + strong package).
+- **The distinction between them is NOT comp** — it's role quality (Envestnet = real product PM in fintech, better role if it lands) vs. landing probability (UKG = warm machine actively producing, much more likely to convert).
+
 ## TIER 1 — Live, advanced, time-sensitive (this is where the next energy goes)
 
 ### 1. Deltek — Sr Mgr, AI Adoption & Enablement
