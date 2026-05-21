@@ -1,9 +1,17 @@
 # Post-Screen Follow-Up — Steve Marshall (UKG ESE CX PO)
 
-Same-day follow-up to the Thu AM recruiter screen. Reconnect register
-(2024 ally), puts the dual-track in writing so it's forwardable, reuses
-the in-call "only travels if you carry it" language as a deliberate
-callback, protects the relationship beyond this specific req.
+Same-day follow-up to the Thu AM recruiter screen. Tuned to the actual
+call: Steve volunteered the HM name unprompted, shared that the HM
+prefers UKG-impacted candidates, confirmed Ian was first to apply (Dara
+sent the req over the moment it was approved). Real inside-track signal.
+
+**Strategic shift from the earlier draft:** the dual-track is dropped
+from the written follow-up. The in-call positioning already did that
+work, and Steve has clear PO momentum. Pushing "I'm aiming higher" in
+writing right now would risk flight-risk concern when Steve relays.
+The email's job is now to **lock in PO momentum and put the
+day-1-partner pitch in writing for the HM to read.** Lead/Alliances
+surface naturally in conversation when those reqs land.
 
 ---
 
@@ -14,21 +22,22 @@ Steve —
 Genuinely good to reconnect this morning. Strange and good kind of
 full-circle to be in a conversation with you again.
 
-[ONE SPECIFIC moment from the call — something he said, a useful
-insight, or something you discussed about the role. Even one line.
-Makes it real instead of template.]
+Appreciated you sharing [HM name] and walking through where the role
+actually sits — especially that the customer is the internal CX teams
+who in turn support our customers using UKG products. That's the layer
+I want to be exact about, because it's the one I'd most enjoy building
+for.
 
-To put where I land in writing, in case it's useful: I'd be glad to
-take the PO conversation forward if there's a real fit on both sides —
-and the seats I'd come back at the level for are the Lead PM roles when
-those open and the Strategic Alliances role. You've got firsthand
-knowledge of the work from 2024, and that perspective only travels if
-you carry it. If you're willing to be a voice with the HM here, and
-with Atul when his reqs land, it would mean more than anything I can do
-through the portal.
+To put what I'd want [HM name] to hear in writing, in case it's useful
+when you carry it: I'd come in on day 1 already in the data — fluent in
+UKG's Salesforce environment, the case/SR object model and the
+operational workflow from inside the UTA upgrade program, and the data
+limitations PMs across the business actually hit. Combined with the
+network I already have across product, engineering, and services, I'd
+be a partner on tackling those things from week one, not a ramp.
 
-Either way, glad to be back in touch. I owe you one regardless of how
-this lands.
+Either way, real thanks for the warmth this morning. Glad to be back
+in touch with you regardless of how this one lands.
 
 Ian
 
@@ -36,17 +45,14 @@ Ian
 
 ## Notes
 
-- **The [SPECIFIC] placeholder is non-negotiable.** Drop one concrete
-  line from the actual call before sending. Even one sentence. Without
-  it, the email is template; with it, it's a real continuation.
-- **In-writing dual-track** serves a tactical purpose: easy for Steve to
-  forward to Dara or the HM without him having to paraphrase. Don't
-  make the forwarding rationale explicit ("here's something easy to
-  forward") — let the writing be naturally forwardable.
-- **"Only travels if you carry it"** is a deliberate callback to the
-  in-call ask. Reinforces the moment.
-- **"Either way, glad to be back in touch. I owe you one regardless"** —
-  protects the relationship beyond this req, signals you're not
-  transactional, makes him more likely to actually advocate (people
-  advocate for candidates who aren't grabby).
-- Send same-day while fresh. Don't overthink it.
+- **Drop the HM's actual name** into both `[HM name]` slots before sending.
+- **Don't acknowledge the favorable intel** Steve volunteered (HM
+  preference, first-to-apply). Reads as grabby. Absorb it silently; let
+  continued engagement be the gratitude.
+- **Day-1-partner pitch in writing serves a tactical purpose:** easy for
+  Steve to forward to the HM verbatim. Don't make the forwarding
+  rationale explicit ("here's what to forward") — let the writing
+  naturally be forwardable.
+- **Lead/Alliances deliberately not in writing.** In-call dual-track did
+  the work. Pushing it now would trip flight-risk with the HM.
+- Send same-day, fresh.
