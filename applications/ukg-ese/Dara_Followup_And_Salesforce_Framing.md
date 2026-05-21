@@ -24,6 +24,23 @@ Salesforce-platform depth is the role's emphasized core (a real gap).
   the extended Memorial Day weekend. Day-1-partner pitch + UKG-Salesforce-data
   fluency now in writing (post-screen follow-up sent), easy for Steve to
   forward. PM-vs-PO title/scope distinction also clarified in the Steve call.
+  **Likely identification (per research dive, treat as strong-match not
+  confirmed): Tasos Foutsitzis** — Senior Manager, Global Support
+  Operations, Analytics and Project Management. Shrewsbury MA (~1 hr from
+  Methuen). 20+ years at Kronos/UKG. Background in services PM. Caveat:
+  his public title says "Global Support Operations" not "ESE" — either his
+  role was re-cut under PK's April 2025 arrival, or it's a different
+  Tasos. Match is strong but hold loosely. **Do not surface "Foutsitzis"
+  with anyone — Steve only gave "Tasos."**
+- **Prakash Kota (CIO) — UPDATED:** started at UKG **April 2025**, ex-Autodesk,
+  AI-first orientation. The whole ESE function is being shaped by a new CIO
+  with AI bias. Two months in when these reqs got posted. Explains the new
+  ESE structure + the role design + the AI capability emphasis. Ian's
+  LinkedIn-comment familiarity is genuinely interesting because PK is still
+  relatively new at UKG — his network is being built.
+- **UKG runs Certinia PSA confirmed** (per UKG's own job postings) for the
+  services delivery org. The ESE CX PO role almost certainly supports this
+  stack. See `Certinia_Primer.md`.
 - **Atul Singh — owns the two Lead PM roles. STATUS: PENDING APPROVAL**
   (per inside channel; not yet approved at this week's new-req meeting, not
   posted, timeline genuinely uncertain). The hiring-side decision-maker for
