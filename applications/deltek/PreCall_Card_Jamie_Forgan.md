@@ -116,6 +116,41 @@ work is on-domain.
 - **Don't over-architect anything.** Substance-over-style; if you can
   cut a sentence and the meaning stays, cut it.
 
+## How to run the conversation — Alison Wood Brooks lens
+
+Lynette's read: Forgan is genuinely nice, asks introspective / situational
+questions. He's assessing "do I want to work with this person." Brooks's
+conversation science is exactly the science of being someone people want to
+talk to. The card above is *what to say*; this is *how to be in the room*.
+
+- **Reframe: a conversation, not a performance.** Brooks treats conversation
+  as a two-person coordination game. Walk in to *have a conversation*, not to
+  *pass a test*. Changes pacing, listening, presence.
+- **Before the call: say "I'm excited" out loud.** Brooks's "Get Excited"
+  study — relabeling anxiety as excitement (same high-arousal state) beats
+  trying to calm down.
+- **T — Topics: prepare them.** Brooks defends topic forethought. Forgan asks
+  situational questions — pre-load 3-4 stories chosen for engineering-
+  partnership signal (migration tool + platform architect; a disagreement
+  with engineering handled well; the embedded Claude Code function). Pick off
+  a prepared shelf, don't scramble.
+- **A — Asking: ask real follow-up questions mid-conversation, not just at
+  the end.** More questions, especially follow-ups, raise likability and
+  prove you listened. When he describes his org or a problem, follow up right
+  there. Advice-seeking ("how are you thinking about that with your teams?")
+  makes you look *more* competent, not less.
+- **L — Levity: match his warmth.** Warm interviewers reciprocate warmth. Be
+  human and a little light — not performed jokes (substance-over-style
+  holds), just don't run it like a deposition.
+- **K — Kindness / receptiveness:** if an introspective question surfaces a
+  gap, acknowledge his point genuinely *before* you reframe. "That's fair —
+  here's how I'd think about it."
+- **The trap — boomerasking** (Brooks, 2025): asking a question then
+  immediately making it about yourself. *"What's the team like? — because at
+  UKG we…"* When you ask Forgan something, let him answer, stay in his
+  answer, follow up on *his* point before bringing it back to you. Genuine
+  questions, not springboards.
+
 ## After
 
 Same-day note to Jamie. Per the new working model — Ian writes, I edit.
