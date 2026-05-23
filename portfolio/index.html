@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ian Cowpar — Principal-scope Product Leader</title>
+  <meta name="description" content="Product leader operating at principal scope inside AI-first SaaS. AI capability platforms, zero-to-one builds, data products with the communities of users and champions that make them stick.">
+  <meta name="author" content="Ian Cowpar">
+
+  <meta property="og:title" content="Ian Cowpar — Principal-scope Product Leader">
+  <meta property="og:description" content="AI capability platforms, zero-to-one builds, data products. The communities of users and champions that make them stick.">
+  <meta property="og:type" content="profile">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --charcoal: #0B1220;
+      --charcoal-mid: #3A4258;
+      --charcoal-soft: #6B7280;
+      --glacier: #7CC0B8;
+      --glacier-deep: #5BA89E;
+      --amber: #F59E0B;
+      --indigo: #4338CA;
+      --white: #FFFFFF;
+      --surface-soft: #F7F7F5;
+      --border: #E5E5E2;
+
+      --font-sans: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+      --max-content: 720px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--charcoal);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    ::selection {
+      background: var(--glacier);
+      color: var(--charcoal);
+    }
+
+    /* Links: animated underline that grows on hover */
+    a {
+      color: inherit;
+      text-decoration: none;
+      background-image: linear-gradient(currentColor, currentColor);
+      background-size: 100% 1px;
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      padding-bottom: 1px;
+      transition: background-size 180ms ease, color 180ms ease;
+    }
+
+    a:hover {
+      background-size: 100% 2px;
+      color: var(--glacier-deep);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--indigo);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    main {
+      max-width: var(--max-content);
+      margin: 0 auto;
+      padding: clamp(3rem, 8vw, 6rem) 1.5rem 3rem;
+    }
+
+    /* ---------- Hero ---------- */
+
+    .hero {
+      margin-bottom: clamp(3.5rem, 8vw, 5.5rem);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 7vw, 4.25rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      color: var(--charcoal);
+    }
+
+    .tagline {
+      font-size: clamp(1.125rem, 2.4vw, 1.375rem);
+      font-weight: 400;
+      color: var(--charcoal-mid);
+      line-height: 1.45;
+      letter-spacing: -0.015em;
+      max-width: 600px;
+      margin-bottom: 2.25rem;
+    }
+
+    .tagline .accent {
+      color: var(--glacier-deep);
+      font-weight: 500;
+    }
+
+    .contact {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--charcoal-soft);
+    }
+
+    .contact a:hover {
+      color: var(--charcoal);
+    }
+
+    /* ---------- Sections ---------- */
+
+    section {
+      margin-bottom: clamp(3.5rem, 7vw, 5rem);
+    }
+
+    section > h2 {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--glacier-deep);
+      margin-bottom: 1.75rem;
+    }
+
+    /* ---------- Summary ---------- */
+
+    .summary p {
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      color: var(--charcoal);
+      max-width: 640px;
+    }
+
+    /* ---------- Selected Outcomes ---------- */
+
+    .outcomes ol {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .outcome {
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      padding: 1.75rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .outcome:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .outcome .num {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--glacier-deep);
+      font-weight: 500;
+      padding-top: 0.35rem;
+      letter-spacing: 0.02em;
+    }
+
+    .outcome .lead {
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.005em;
+      font-size: 1.0625rem;
+      line-height: 1.4;
+    }
+
+    .outcome .body {
+      color: var(--charcoal-mid);
+      line-height: 1.65;
+    }
+
+    /* The amber underline highlights metrics — used sparingly */
+    mark {
+      background: transparent;
+      color: var(--charcoal);
+      font-weight: 500;
+      box-shadow: inset 0 -2px 0 var(--amber);
+      padding-bottom: 1px;
+    }
+
+    /* ---------- Experience ---------- */
+
+    .role {
+      padding-bottom: 2.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .role:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .role-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+
+    .role-header h3 {
+      font-size: 1.1875rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--charcoal);
+      line-height: 1.25;
+    }
+
+    .role-header .meta {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--charcoal-soft);
+    }
+
+    .role-summary {
+      font-style: italic;
+      color: var(--charcoal-mid);
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+    }
+
+    .role ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .role ul li {
+      position: relative;
+      padding-left: 1.5rem;
+      color: var(--charcoal-mid);
+      line-height: 1.65;
+    }
+
+    .role ul li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.65em;
+      width: 10px;
+      height: 1px;
+      background: var(--glacier-deep);
+    }
+
+    .role ul li strong {
+      color: var(--charcoal);
+      font-weight: 500;
+    }
+
+    .role-footer {
+      font-style: italic;
+      color: var(--charcoal-soft);
+      margin-top: 1.4rem;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+
+    /* ---------- Skills ---------- */
+
+    .skills {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .skill {
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .skill:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .skill:last-child {
+      padding-bottom: 0;
+    }
+
+    .skill dt {
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+      font-size: 0.9375rem;
+      letter-spacing: -0.005em;
+    }
+
+    .skill dd {
+      color: var(--charcoal-mid);
+      line-height: 1.65;
+      font-size: 0.9375rem;
+    }
+
+    /* ---------- Education ---------- */
+
+    .education-entry {
+      color: var(--charcoal-mid);
+      line-height: 1.6;
+    }
+
+    .education-entry strong {
+      color: var(--charcoal);
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: 700;
+    }
+
+    /* ---------- Writing ---------- */
+
+    .writing-lede {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .writing-lede strong {
+      color: var(--charcoal);
+      font-weight: 700;
+    }
+
+    .writing-body {
+      color: var(--charcoal-mid);
+      line-height: 1.65;
+      max-width: 640px;
+    }
+
+    /* ---------- Footer ---------- */
+
+    footer {
+      max-width: var(--max-content);
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--charcoal-soft);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    /* ---------- Mobile ---------- */
+
+    @media (max-width: 600px) {
+      .outcome {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        padding: 1.5rem 0;
+      }
+      .outcome .num {
+        padding-top: 0;
+      }
+      .contact {
+        gap: 0.4rem 1rem;
+        font-size: 0.75rem;
+      }
+    }
+
+    /* ---------- Reduced motion ---------- */
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ---------- Print ---------- */
+
+    @media print {
+      body {
+        font-size: 10.5pt;
+        color: #000;
+        background: #fff;
+      }
+      main {
+        max-width: 100%;
+        padding: 0.5in 0.75in 0.3in;
+      }
+      section {
+        margin-bottom: 1.25rem;
+        page-break-inside: avoid;
+      }
+      .hero {
+        margin-bottom: 1.25rem;
+      }
+      .hero h1 {
+        font-size: 24pt;
+      }
+      .tagline {
+        font-size: 11.5pt;
+        margin-bottom: 0.75rem;
+      }
+      .tagline .accent, section > h2, .outcome .num, .role ul li::before {
+        color: #000;
+        background: #000;
+      }
+      mark {
+        box-shadow: none;
+        font-weight: 700;
+      }
+      a {
+        color: #000;
+        background-image: none;
+      }
+      footer {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header class="hero">
+      <h1>Ian Cowpar</h1>
+      <p class="tagline">
+        Principal-scope product leader. AI-first SaaS, platform and adoption,
+        <span class="accent">zero-to-one builder.</span>
+      </p>
+      <ul class="contact">
+        <li><a href="mailto:ian.cowpar@gmail.com">ian.cowpar@gmail.com</a></li>
+        <li>351.235.0365</li>
+        <li><a href="https://linkedin.com/in/ian-cowpar">linkedin/ian-cowpar</a></li>
+        <li><a href="https://github.com/iancowpar">github/iancowpar</a></li>
+        <li><a href="https://theunofficialleader.substack.com">theunofficialleader</a></li>
+      </ul>
+    </header>
+
+    <section class="summary">
+      <h2>Summary</h2>
+      <p>
+        Product leader operating at principal scope inside AI-first SaaS. Two years
+        owning product across a $250M ARR enterprise platform serving 300 customers at UKG,
+        including the organization's first organized AI capability layer (built from zero,
+        no top-down mandate) and a zero-to-one product taken from concept to production
+        in a week. A decade prior at Broadridge in compliance-grade financial services,
+        where client confidentiality and regulatory consequence were the operating environment.
+        Originator of the Zero-Translation Building framework, with weekly published
+        thought leadership on AI adoption realism.
+      </p>
+    </section>
+
+    <section class="outcomes">
+      <h2>Selected Outcomes</h2>
+      <ol>
+        <li class="outcome">
+          <span class="num">01</span>
+          <div>
+            <p class="lead">Built UKG product organization's first organized AI capability platform.</p>
+            <p class="body">
+              Scaled shared infrastructure across <mark>20 PMs</mark> with no top-down
+              mandate, to the point that multiple PMs built their own custom slash commands
+              and retired manual workflows entirely. Adoption measured by what stopped,
+              not what launched.
+            </p>
+          </div>
+        </li>
+
+        <li class="outcome">
+          <span class="num">02</span>
+          <div>
+            <p class="lead">Shipped a zero-to-one self-serve product from concept to production in a one-week prototype cycle.</p>
+            <p class="body">
+              Projected <mark>~30% time reduction</mark> in a ticket-gated enterprise
+              workflow. Wrote the prototype in Claude Code, scoped three business epics
+              with the platform architect, delivered an engineering-ready package the
+              architect built directly against.
+            </p>
+          </div>
+        </li>
+
+        <li class="outcome">
+          <span class="num">03</span>
+          <div>
+            <p class="lead">Surfaced <mark>~$50M in at-risk ARR</mark> before escalation.</p>
+            <p class="body">
+              Built a composite risk model scoring top accounts on exposure, case volume,
+              true-defect rate, and sentiment, replacing raw ticket counts with weighted
+              signal and an automated weekly cadence the program lead acted on.
+            </p>
+          </div>
+        </li>
+
+        <li class="outcome">
+          <span class="num">04</span>
+          <div>
+            <p class="lead">Cut a working defect list from ~200 issues to 5 (<mark>~97%</mark>).</p>
+            <p class="body">
+              Built an opinionated analytics product with an embedded Claude Code function
+              that routed the single highest-leverage action across five issue panels and
+              four products.
+            </p>
+          </div>
+        </li>
+
+        <li class="outcome">
+          <span class="num">05</span>
+          <div>
+            <p class="lead">Drove cross-functional prioritization across product, engineering, and services without direct authority.</p>
+            <p class="body">
+              Translated customer signal from executive escalation rooms into tradeoff
+              decisions across four product lines on a <mark>$250M ARR</mark> platform
+              serving 300 customers.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="experience">
+      <h2>Experience</h2>
+
+      <article class="role">
+        <header class="role-header">
+          <h3>Senior Product Manager · UKG</h3>
+          <p class="meta">Lowell, MA  ·  Jun 2024 — Apr 2026</p>
+        </header>
+        <p class="role-summary">
+          Principal-scope product ownership across AI capability, zero-to-one builds,
+          and data products serving 300 enterprise customers on a $250M ARR platform.
+        </p>
+        <ul>
+          <li>
+            <strong>Built the organization's first AI capability platform from zero,</strong>
+            scaling it across 20 PMs without mandate and coaching individual PMs until
+            they retired manual workflows for their own slash commands.
+          </li>
+          <li>
+            <strong>Shipped a zero-to-one self-serve product concept-to-production in one week,</strong>
+            prototyped in Claude Code and scoped with the platform architect, projected
+            to cut ~30% from a ticket-gated enterprise workflow.
+          </li>
+          <li>
+            <strong>Owned the upgrade program's data products</strong>
+            — a composite ARR-risk model that surfaced ~$50M at risk before escalation,
+            and an analytics product with an embedded Claude Code function that cut a
+            defect list ~97%.
+          </li>
+        </ul>
+        <p class="role-footer">
+          Drove cross-functional prioritization in executive escalation rooms across
+          four product lines. Brand Champion, UKG North America Regional Lead 2026;
+          Fire Up ERG (women and allies), Business Innovation workstream lead.
+        </p>
+      </article>
+
+      <article class="role">
+        <header class="role-header">
+          <h3>Business Analyst · Broadridge Financial Solutions</h3>
+          <p class="meta">Andover, MA  ·  Jan 2014 — Jun 2024</p>
+        </header>
+        <p class="role-summary">
+          Forty-plus enterprise SaaS deployments end-to-end in compliance-grade financial
+          services, where client confidentiality and regulatory consequence shaped every
+          delivery decision.
+        </p>
+        <ul>
+          <li>
+            <strong>Led 40+ enterprise SaaS client deployments end-to-end</strong>
+            in a regulated environment where a wrong output had regulatory consequence,
+            not a bug ticket; partnered with engineering on system behavior, data flows,
+            and integration dependencies.
+          </li>
+          <li>
+            <strong>Served as internal subject-matter expert for an omni-channel communication product</strong>
+            adopted across the entire enterprise client base, translating complex compliance
+            capabilities into workflows non-technical buyers could operate without support.
+          </li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <header class="role-header">
+          <h3>Senior Document Development Analyst · Broadridge Financial Solutions</h3>
+          <p class="meta">Andover, MA  ·  Jan 2006 — Jan 2014</p>
+        </header>
+        <p class="role-summary">
+          Built and maintained complex client-facing document and communication systems
+          in a regulated financial services environment.
+        </p>
+      </article>
+    </section>
+
+    <section class="skills-section">
+      <h2>Skills &amp; Focus Areas</h2>
+      <dl class="skills">
+        <div class="skill">
+          <dt>Product Strategy &amp; Leadership</dt>
+          <dd>
+            Principal Product Manager-scope ownership, product vision and roadmap,
+            OKR-to-execution, prioritization in ambiguous spaces, cross-functional
+            leadership without direct authority, mentorship of junior PMs, outcomes
+            over output, Agile / Scrum, B2B SaaS.
+          </dd>
+        </div>
+        <div class="skill">
+          <dt>AI as Core Multiplier</dt>
+          <dd>
+            AI capability platform building, embedded AI features inside internal products,
+            Claude Code prototyping, twenty custom slash commands and a personal Claude
+            Code productivity OS in active daily use, agentic workflows, AI adoption
+            measurement (extinction over addition).
+          </dd>
+        </div>
+        <div class="skill">
+          <dt>Technical Credibility</dt>
+          <dd>
+            APIs and system architecture, data flows and integration dependencies,
+            deployment-model and platform product thinking, technical-systems fluency
+            with engineering, SQL.
+          </dd>
+        </div>
+        <div class="skill">
+          <dt>Data &amp; Experimentation</dt>
+          <dd>
+            Opinionated analytics products, composite scoring and risk modeling,
+            success-metric and KPI definition, hypothesis-driven development,
+            signal-versus-noise routing.
+          </dd>
+        </div>
+        <div class="skill">
+          <dt>Enterprise SaaS</dt>
+          <dd>
+            Compliance-grade regulated delivery, client confidentiality as table stakes,
+            enterprise customer escalation-room presence, multi-org program coordination,
+            stakeholder management.
+          </dd>
+        </div>
+        <div class="skill">
+          <dt>Tooling</dt>
+          <dd>
+            Jira, Confluence, GitHub, SQL, Claude Code CLI, Slack MCP,
+            Salesforce Service Cloud (operator).
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="education">
+      <h2>Education</h2>
+      <p class="education-entry">
+        <strong>Bachelor of Science, Management Information Systems and Management</strong>
+        Manning School of Business, UMass Lowell  ·  1999
+      </p>
+    </section>
+
+    <section class="writing">
+      <h2>Writing &amp; Thought Leadership</h2>
+      <p class="writing-lede">
+        <strong>The Unofficial Leader</strong> (Substack)  ·
+        <a href="https://theunofficialleader.substack.com">theunofficialleader.substack.com</a>
+      </p>
+      <p class="writing-body">
+        Weekly publication on where AI actually earns its place, adoption realism, and
+        what's happening beneath the surface of how teams work. Originator of the
+        Zero-Translation Building framework.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Updated May 2026</span>
+    <span>Designed and built by Ian Cowpar</span>
+  </footer>
+</body>
+</html>
