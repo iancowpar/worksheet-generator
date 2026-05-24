@@ -48,6 +48,71 @@ five-panel analytics product on its own.
 For each ~15-minute case: **Structure** the system → **Adoption** →
 **Stakeholders** → **Measurement / outcomes.**
 
+## Cold open — the Starbucks frame
+
+A 45-second opener that sets the worldview before the cases land. Makes
+the case studies read as evidence of an alternative pattern, not as
+self-contained accomplishments. Use only if there's room before the
+clock starts on Case Study 1.
+
+**The news** (week of May 23, 2026): Starbucks retired its AI inventory
+counting system nine months into a rollout across 11,000 stores. The
+official statement called it *"a decision to standardize how inventory
+is counted"* — not a failure, a choice. The internal employee note
+Starbucks themselves shared was more honest: **"The thought behind it
+was great, but the execution was proving difficult."**
+
+**Delivery script (Ian's voice, ~110 words):**
+
+> "Before I get into the cases, quick frame. Starbucks fired its AI
+> inventory system this week. Nine months in, 11,000 stores. The
+> official line called it 'a decision to standardize how inventory is
+> counted,' which is a careful way to phrase fixing something that
+> didn't work. The employee note Starbucks themselves shared was more
+> honest: 'The thought behind it was great, but the execution was
+> proving difficult.' That sentence is the pattern. You can do the
+> thinking well and the deployment well and still miss the thing that
+> actually matters, which is whether the people who have to live with
+> the system are different on Tuesday. The two cases I want to walk
+> you through are about what it took to make that part real."
+
+**Why it works for this room specifically:**
+
+- **Tushaus** has been saying versions of this on podcasts for two
+  years. He hears his own diagnosis in his own dialect, and Ian sounds
+  like he reads the same landscape.
+- **Rabideau's** institutional line — AI embedded, not bolted on — is
+  the UX version of the same idea.
+- **Kapoor's** FinOps worldview is the financial version: measurement
+  beats assertion. The Starbucks pattern is a $X-million attribution
+  failure.
+- **Cipollone** is on record that "culture and change management" are
+  the hard part of AI. The Starbucks story is exactly the gap between
+  press release and reality she lives.
+
+All four already believe a version of this. Naming it out loud at the
+top signals you read the same landscape they do, and turns the rest of
+the talk into evidence of the alternative.
+
+**What NOT to do with it:**
+
+- Don't crib the LinkedIn writer's framings ("deployment is not
+  adoption," "speed is not readiness," "vendor demo accuracy is not
+  real-world accuracy"). Use the public facts and the employee quote.
+  Land the diagnosis in Ian's own vocabulary — *extinction over
+  addition*, *the only adoption that lasts is the kind nobody had to
+  order*, *built with, not adjacent to*.
+- Don't perform indignation. Quiet diagnosis lands in this room.
+  Outrage doesn't.
+- Don't open with this if it'll push the cases into a time crunch. The
+  cases are the work. The frame is the table-setter.
+
+**Fallback use if not the opener.** If a panelist asks about adoption
+risk, failure modes, or what makes AI adoption stick, this is a clean
+20-second Q&A reference: *"It's the Starbucks pattern from this week
+— the deployment landed, the adoption never did. The case I just
+walked you through is the alternative."*
+
 ## How to run the panel — Alison Wood Brooks lens
 
 A panel is a different animal from the Rabideau and Forgan 1:1s. Brooks's
