@@ -30,6 +30,85 @@ VP-panel/presentation round (June 1 or 2).
 - **Public writing / talks / podcasts** — none found. Genuinely
   low-profile operator.
 
+## How Forgan will likely operate — the Driscoll lens
+
+The closest analog from your UKG experience is **Todd Driscoll**, VP
+Engineering for the transitional / KTLO / end-of-life portfolio.
+Driscoll owned the engineering side of ProTime; Leila was his EM
+running the three products, including UTA (which you owned on the PM
+side). The working relationship was *"full of posture."* Driscoll
+behaved as though engineering owned the roadmap, you behaved as though
+product did, and the tension lived at the deprioritization seam: what
+gets done, what gets dropped, who decides.
+
+That posture isn't a character flaw. It's earned and structural.
+Long-tenured VP Engineers at established enterprise software companies
+have watched product orgs reorg, executive priorities shift, and
+acquired products come and go while their teams kept shipping. They
+feel like the adults in the room, and they often are. They also
+default to defensive when a new function arrives that *sounds like*
+it'll route more work onto their engineers without those engineers
+having a voice in it.
+
+Forgan sits squarely on the spectrum where Driscoll lived: 18 years
+in, came in via the WST Pacific acquisition, BI/analytics-adjacent,
+distributed teams, quiet substance-operator. Assume he'll operate at
+the same posture register and prep for that.
+
+### The filter Forgan will run every answer through
+
+*"Will this role create more work for my engineers without them having
+a voice in what work?"*
+
+That's the single question he's evaluating. Every answer needs to give
+him a reason to land on *no.*
+
+### What the Driscoll lens confirms and sharpens
+
+The existing lead-bullet order is correct precisely because of this:
+migration tool first (built-with-engineering), five-panel second
+(engineer-as-end-user), AI capability layer DON'T-lead. That ordering
+is the anti-Driscoll-posture sequence.
+
+- **Anti-Driscoll-posture moves** (lean into these): shipped artifacts
+  over program work, named engineering partners (the platform
+  architect), built-with not adjacent-to language, honesty about what
+  didn't work for engineers, deference to engineering's read on what's
+  load-bearing.
+- **Pro-Driscoll-posture moves** (avoid these): vision pitching,
+  strategy-deck framing, "I would set the direction," "I'd own the
+  prioritization," anything that sounds like product handing
+  engineering a list. Save vision/MCP/Anthropic talk for the panel —
+  with Forgan it reads as the thing Driscoll-type leaders find
+  suspicious.
+
+### The hardest question to be ready for
+
+The Driscoll-style test question:
+
+*"What if my engineers don't want what you're bringing?"*
+
+The answer needs to be honest and specific, not performed. Something
+in your voice along the lines of:
+
+> "Then I haven't brought them the right thing yet. The work has to
+> make an engineer's week better, not give them another stakeholder to
+> satisfy. I'd rather scope it down or kill it than push something
+> that doesn't actually serve the person who has to live with it."
+
+That answer concedes the engineer's veto without conceding the role's
+purpose. It's the Zero-Translation Building principle applied to
+engineering as the audience.
+
+### The hidden credit you don't need to claim
+
+You owned UTA through the Driscoll dynamic for years. You already
+know how to operate productively across this posture, and you survived
+the deprioritization tension without burning the relationship. Don't
+say any of that. Just *talk like someone who's lived it.* The calm
+register reads through. Forgan will recognize his own tribe in your
+voice before he recognizes anything else, and that's the door opening.
+
 ## The shift from the Rabideau prep
 
 | | Rabideau | Forgan |
