@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ian Cowpar — Panel Round · June 3 2026</title>
+  <meta name="description" content="Panel round case-study presentation for Deltek Senior Manager AI Adoption &amp; Enablement role.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --charcoal: #0B1220;
+      --charcoal-mid: #3A4258;
+      --charcoal-soft: #6B7280;
+      --glacier: #7CC0B8;
+      --glacier-deep: #5BA89E;
+      --amber: #F59E0B;
+      --indigo: #4338CA;
+      --white: #FFFFFF;
+      --surface-soft: #F7F7F5;
+      --border: #E5E5E2;
+
+      --font-sans: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: var(--white);
+      color: var(--charcoal);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    ::selection {
+      background: var(--glacier);
+      color: var(--charcoal);
+    }
+
+    /* ---------- Deck ---------- */
+
+    .deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(3rem, 6vw, 6rem) clamp(3rem, 8vw, 8rem);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ---------- Type scale (viewport-relative) ---------- */
+
+    .display {
+      font-size: clamp(3rem, 7vw, 7.5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.035em;
+      color: var(--charcoal);
+    }
+
+    .display-mono {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .title-lg {
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--charcoal);
+    }
+
+    .title {
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--charcoal);
+    }
+
+    .subtitle {
+      font-size: clamp(1.125rem, 1.75vw, 1.625rem);
+      font-weight: 400;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+      color: var(--charcoal-mid);
+      max-width: 60ch;
+    }
+
+    .body {
+      font-size: clamp(1rem, 1.4vw, 1.375rem);
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--charcoal-mid);
+      max-width: 50ch;
+    }
+
+    .label {
+      font-family: var(--font-mono);
+      font-size: clamp(0.7rem, 0.9vw, 0.875rem);
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--glacier-deep);
+    }
+
+    .caption {
+      font-family: var(--font-mono);
+      font-size: clamp(0.75rem, 1vw, 0.95rem);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: var(--charcoal-soft);
+      line-height: 1.55;
+      max-width: 60ch;
+    }
+
+    .accent {
+      color: var(--glacier-deep);
+    }
+
+    .metric-underline {
+      box-shadow: inset 0 -3px 0 var(--amber);
+      padding-bottom: 2px;
+    }
+
+    /* ---------- Slide-specific layouts ---------- */
+
+    .stack { display: flex; flex-direction: column; gap: clamp(1rem, 1.5vw, 1.75rem); }
+    .stack-tight { display: flex; flex-direction: column; gap: clamp(0.5rem, 0.8vw, 1rem); }
+    .stack-loose { display: flex; flex-direction: column; gap: clamp(2rem, 3vw, 3.5rem); }
+
+    .center-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: clamp(1.5rem, 2vw, 2.5rem);
+      max-width: 1200px;
+    }
+
+    .quote-slide {
+      justify-content: center;
+    }
+
+    .quote-text {
+      font-size: clamp(2rem, 4.5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: var(--charcoal);
+      max-width: 22ch;
+    }
+
+    /* ---------- Mechanism diagram (Case 1) ---------- */
+
+    .mech-diagram {
+      width: 100%;
+      max-width: 1100px;
+      aspect-ratio: 16 / 9;
+      margin-top: clamp(1rem, 2vw, 2.5rem);
+    }
+
+    /* ---------- Adoption arc visual ---------- */
+
+    .arc-stack {
+      display: flex;
+      align-items: flex-end;
+      gap: clamp(2rem, 4vw, 5rem);
+      margin-top: clamp(2rem, 3vw, 3.5rem);
+    }
+
+    .arc-step {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+
+    .arc-number {
+      font-family: var(--font-mono);
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-weight: 500;
+      color: var(--glacier-deep);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .arc-label {
+      font-family: var(--font-mono);
+      font-size: clamp(0.75rem, 1vw, 0.95rem);
+      letter-spacing: 0.06em;
+      color: var(--charcoal-soft);
+      text-transform: uppercase;
+    }
+
+    .arc-rule {
+      align-self: flex-end;
+      margin-bottom: clamp(1.5rem, 2.5vw, 3rem);
+      height: 1px;
+      width: clamp(2rem, 5vw, 5rem);
+      background: var(--border);
+    }
+
+    /* ---------- Outcomes typographic moment ---------- */
+
+    .metric-display {
+      font-size: clamp(6rem, 16vw, 18rem);
+      font-weight: 700;
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+      color: var(--charcoal);
+    }
+
+    .metric-display .unit {
+      color: var(--glacier-deep);
+    }
+
+    /* ---------- Routing diagram (Case 2) ---------- */
+
+    .routing-diagram {
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16 / 7;
+      margin-top: clamp(1rem, 2vw, 2.5rem);
+    }
+
+    /* ---------- Three-component diagram (Case 2 mechanism) ---------- */
+
+    .three-comp {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: clamp(1rem, 2vw, 2rem);
+      margin-top: clamp(2rem, 3vw, 3.5rem);
+      width: 100%;
+      max-width: 1300px;
+    }
+
+    .comp-card {
+      border: 1px solid var(--border);
+      padding: clamp(1.5rem, 2.5vw, 2.5rem);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .comp-num {
+      font-family: var(--font-mono);
+      font-size: clamp(0.7rem, 0.9vw, 0.85rem);
+      color: var(--glacier-deep);
+      letter-spacing: 0.14em;
+    }
+
+    .comp-title {
+      font-size: clamp(1.125rem, 1.8vw, 1.625rem);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--charcoal);
+      line-height: 1.2;
+    }
+
+    .comp-body {
+      font-size: clamp(0.875rem, 1.15vw, 1.1rem);
+      color: var(--charcoal-mid);
+      line-height: 1.5;
+    }
+
+    /* ---------- Title cards ---------- */
+
+    .title-card .label-tag {
+      margin-bottom: 1.5rem;
+    }
+
+    /* ---------- Navigation chrome ---------- */
+
+    .counter {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--charcoal-soft);
+      z-index: 100;
+      user-select: none;
+    }
+
+    .progress {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: var(--glacier-deep);
+      transition: width 200ms ease;
+      z-index: 100;
+    }
+
+    .help {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--charcoal-soft);
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 200ms ease;
+      user-select: none;
+    }
+
+    .help.show {
+      opacity: 1;
+    }
+
+    /* ---------- SVG diagram styling ---------- */
+
+    svg .stroke {
+      stroke: var(--charcoal-mid);
+      stroke-width: 1;
+      fill: none;
+    }
+
+    svg .stroke-accent {
+      stroke: var(--glacier-deep);
+      stroke-width: 1.5;
+      fill: none;
+    }
+
+    svg .stroke-soft {
+      stroke: var(--border);
+      stroke-width: 1;
+      fill: none;
+    }
+
+    svg text {
+      font-family: var(--font-sans);
+      fill: var(--charcoal);
+    }
+
+    svg text.label-text {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      fill: var(--charcoal-soft);
+      text-transform: uppercase;
+    }
+
+    svg text.node-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      fill: var(--charcoal);
+    }
+
+    svg text.node-sub {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      fill: var(--charcoal-soft);
+    }
+
+    svg text.arrow-out {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      fill: var(--charcoal);
+    }
+
+    svg .node-fill {
+      fill: var(--white);
+      stroke: var(--charcoal);
+      stroke-width: 1;
+    }
+
+    svg .node-fill-accent {
+      fill: var(--white);
+      stroke: var(--glacier-deep);
+      stroke-width: 1.5;
+    }
+
+    /* ---------- Reduced motion ---------- */
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide, .progress, .help {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck" id="deck">
+
+    <!-- ============ SLIDE 1 — Title card ============ -->
+    <section class="slide title-card">
+      <div class="center-stack">
+        <span class="label">Panel Round · June 3 · 2026</span>
+        <h1 class="display">Ian Cowpar</h1>
+        <p class="subtitle">
+          Senior Manager, AI Adoption &amp; Enablement
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 2 — Starbucks cold-open frame ============ -->
+    <section class="slide quote-slide">
+      <div class="center-stack">
+        <span class="label">A current frame</span>
+        <p class="quote-text">
+          &ldquo;The thought behind it was great, but the execution was proving difficult.&rdquo;
+        </p>
+        <p class="caption">
+          Starbucks employee note, on the retirement of the AI inventory system. May 2026.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 3 — Case 1 title card ============ -->
+    <section class="slide title-card">
+      <div class="center-stack">
+        <span class="label label-tag">Case Study 01</span>
+        <h2 class="display">The AI<br>Capability Layer</h2>
+        <p class="subtitle">
+          A peer community of twenty PMs. Built from zero. No top-down mandate.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 4 — Case 1 mechanism diagram ============ -->
+    <section class="slide">
+      <div class="stack">
+        <span class="label">The mechanism</span>
+        <h3 class="title">Shared infrastructure. Peer community. On-ramp ritual.</h3>
+
+        <svg class="mech-diagram" viewBox="0 0 1100 580" xmlns="http://www.w3.org/2000/svg" aria-label="Case 1 mechanism diagram">
+          <!-- Connecting lines (triangle) -->
+          <line x1="550" y1="160" x2="200" y2="460" class="stroke-accent" />
+          <line x1="550" y1="160" x2="900" y2="460" class="stroke-accent" />
+          <line x1="200" y1="460" x2="900" y2="460" class="stroke-accent" />
+
+          <!-- Center seed annotation -->
+          <circle cx="550" cy="360" r="6" fill="#5BA89E" />
+          <text x="570" y="365" class="node-sub">SEED · personal Claude Code productivity OS</text>
+
+          <!-- Top node: Peer community -->
+          <rect x="380" y="80" width="340" height="120" class="node-fill" rx="2" />
+          <text x="550" y="125" text-anchor="middle" class="node-title">Peer community</text>
+          <text x="550" y="160" text-anchor="middle" class="node-sub">twenty PMs · self-organizing · no roster</text>
+
+          <!-- Bottom left node: Shared infrastructure -->
+          <rect x="20" y="450" width="360" height="120" class="node-fill" rx="2" />
+          <text x="200" y="495" text-anchor="middle" class="node-title">Shared infrastructure</text>
+          <text x="200" y="530" text-anchor="middle" class="node-sub">slash commands · prompts · patterns</text>
+
+          <!-- Bottom right node: On-ramp ritual -->
+          <rect x="720" y="450" width="360" height="120" class="node-fill" rx="2" />
+          <text x="900" y="495" text-anchor="middle" class="node-title">On-ramp ritual</text>
+          <text x="900" y="530" text-anchor="middle" class="node-sub">15-min working session · first slash command</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 5 — Case 1 adoption arc ============ -->
+    <section class="slide">
+      <div class="stack">
+        <span class="label">The adoption arc</span>
+        <h3 class="title">From one workflow to twenty PMs running their own.</h3>
+
+        <div class="arc-stack">
+          <div class="arc-step">
+            <span class="arc-label">Seed</span>
+            <span class="arc-number">1</span>
+            <span class="caption" style="max-width: 18ch; margin-top: 0.5rem;">
+              Personal productivity OS. Twenty slash commands in active use.
+            </span>
+          </div>
+          <span class="arc-rule"></span>
+          <div class="arc-step">
+            <span class="arc-label">Founding peer group</span>
+            <span class="arc-number">3<span style="color: var(--charcoal-soft);">–</span>5</span>
+            <span class="caption" style="max-width: 18ch; margin-top: 0.5rem;">
+              Working cadence. Honest about what wasn't working. No decks.
+            </span>
+          </div>
+          <span class="arc-rule"></span>
+          <div class="arc-step">
+            <span class="arc-label">Community</span>
+            <span class="arc-number">20</span>
+            <span class="caption" style="max-width: 18ch; margin-top: 0.5rem;">
+              Custom libraries. Champions emerging without being assigned.
+            </span>
+          </div>
+        </div>
+
+        <p class="body" style="margin-top: clamp(2rem, 3vw, 3rem);">
+          First-command stickiness. Champion emergence. Workflow extinction.
+          Each PM&rsquo;s first slash command was the conversion mechanism;
+          the second one was the proof they were inside the community.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 6 — Case 1 outcomes (typographic) ============ -->
+    <section class="slide">
+      <div class="center-stack">
+        <span class="label">The outcomes</span>
+        <div class="metric-display">20<span class="unit"> PMs</span></div>
+        <p class="caption" style="max-width: 50ch;">
+          Twenty custom slash-command libraries. Multiple PMs became champions
+          without being assigned. Workflows retired, not workflows launched.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 7 — Case 1 principle ============ -->
+    <section class="slide quote-slide">
+      <div class="center-stack">
+        <span class="label">The measurement principle</span>
+        <p class="quote-text">
+          Adoption measured by what stopped, not what launched.
+        </p>
+        <p class="caption">
+          Extinction over addition. The only adoption that lasts is the kind
+          nobody had to order.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 8 — Case 2 title card ============ -->
+    <section class="slide title-card">
+      <div class="center-stack">
+        <span class="label label-tag">Case Study 02</span>
+        <h2 class="display">The UTA<br>Operating System</h2>
+        <p class="subtitle">
+          <span class="accent">$250M ARR</span> &middot; 300 customers &middot; one weekly decision.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 9 — Case 2 mechanism (three components) ============ -->
+    <section class="slide">
+      <div class="stack">
+        <span class="label">The mechanism</span>
+        <h3 class="title">Three components, one operating system.</h3>
+
+        <div class="three-comp">
+          <div class="comp-card">
+            <span class="comp-num">01</span>
+            <span class="comp-title">Composite ARR-risk model</span>
+            <span class="comp-body">
+              Top accounts scored on weighted exposure: ARR, case volume,
+              true-defect rate, sentiment. Replaced raw ticket counts with
+              weighted signal.
+            </span>
+          </div>
+          <div class="comp-card">
+            <span class="comp-num">02</span>
+            <span class="comp-title">Five-panel analytics product</span>
+            <span class="comp-body">
+              Opinionated by design. An embedded Claude Code function as the
+              routing layer surfaced the single highest-leverage action across
+              the panels.
+            </span>
+          </div>
+          <div class="comp-card">
+            <span class="comp-num">03</span>
+            <span class="comp-title">Weekly reporting cadence</span>
+            <span class="comp-body">
+              Automated. Delivered to the program lead every Monday morning.
+              Ranked list of what to look at this week and why.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 10 — Case 2 signal routing diagram ============ -->
+    <section class="slide">
+      <div class="stack">
+        <span class="label">The signal routing</span>
+        <h3 class="title">Five panels in. One ranked action out.</h3>
+
+        <svg class="routing-diagram" viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg" aria-label="Signal routing diagram">
+          <!-- Left labels -->
+          <g transform="translate(20, 80)">
+            <text x="0" y="20" class="node-title">Customer escalations</text>
+            <text x="0" y="100" class="node-title">Code defects</text>
+            <text x="0" y="180" class="node-title">Internal bugs</text>
+            <text x="0" y="260" class="node-title">CVEs</text>
+            <text x="0" y="340" class="node-title">Noise</text>
+          </g>
+
+          <!-- Connecting lines into routing box -->
+          <line x1="320" y1="95" x2="620" y2="260" class="stroke-soft" />
+          <line x1="240" y1="175" x2="620" y2="260" class="stroke-soft" />
+          <line x1="225" y1="255" x2="620" y2="260" class="stroke-soft" />
+          <line x1="130" y1="335" x2="620" y2="260" class="stroke-soft" />
+          <line x1="135" y1="415" x2="620" y2="260" class="stroke-soft" />
+
+          <!-- Routing function (center) -->
+          <rect x="620" y="220" width="240" height="90" class="node-fill-accent" rx="2" />
+          <text x="740" y="252" text-anchor="middle" class="node-sub">EMBEDDED CLAUDE CODE</text>
+          <text x="740" y="285" text-anchor="middle" class="node-title">routing function</text>
+
+          <!-- Arrow to output -->
+          <line x1="860" y1="265" x2="1020" y2="265" class="stroke-accent" />
+          <polygon points="1020,260 1035,265 1020,270" fill="#5BA89E" />
+
+          <!-- Output -->
+          <text x="1055" y="262" class="arrow-out">The one action</text>
+          <text x="1055" y="290" class="arrow-out">this week.</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 11 — Case 2 outcomes (typographic) ============ -->
+    <section class="slide">
+      <div class="center-stack">
+        <span class="label">The outcomes</span>
+        <div class="metric-display"><span class="unit">~</span>$50M</div>
+        <p class="caption" style="max-width: 60ch;">
+          in at-risk ARR surfaced before escalation.
+          Working defect list cut <span class="metric-underline">~97%</span>.
+          A weekly cadence the program lead actually acted on.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 12 — Case 2 principle / close ============ -->
+    <section class="slide quote-slide">
+      <div class="center-stack">
+        <span class="label">The measurement principle</span>
+        <p class="quote-text">
+          The system&rsquo;s value was measured by whether decisions changed.
+        </p>
+        <p class="caption">
+          Not whether the dashboard had users. Not whether adoption metrics were green.
+          Whether the program lead made different calls than they would have without the tool.
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ---------- Navigation chrome ---------- -->
+  <div class="counter" id="counter">01 / 12</div>
+  <div class="progress" id="progress" style="width: 8.33%"></div>
+  <div class="help" id="help">
+    ←/→ navigate &nbsp;·&nbsp; F fullscreen &nbsp;·&nbsp; ? toggle help
+  </div>
+
+  <script>
+    (() => {
+      const slides = document.querySelectorAll('.slide');
+      const counter = document.getElementById('counter');
+      const progress = document.getElementById('progress');
+      const help = document.getElementById('help');
+      const total = slides.length;
+      let current = 0;
+      let helpTimeout;
+
+      const totalStr = String(total).padStart(2, '0');
+
+      function showSlide(idx) {
+        idx = Math.max(0, Math.min(total - 1, idx));
+        slides[current].classList.remove('active');
+        slides[idx].classList.add('active');
+        current = idx;
+        counter.textContent = `${String(idx + 1).padStart(2, '0')} / ${totalStr}`;
+        progress.style.width = `${((idx + 1) / total) * 100}%`;
+        history.replaceState(null, '', `#${idx + 1}`);
+      }
+
+      function next() { showSlide(current + 1); }
+      function prev() { showSlide(current - 1); }
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen?.();
+        } else {
+          document.exitFullscreen?.();
+        }
+      }
+
+      function flashHelp() {
+        help.classList.add('show');
+        clearTimeout(helpTimeout);
+        helpTimeout = setTimeout(() => help.classList.remove('show'), 2500);
+      }
+
+      document.addEventListener('keydown', (e) => {
+        switch (e.key) {
+          case 'ArrowRight':
+          case ' ':
+          case 'PageDown':
+            e.preventDefault();
+            next();
+            break;
+          case 'ArrowLeft':
+          case 'PageUp':
+            e.preventDefault();
+            prev();
+            break;
+          case 'Home':
+            e.preventDefault();
+            showSlide(0);
+            break;
+          case 'End':
+            e.preventDefault();
+            showSlide(total - 1);
+            break;
+          case 'f':
+          case 'F':
+            e.preventDefault();
+            toggleFullscreen();
+            break;
+          case '?':
+            e.preventDefault();
+            flashHelp();
+            break;
+        }
+      });
+
+      // Click to advance (but not on links / buttons)
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('a, button')) return;
+        next();
+      });
+
+      // Initialize from hash if present
+      const hashSlide = parseInt(location.hash.replace('#', ''), 10);
+      if (!isNaN(hashSlide) && hashSlide >= 1 && hashSlide <= total) {
+        showSlide(hashSlide - 1);
+      } else {
+        slides[0].classList.add('active');
+      }
+
+      // Flash help on first load
+      flashHelp();
+    })();
+  </script>
+
+</body>
+</html>
