@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Adoption Operating Mechanism — Ian Cowpar</title>
+  <meta name="description" content="An illustrative operating mechanism for tracking AI adoption — across the three phases of rollout, behavior change, and reporting.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --charcoal: #0B1220;
+      --charcoal-mid: #3A4258;
+      --charcoal-soft: #6B7280;
+      --glacier: #7CC0B8;
+      --glacier-deep: #5BA89E;
+      --glacier-soft: #D8EBE8;
+      --amber: #F59E0B;
+      --amber-soft: #FEF3C7;
+      --indigo: #4338CA;
+      --white: #FFFFFF;
+      --surface-soft: #F7F7F5;
+      --border: #E5E5E2;
+      --green: #16A34A;
+      --yellow: #CA8A04;
+
+      --font-sans: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--charcoal);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      line-height: 1.5;
+    }
+
+    ::selection { background: var(--glacier); color: var(--charcoal); }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--indigo);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ---------- Layout ---------- */
+
+    header.page-head {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 3vw, 3rem) clamp(2rem, 4vw, 3rem);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 3vw, 3rem);
+    }
+
+    section + section {
+      border-top: 1px solid var(--border);
+    }
+
+    /* ---------- Type ---------- */
+
+    .label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--glacier-deep);
+    }
+
+    h1.title {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--charcoal);
+      margin-top: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    h2.section-title {
+      font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: var(--charcoal);
+      margin-top: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    p.intro {
+      font-size: clamp(1rem, 1.2vw, 1.125rem);
+      color: var(--charcoal-mid);
+      max-width: 60ch;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-head {
+      margin-bottom: clamp(2rem, 3vw, 3rem);
+    }
+
+    /* ---------- Sticky nav ---------- */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      z-index: 10;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem clamp(1.5rem, 3vw, 3rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-brand {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--charcoal-soft);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: clamp(1rem, 2vw, 2rem);
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--charcoal-soft);
+      padding: 0.25rem 0;
+      border-bottom: 1px solid transparent;
+      transition: color 180ms ease, border-color 180ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--charcoal);
+      border-bottom-color: var(--glacier-deep);
+    }
+
+    /* ---------- Components ---------- */
+
+    .grid {
+      display: grid;
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+    }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    @media (max-width: 760px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      padding: clamp(1.25rem, 2vw, 1.75rem);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      background: var(--white);
+    }
+
+    .card.feature {
+      grid-column: span 2;
+      padding: clamp(1.75rem, 3vw, 2.5rem);
+    }
+
+    @media (max-width: 760px) {
+      .card.feature { grid-column: span 1; }
+    }
+
+    .card-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--charcoal-soft);
+    }
+
+    .card-metric {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: var(--charcoal);
+      margin: 0.4rem 0 0.25rem;
+    }
+
+    .card-metric .unit {
+      color: var(--glacier-deep);
+      font-size: 0.6em;
+      font-weight: 500;
+      margin-left: 0.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .card-sub {
+      font-size: 0.9rem;
+      color: var(--charcoal-mid);
+      line-height: 1.45;
+    }
+
+    .card-detail {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--charcoal-soft);
+      margin-top: auto;
+      padding-top: 0.5rem;
+    }
+
+    /* ---------- Funnel ---------- */
+
+    .funnel {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin-top: 1rem;
+    }
+
+    .funnel-step {
+      flex: 1;
+      padding: 1rem 1.25rem;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+
+    .funnel-step:last-child {
+      border-right: none;
+    }
+
+    .funnel-num {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--glacier-deep);
+      letter-spacing: 0.1em;
+    }
+
+    .funnel-val {
+      font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--charcoal);
+      line-height: 1.05;
+      margin: 0.25rem 0;
+    }
+
+    .funnel-label {
+      font-size: 0.8rem;
+      color: var(--charcoal-mid);
+      line-height: 1.35;
+    }
+
+    /* ---------- Workflow grid ---------- */
+
+    .workflow-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .workflow-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.85rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .workflow-row:first-child {
+      border-top: none;
+    }
+
+    .workflow-num {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--charcoal-soft);
+      letter-spacing: 0.04em;
+    }
+
+    .workflow-name {
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      font-weight: 500;
+    }
+
+    .workflow-meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--charcoal-soft);
+    }
+
+    /* ---------- Status pill ---------- */
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .pill.green .pill-dot { background: var(--green); }
+    .pill.yellow .pill-dot { background: var(--yellow); }
+    .pill.glacier .pill-dot { background: var(--glacier-deep); }
+    .pill.amber .pill-dot { background: var(--amber); }
+
+    /* ---------- Bar chart ---------- */
+
+    .bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+
+    .bar-row-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .bar-row-label {
+      font-size: 0.875rem;
+      color: var(--charcoal);
+      font-weight: 500;
+    }
+
+    .bar-row-value {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--charcoal-soft);
+    }
+
+    .bar-row-track {
+      position: relative;
+      height: 8px;
+      background: var(--surface-soft);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+
+    .bar-row-track::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      background: var(--charcoal-soft);
+      opacity: 0.25;
+      width: var(--before, 80%);
+    }
+
+    .bar-row-track::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      background: var(--glacier-deep);
+      width: var(--after, 30%);
+    }
+
+    /* ---------- ROI chart ---------- */
+
+    .roi-chart {
+      width: 100%;
+      height: clamp(180px, 24vw, 260px);
+      margin-top: 1rem;
+    }
+
+    /* ---------- Quote slab ---------- */
+
+    .principle {
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+    }
+
+    .principle-text {
+      font-size: clamp(1.125rem, 1.6vw, 1.5rem);
+      font-weight: 500;
+      color: var(--charcoal);
+      letter-spacing: -0.015em;
+      line-height: 1.35;
+      max-width: 55ch;
+    }
+
+    .principle-sub {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--charcoal-soft);
+      margin-top: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ---------- Footer ---------- */
+
+    footer.page-foot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem clamp(1.5rem, 3vw, 3rem) 3rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--charcoal-soft);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ---------- Sticky nav ---------- -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <span class="nav-brand">AI Adoption Operating Mechanism</span>
+      <ul class="nav-links">
+        <li><a href="#adoption">01 / Adoption</a></li>
+        <li><a href="#behavior">02 / Behavior change</a></li>
+        <li><a href="#reporting">03 / Reporting</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ---------- Page header ---------- -->
+  <header class="page-head">
+    <span class="label">An illustrative operating system</span>
+    <h1 class="title">How adoption looks when it&rsquo;s instrumented.</h1>
+    <p class="intro">
+      The operating mechanism underneath an AI adoption program. Three views,
+      one running system: where the program lives, what actually shifted, what
+      it&rsquo;s worth. Numbers are illustrative, drawn from the shape of an
+      AI capability layer deployed across twenty product managers.
+    </p>
+  </header>
+
+  <!-- ============ SECTION 01 — Adoption ============ -->
+  <section id="adoption" class="container">
+    <div class="section-head">
+      <span class="label">01 / Adoption</span>
+      <h2 class="section-title">Where the program lives.</h2>
+      <p class="intro">
+        How many people are inside the system. What they&rsquo;re doing. How
+        they&rsquo;re growing into it. Activity is the first signal — not the
+        last.
+      </p>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card feature">
+        <span class="card-label">Adoption funnel · past 30 days</span>
+        <div class="funnel">
+          <div class="funnel-step">
+            <span class="funnel-num">ONBOARDED</span>
+            <div class="funnel-val">20</div>
+            <div class="funnel-label">PMs with shared infrastructure access</div>
+          </div>
+          <div class="funnel-step">
+            <span class="funnel-num">ACTIVE</span>
+            <div class="funnel-val">12</div>
+            <div class="funnel-label">Used a command in the past 30 days</div>
+          </div>
+          <div class="funnel-step">
+            <span class="funnel-num">BUILDERS</span>
+            <div class="funnel-val">7</div>
+            <div class="funnel-label">Authored their own slash commands</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-label">First &rarr; second command</span>
+        <div class="card-metric">73<span class="unit">%</span></div>
+        <p class="card-sub">
+          PMs who built a second command within two weeks of their first.
+          The conversion mechanism that turns curious into committed.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-3" style="margin-top: 1.25rem;">
+      <div class="card">
+        <span class="card-label">Workflow coverage</span>
+        <div class="card-metric">12<span class="unit"> / 18</span></div>
+        <p class="card-sub">
+          PM workflows where at least one team member has an active AI
+          command. Coverage growing month over month.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Champion network</span>
+        <div class="card-metric">3</div>
+        <p class="card-sub">
+          PMs who&rsquo;ve carried adoption laterally without being assigned —
+          authoring shared commands and onboarding peers.
+        </p>
+        <span class="card-detail">Sarah · Marcus · Priya</span>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Weekly cadence</span>
+        <div class="card-metric">1<span class="unit">/wk</span></div>
+        <p class="card-sub">
+          Working peer-group session. Honest about what&rsquo;s landing and
+          what isn&rsquo;t. No slide decks.
+        </p>
+      </div>
+    </div>
+
+    <div class="principle" style="margin-top: 1.75rem;">
+      <p class="principle-text">
+        Activity is a leading indicator. Adoption is what people <em>stop</em>
+        doing once the new way works.
+      </p>
+      <p class="principle-sub">Section 02 measures that.</p>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 02 — Behavior change ============ -->
+  <section id="behavior" class="container">
+    <div class="section-head">
+      <span class="label">02 / Behavior change</span>
+      <h2 class="section-title">What actually shifted.</h2>
+      <p class="intro">
+        Adoption measured by what stopped, not what launched. Workflows
+        retired. Time-on-task collapsed. The fallback principle held.
+      </p>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <span class="card-label">Workflows retired</span>
+        <div class="card-metric">8</div>
+        <p class="card-sub">
+          Manual workflows that no longer happen the old way for the PMs who
+          adopted them. Counted only when extinction is sustained &gt;30 days.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Tuesday Test pass rate</span>
+        <div class="card-metric">4<span class="unit"> / 5</span></div>
+        <p class="card-sub">
+          Of five workflows surveyed, four show sustained behavior change.
+          One is still partial — some PMs still doing it manually.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Fallback compliance</span>
+        <div class="card-metric">100<span class="unit">%</span></div>
+        <p class="card-sub">
+          If the AI fails, the work still ships. No critical-path
+          dependency on a single LLM call.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top: 1.25rem;">
+      <div class="card">
+        <span class="card-label">Workflows retired · this quarter</span>
+        <div class="workflow-list">
+          <div class="workflow-row">
+            <span class="workflow-num">01</span>
+            <span class="workflow-name">Customer feedback synthesis (weekly)</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">02</span>
+            <span class="workflow-name">Status report assembly</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">03</span>
+            <span class="workflow-name">Cross-product roadmap deconfliction</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">04</span>
+            <span class="workflow-name">Quarterly retrospective synthesis</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">05</span>
+            <span class="workflow-name">Customer escalation framing</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">06</span>
+            <span class="workflow-name">Persona research compilation</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">07</span>
+            <span class="workflow-name">Competitive teardown drafting</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">08</span>
+            <span class="workflow-name">Stakeholder update drafting</span>
+            <span class="pill yellow"><span class="pill-dot"></span>Partial</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Time-on-task · top 5 workflows</span>
+        <p class="card-sub" style="margin-bottom: 0.5rem;">
+          Median minutes per execution. Grey = before. Glacier = after.
+        </p>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <div class="bar-row-head">
+              <span class="bar-row-label">Customer feedback synthesis</span>
+              <span class="bar-row-value">180 &rarr; 22 min</span>
+            </div>
+            <div class="bar-row-track" style="--before: 100%; --after: 12%;"></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-row-head">
+              <span class="bar-row-label">Status report assembly</span>
+              <span class="bar-row-value">60 &rarr; 8 min</span>
+            </div>
+            <div class="bar-row-track" style="--before: 100%; --after: 13%;"></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-row-head">
+              <span class="bar-row-label">Competitive teardown drafting</span>
+              <span class="bar-row-value">240 &rarr; 45 min</span>
+            </div>
+            <div class="bar-row-track" style="--before: 100%; --after: 19%;"></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-row-head">
+              <span class="bar-row-label">Quarterly retrospective</span>
+              <span class="bar-row-value">120 &rarr; 30 min</span>
+            </div>
+            <div class="bar-row-track" style="--before: 100%; --after: 25%;"></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-row-head">
+              <span class="bar-row-label">Persona research compilation</span>
+              <span class="bar-row-value">150 &rarr; 24 min</span>
+            </div>
+            <div class="bar-row-track" style="--before: 100%; --after: 16%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="principle" style="margin-top: 1.75rem;">
+      <p class="principle-text">
+        Adoption measured by what stopped, not what launched. Extinction over
+        addition.
+      </p>
+      <p class="principle-sub">The measurement principle behind everything in section 02.</p>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 03 — Reporting ============ -->
+  <section id="reporting" class="container">
+    <div class="section-head">
+      <span class="label">03 / Reporting</span>
+      <h2 class="section-title">What it&rsquo;s worth.</h2>
+      <p class="intro">
+        Unit economics. Cost per active user. Hours saved per tooling dollar.
+        The defensible numbers that turn an adoption program into a budget
+        line.
+      </p>
+    </div>
+
+    <div class="grid grid-4">
+      <div class="card">
+        <span class="card-label">Tooling spend</span>
+        <div class="card-metric">$400<span class="unit">/mo</span></div>
+        <p class="card-sub">20 seats &times; $20/seat. The fixed input.</p>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Hours saved</span>
+        <div class="card-metric">156<span class="unit">/mo</span></div>
+        <p class="card-sub">Across 12 active users. ~13 hours per active user.</p>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Cost per hour saved</span>
+        <div class="card-metric">$2.56</div>
+        <p class="card-sub">The unit cost of one hour of PM time recovered.</p>
+      </div>
+
+      <div class="card">
+        <span class="card-label">ROI multiplier</span>
+        <div class="card-metric">39<span class="unit">x</span></div>
+        <p class="card-sub">
+          Value-to-cost ratio at fully-loaded PM rate ($100/hr). Reported
+          conservatively.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top: 1.25rem;">
+      <div class="card">
+        <span class="card-label">Cost vs. value · monthly trend</span>
+        <p class="card-sub">
+          Grey = tooling spend. Glacier = value of hours saved at $100/hr
+          fully-loaded PM rate.
+        </p>
+        <svg class="roi-chart" viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" aria-label="ROI trend chart">
+          <!-- Grid lines -->
+          <line x1="40" y1="40" x2="580" y2="40" stroke="#E5E5E2" stroke-width="1" stroke-dasharray="2,4" />
+          <line x1="40" y1="100" x2="580" y2="100" stroke="#E5E5E2" stroke-width="1" stroke-dasharray="2,4" />
+          <line x1="40" y1="160" x2="580" y2="160" stroke="#E5E5E2" stroke-width="1" stroke-dasharray="2,4" />
+          <line x1="40" y1="220" x2="580" y2="220" stroke="#E5E5E2" stroke-width="1" />
+
+          <!-- Cost line (low, mostly flat) -->
+          <polyline points="60,212 150,210 240,208 330,208 420,206 510,205 570,205"
+                    fill="none" stroke="#6B7280" stroke-width="1.5" opacity="0.5" />
+
+          <!-- Value line (growing) -->
+          <polyline points="60,200 150,178 240,148 330,118 420,88 510,62 570,52"
+                    fill="none" stroke="#5BA89E" stroke-width="2" />
+
+          <!-- Dots on value line -->
+          <circle cx="60" cy="200" r="3" fill="#5BA89E" />
+          <circle cx="150" cy="178" r="3" fill="#5BA89E" />
+          <circle cx="240" cy="148" r="3" fill="#5BA89E" />
+          <circle cx="330" cy="118" r="3" fill="#5BA89E" />
+          <circle cx="420" cy="88" r="3" fill="#5BA89E" />
+          <circle cx="510" cy="62" r="3" fill="#5BA89E" />
+          <circle cx="570" cy="52" r="3" fill="#5BA89E" />
+
+          <!-- X axis labels -->
+          <text x="60" y="232" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="middle">M1</text>
+          <text x="150" y="232" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="middle">M2</text>
+          <text x="240" y="232" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="middle">M3</text>
+          <text x="330" y="232" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="middle">M4</text>
+          <text x="420" y="232" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="middle">M5</text>
+          <text x="510" y="232" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="middle">M6</text>
+          <text x="570" y="232" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="middle">NOW</text>
+
+          <!-- Y axis labels -->
+          <text x="32" y="44" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="end">$20K</text>
+          <text x="32" y="104" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="end">$15K</text>
+          <text x="32" y="164" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="end">$10K</text>
+          <text x="32" y="224" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="end">$0</text>
+        </svg>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Cumulative value · running total</span>
+        <div class="card-metric" style="margin-bottom: 1rem;">$94<span class="unit">,200</span></div>
+        <p class="card-sub" style="margin-bottom: 1rem;">
+          Value-equivalent of hours recovered across the program to date.
+          Calculated conservatively at $100/hr fully-loaded.
+        </p>
+        <div class="workflow-list">
+          <div class="workflow-row">
+            <span class="workflow-num">RATE</span>
+            <span class="workflow-name">$100 / hour fully-loaded</span>
+            <span class="workflow-meta">PM rate</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">HOURS</span>
+            <span class="workflow-name">942 cumulative hours saved</span>
+            <span class="workflow-meta">since M1</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">SPEND</span>
+            <span class="workflow-name">$2,400 cumulative tooling</span>
+            <span class="workflow-meta">6 months</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">NET</span>
+            <span class="workflow-name">$91,800 net value</span>
+            <span class="workflow-meta">value minus spend</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="principle" style="margin-top: 1.75rem;">
+      <p class="principle-text">
+        The system&rsquo;s value is measured by whether decisions changed.
+        ROI follows when the measurement does.
+      </p>
+      <p class="principle-sub">Reporting is a discipline, not an artifact.</p>
+    </div>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer class="page-foot">
+    <span>Illustrative model · Ian Cowpar · May 2026</span>
+    <span>theunofficialleader.substack.com</span>
+  </footer>
+
+</body>
+</html>
