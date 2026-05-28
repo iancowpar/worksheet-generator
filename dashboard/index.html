@@ -834,16 +834,18 @@
       </div>
 
       <div class="card">
-        <span class="card-label">Why workflows-and-onboards, not tokens</span>
+        <span class="card-label">Why it celebrates, doesn&rsquo;t rank everyone</span>
         <p class="card-sub">
-          A leaderboard ranking token usage rewards activity, not change.
-          It also incentivizes the wrong behavior at the FinOps level.
+          This board shows the top contributors only &mdash; it
+          doesn&rsquo;t publish a bottom. Nobody is shamed by their
+          position on a list. Participation in the board is opt-in, and
+          it ranks the two things that signal real value: workflows
+          retired (behavior change) and peers onboarded (network effect).
         </p>
         <p class="card-sub" style="margin-top: 0.6rem;">
-          The leaderboard here ranks two things: workflows the member
-          retired (behavior change) and peers they onboarded (network
-          effect). Both are durable signals that the program is
-          producing value rather than just consuming tokens.
+          Token usage isn&rsquo;t on it. A board that rewards volume
+          rewards noise &mdash; and incentivizes exactly the runaway
+          spend FinOps is trying to contain.
         </p>
       </div>
     </div>
@@ -851,12 +853,14 @@
     <div class="pmm-hook">
       <span class="pmm-label">PMM hook</span>
       <p class="pmm-text">
-        Our cross-functional AI program has reached 80 team members across
-        product, engineering, and cloud &mdash; with 65% active in the past
-        30 days and three peer-led champions carrying adoption laterally.
+        Eighty people across product, engineering, and cloud are building
+        with AI as part of their actual work, with peer-led champions
+        carrying adoption laterally instead of a mandate pushing it down.
       </p>
       <p class="pmm-sub">
-        The highest-leverage line for external messaging from this section.
+        Audience: internal / talent brand. (The raw 52-of-80 active figure
+        stays internal &mdash; a denominator is for operators, not for
+        customers.)
       </p>
     </div>
 
@@ -902,11 +906,12 @@
       </div>
 
       <div class="card">
-        <span class="card-label">Fallback compliance</span>
-        <div class="card-metric">100<span class="unit">%</span></div>
+        <span class="card-label">Tried and lapsed</span>
+        <div class="card-metric">11</div>
         <p class="card-sub">
-          If the AI fails, the work still ships. No critical-path
-          dependency on a single LLM call. Audited monthly.
+          Members who adopted a command and then went back to the old
+          way. The honest denominator &mdash; tracked deliberately,
+          because the lapses are where the next iteration comes from.
         </p>
       </div>
     </div>
@@ -1041,6 +1046,44 @@
       </div>
     </div>
 
+    <div class="grid grid-2" style="margin-top: 1.25rem;">
+      <div class="card">
+        <span class="card-label">How this is measured</span>
+        <p class="card-sub">
+          Time-on-task is sampled, not self-reported &mdash; paired
+          before/after timings on the same task for the same person,
+          median of at least five executions per workflow. A workflow
+          counts as &ldquo;retired&rdquo; only when the old method
+          hasn&rsquo;t been used in 30+ days, verified against actual
+          tool logs, not a survey.
+        </p>
+        <p class="card-sub" style="margin-top: 0.6rem;">
+          <strong style="color: var(--charcoal); font-weight: 500;">Fallback
+          by design:</strong> every workflow keeps a non-AI path. If the
+          model is wrong or unavailable, the work still ships. No
+          critical task sits on a single LLM call.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="card-label">What didn&rsquo;t work</span>
+        <p class="card-sub">
+          Stakeholder update drafting stalled &mdash; four members went
+          back to writing them by hand, citing tone control. Cloud
+          onboarding flattened for two weeks on a single-champion
+          bottleneck. And the first version of the leaderboard ranked
+          command <em>volume</em>, which rewarded noise; we retired that
+          metric within a week.
+        </p>
+        <p class="card-sub" style="margin-top: 0.6rem; border-top: 1px solid var(--border); padding-top: 0.6rem; font-style: italic; color: var(--charcoal);">
+          &ldquo;I ignored it for a month. Then Marcus showed me the
+          runbook command on a Tuesday and I never wrote one by hand
+          again.&rdquo;
+          <span style="font-style: normal; color: var(--charcoal-soft); font-family: var(--font-mono); font-size: 0.72rem; display: block; margin-top: 0.4rem;">&mdash; Platform engineer, month 3</span>
+        </p>
+      </div>
+    </div>
+
     <div class="pmm-hook">
       <span class="pmm-label">PMM hook</span>
       <p class="pmm-text">
@@ -1049,7 +1092,9 @@
         system is replacing manual work, not adding to it.
       </p>
       <p class="pmm-sub">
-        The highest-leverage line for external messaging from this section.
+        Audience: customer-facing. The credibility line &mdash; the one
+        that lets Deltek say &ldquo;we run our own AI the way we tell
+        customers to run theirs.&rdquo;
       </p>
     </div>
 
@@ -1076,31 +1121,49 @@
 
     <div class="grid grid-4">
       <div class="card">
-        <span class="card-label">Tooling spend</span>
-        <div class="card-metric">$1,600<span class="unit">/mo</span></div>
-        <p class="card-sub">80 seats &times; $20/seat. The fixed input.</p>
-      </div>
-
-      <div class="card">
-        <span class="card-label">Hours saved</span>
-        <div class="card-metric">580<span class="unit">/mo</span></div>
-        <p class="card-sub">Across 52 active users. ~11 hours per active user.</p>
-      </div>
-
-      <div class="card">
-        <span class="card-label">Cost per hour saved</span>
-        <div class="card-metric">$2.76</div>
-        <p class="card-sub">The unit cost of one hour of fully-loaded time recovered.</p>
-      </div>
-
-      <div class="card">
-        <span class="card-label">ROI multiplier</span>
-        <div class="card-metric">40<span class="unit">x</span></div>
+        <span class="card-label">Tooling spend · all-in</span>
+        <div class="card-metric">$2,400<span class="unit">/mo</span></div>
         <p class="card-sub">
-          Value-to-cost ratio at blended fully-loaded rate ($110/hr).
-          Reported conservatively.
+          $1,600 in seats ($20 &times; 80) plus ~$800 variable token
+          spend. The variable line is the one that scales with usage &mdash;
+          it&rsquo;s capped per function and watched monthly.
         </p>
       </div>
+
+      <div class="card">
+        <span class="card-label">Hours recovered</span>
+        <div class="card-metric">580<span class="unit">/mo</span></div>
+        <p class="card-sub">Across 52 active users. ~11 hours per active user, sampled not self-reported.</p>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Cost per hour recovered</span>
+        <div class="card-metric">$4.14</div>
+        <p class="card-sub">All-in monthly cost &divide; hours recovered. The honest unit cost, with token spend included.</p>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Capacity redeployed</span>
+        <div class="card-metric">3.4<span class="unit"> FTE</span></div>
+        <p class="card-sub">
+          580 hours/mo is roughly 3.4 full-time-equivalents of capacity
+          returned to higher-leverage work &mdash; not headcount removed.
+        </p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 1.25rem;">
+      <span class="card-label">The honest version of &ldquo;value&rdquo;</span>
+      <p class="card-sub" style="max-width: 75ch;">
+        Recovered hours are <strong style="color: var(--charcoal); font-weight: 500;">redeployed capacity, not banked cash.</strong>
+        The dollar figures below express that capacity at fully-loaded
+        rates as a <em>proxy for what the time is worth</em> &mdash; they
+        are not a claim that any budget line went down. The value is real
+        when the recovered hours go to higher-leverage work: shipping
+        sooner, deeper customer discovery, fewer escalations. That&rsquo;s
+        the test, and it&rsquo;s the question worth asking of any
+        productivity claim, including this one.
+      </p>
     </div>
 
     <div class="grid grid-3" style="margin-top: 1.25rem;">
@@ -1128,8 +1191,9 @@
           </div>
         </div>
         <span class="card-detail" style="margin-top: 0.5rem;">
-          Engineering carries the largest dollar return. PM and Cloud
-          comparable in absolute value despite headcount difference.
+          Spend shown is seat allocation; value is capacity-proxy at
+          fully-loaded rates. Engineering carries the largest return on
+          both headcount and per-task velocity.
         </span>
       </div>
 
@@ -1246,32 +1310,34 @@
       </div>
 
       <div class="card">
-        <span class="card-label">Cumulative value · running total</span>
-        <div class="card-metric" style="margin-bottom: 1rem;">$361<span class="unit">,200</span></div>
+        <span class="card-label">Cumulative capacity · proxy value</span>
+        <div class="card-metric" style="margin-bottom: 1rem;">3,284<span class="unit"> hrs</span></div>
         <p class="card-sub" style="margin-bottom: 1rem;">
-          Value-equivalent of hours recovered across the program to date.
-          Calculated conservatively at $110/hr blended fully-loaded.
+          Hours recovered across the program to date. At a blended
+          fully-loaded rate of $110/hr, that&rsquo;s ~$361K of
+          capacity-equivalent &mdash; redeployed, not banked. The number
+          that matters is what the time was spent on next.
         </p>
         <div class="workflow-list">
           <div class="workflow-row">
-            <span class="workflow-num">RATE</span>
-            <span class="workflow-name">$110 / hour blended fully-loaded</span>
-            <span class="workflow-meta">all functions</span>
-          </div>
-          <div class="workflow-row">
             <span class="workflow-num">HOURS</span>
-            <span class="workflow-name">3,284 cumulative hours saved</span>
+            <span class="workflow-name">3,284 cumulative hours recovered</span>
             <span class="workflow-meta">since M1</span>
           </div>
           <div class="workflow-row">
-            <span class="workflow-num">SPEND</span>
-            <span class="workflow-name">$9,600 cumulative tooling</span>
+            <span class="workflow-num">PROXY</span>
+            <span class="workflow-name">~$361K capacity-equivalent</span>
+            <span class="workflow-meta">@ $110/hr</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">COST</span>
+            <span class="workflow-name">$14,400 all-in (seats + tokens)</span>
             <span class="workflow-meta">6 months</span>
           </div>
           <div class="workflow-row">
-            <span class="workflow-num">NET</span>
-            <span class="workflow-name">$351,600 net value</span>
-            <span class="workflow-meta">value minus spend</span>
+            <span class="workflow-num">TEST</span>
+            <span class="workflow-name">Did the recovered time ship value?</span>
+            <span class="workflow-meta">the real KPI</span>
           </div>
         </div>
       </div>
@@ -1280,13 +1346,14 @@
     <div class="pmm-hook">
       <span class="pmm-label">PMM hook</span>
       <p class="pmm-text">
-        $2.76 cost per hour of fully-loaded time recovered. 40x return on
-        tooling spend. The unit economics are defensible at the same
-        rigor as cloud spend &mdash; because they&rsquo;re measured the
-        same way.
+        We govern AI adoption with the same rigor as cloud spend &mdash;
+        all-in cost, capacity attribution, variable-token ceilings, and an
+        honest line between redeployed capacity and banked savings.
       </p>
       <p class="pmm-sub">
-        The highest-leverage line for external messaging from this section.
+        Audience: board / executive. The line that says this is run by
+        someone who knows the difference between a productivity claim and
+        a real one.
       </p>
     </div>
 
