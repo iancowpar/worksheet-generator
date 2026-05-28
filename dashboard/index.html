@@ -445,6 +445,195 @@
       letter-spacing: 0.04em;
     }
 
+    /* ---------- PMM hook card ---------- */
+
+    .pmm-hook {
+      border: 1px solid var(--glacier-deep);
+      background: var(--white);
+      padding: clamp(1.25rem, 2vw, 1.75rem);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+    }
+
+    .pmm-hook::before {
+      content: '';
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      bottom: -1px;
+      width: 3px;
+      background: var(--glacier-deep);
+    }
+
+    .pmm-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--glacier-deep);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pmm-label::after {
+      content: 'for the story';
+      color: var(--charcoal-soft);
+      font-weight: 400;
+      letter-spacing: 0.06em;
+    }
+
+    .pmm-text {
+      font-size: clamp(0.95rem, 1.2vw, 1.125rem);
+      color: var(--charcoal);
+      line-height: 1.45;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+    }
+
+    .pmm-sub {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--charcoal-soft);
+      letter-spacing: 0.04em;
+    }
+
+    /* ---------- Leaderboard ---------- */
+
+    .leaderboard {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lb-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      gap: 0.85rem;
+      align-items: center;
+      padding: 0.7rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .lb-row:first-child {
+      border-top: none;
+    }
+
+    .lb-rank {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--glacier-deep);
+      letter-spacing: 0.04em;
+      font-weight: 500;
+      min-width: 1.5rem;
+    }
+
+    .lb-name {
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      font-weight: 500;
+    }
+
+    .lb-fn {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--charcoal-soft);
+      letter-spacing: 0.06em;
+    }
+
+    .lb-score {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--charcoal);
+      font-weight: 500;
+    }
+
+    /* ---------- Ask widget ---------- */
+
+    .ask {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 3vw, 3rem);
+      border-top: 1px solid var(--border);
+    }
+
+    .ask-head {
+      margin-bottom: clamp(1.5rem, 2.5vw, 2rem);
+    }
+
+    .ask-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .ask-item {
+      border: 1px solid var(--border);
+      padding: clamp(1.25rem, 2vw, 1.75rem);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .ask-q {
+      display: flex;
+      align-items: baseline;
+      gap: 0.65rem;
+    }
+
+    .ask-q-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--glacier-deep);
+      padding-top: 0.15rem;
+      flex-shrink: 0;
+    }
+
+    .ask-q-text {
+      font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+      color: var(--charcoal);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .ask-a {
+      display: flex;
+      align-items: baseline;
+      gap: 0.65rem;
+      padding-left: 0;
+    }
+
+    .ask-a-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--charcoal-soft);
+      padding-top: 0.15rem;
+      flex-shrink: 0;
+    }
+
+    .ask-a-text {
+      font-size: 0.92rem;
+      color: var(--charcoal-mid);
+      line-height: 1.55;
+    }
+
+    .ask-footnote {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--charcoal-soft);
+      letter-spacing: 0.05em;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
     /* ---------- Footer ---------- */
 
     footer.page-foot {
@@ -477,6 +666,7 @@
         <li><a href="#adoption">01 / Adoption</a></li>
         <li><a href="#behavior">02 / Behavior change</a></li>
         <li><a href="#reporting">03 / Reporting</a></li>
+        <li><a href="#ask">Ask</a></li>
       </ul>
     </div>
   </nav>
@@ -486,10 +676,11 @@
     <span class="label">An illustrative operating system</span>
     <h1 class="title">How adoption looks when it&rsquo;s instrumented.</h1>
     <p class="intro">
-      The operating mechanism underneath an AI adoption program. Three views,
-      one running system: where the program lives, what actually shifted, what
-      it&rsquo;s worth. Numbers are illustrative, drawn from the shape of an
-      AI capability layer deployed across twenty product managers.
+      The operating mechanism underneath an AI adoption program at enterprise
+      scale &mdash; spanning product management, engineering, and cloud
+      architecture. Three views, one running system: where the program
+      lives, what actually shifted, what it&rsquo;s worth. Numbers are
+      illustrative, calibrated to a real cross-functional program shape.
     </p>
   </header>
 
@@ -507,21 +698,21 @@
 
     <div class="grid grid-3">
       <div class="card feature">
-        <span class="card-label">Adoption funnel · past 30 days</span>
+        <span class="card-label">Adoption funnel · past 30 days · all functions</span>
         <div class="funnel">
           <div class="funnel-step">
             <span class="funnel-num">ONBOARDED</span>
-            <div class="funnel-val">20</div>
-            <div class="funnel-label">PMs with shared infrastructure access</div>
+            <div class="funnel-val">80</div>
+            <div class="funnel-label">People with shared infrastructure access</div>
           </div>
           <div class="funnel-step">
             <span class="funnel-num">ACTIVE</span>
-            <div class="funnel-val">12</div>
+            <div class="funnel-val">52</div>
             <div class="funnel-label">Used a command in the past 30 days</div>
           </div>
           <div class="funnel-step">
             <span class="funnel-num">BUILDERS</span>
-            <div class="funnel-val">7</div>
+            <div class="funnel-val">29</div>
             <div class="funnel-label">Authored their own slash commands</div>
           </div>
         </div>
@@ -529,42 +720,144 @@
 
       <div class="card">
         <span class="card-label">First &rarr; second command</span>
-        <div class="card-metric">73<span class="unit">%</span></div>
+        <div class="card-metric">71<span class="unit">%</span></div>
         <p class="card-sub">
-          PMs who built a second command within two weeks of their first.
+          Members who built a second command within two weeks of their first.
           The conversion mechanism that turns curious into committed.
         </p>
       </div>
     </div>
 
     <div class="grid grid-3" style="margin-top: 1.25rem;">
-      <div class="card">
-        <span class="card-label">Workflow coverage</span>
-        <div class="card-metric">12<span class="unit"> / 18</span></div>
-        <p class="card-sub">
-          PM workflows where at least one team member has an active AI
-          command. Coverage growing month over month.
-        </p>
+      <div class="card feature">
+        <span class="card-label">By function · onboarded / active / builders</span>
+        <div class="workflow-list">
+          <div class="workflow-row">
+            <span class="workflow-num">PM</span>
+            <span class="workflow-name">Product management</span>
+            <span class="workflow-meta">20 &middot; 12 &middot; 7</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">ENG</span>
+            <span class="workflow-name">Engineering</span>
+            <span class="workflow-meta">48 &middot; 32 &middot; 18</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">CLD</span>
+            <span class="workflow-name">Cloud architecture &amp; platform</span>
+            <span class="workflow-meta">12 &middot; 8 &middot; 4</span>
+          </div>
+        </div>
+        <span class="card-detail" style="margin-top: 0.75rem;">
+          Engineering adopts fastest. PMs adopt deliberately. Cloud adopts surgically.
+        </span>
       </div>
 
+      <div class="card">
+        <span class="card-label">Workflow coverage</span>
+        <div class="card-metric">24<span class="unit"> / 38</span></div>
+        <p class="card-sub">
+          Workflows across all three functions where at least one team
+          member has an active AI command. Coverage growing month over month.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top: 1.25rem;">
       <div class="card">
         <span class="card-label">Champion network</span>
         <div class="card-metric">3</div>
         <p class="card-sub">
-          PMs who&rsquo;ve carried adoption laterally without being assigned —
-          authoring shared commands and onboarding peers.
+          Members who&rsquo;ve carried adoption laterally without being
+          assigned &mdash; authoring shared commands and onboarding peers
+          across function lines.
         </p>
-        <span class="card-detail">Sarah · Marcus · Priya</span>
+        <span class="card-detail">Sarah (PM) &middot; Marcus (Engineering) &middot; Priya (Cloud)</span>
       </div>
 
       <div class="card">
         <span class="card-label">Weekly cadence</span>
         <div class="card-metric">1<span class="unit">/wk</span></div>
         <p class="card-sub">
-          Working peer-group session. Honest about what&rsquo;s landing and
-          what isn&rsquo;t. No slide decks.
+          Cross-functional peer-group session. Honest about what&rsquo;s
+          landing and what isn&rsquo;t. No slide decks. Rotating function
+          host.
         </p>
       </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top: 1.25rem;">
+      <div class="card">
+        <span class="card-label">Champion leaderboard · ranked by workflows retired + peers onboarded</span>
+        <p class="card-sub" style="margin-bottom: 0.5rem;">
+          Ranks behavior change, not activity. Token usage isn&rsquo;t
+          on the board &mdash; nobody wins by hammering the API.
+        </p>
+        <div class="leaderboard">
+          <div class="lb-row">
+            <span class="lb-rank">01</span>
+            <span class="lb-name">Marcus</span>
+            <span class="lb-fn">ENG</span>
+            <span class="lb-score">4 retired &middot; 9 onboarded</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank">02</span>
+            <span class="lb-name">Sarah</span>
+            <span class="lb-fn">PM</span>
+            <span class="lb-score">3 retired &middot; 7 onboarded</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank">03</span>
+            <span class="lb-name">Priya</span>
+            <span class="lb-fn">CLD</span>
+            <span class="lb-score">2 retired &middot; 5 onboarded</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank">04</span>
+            <span class="lb-name">Dev</span>
+            <span class="lb-fn">ENG</span>
+            <span class="lb-score">2 retired &middot; 4 onboarded</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank">05</span>
+            <span class="lb-name">Elena</span>
+            <span class="lb-fn">ENG</span>
+            <span class="lb-score">1 retired &middot; 6 onboarded</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank">06</span>
+            <span class="lb-name">James</span>
+            <span class="lb-fn">PM</span>
+            <span class="lb-score">2 retired &middot; 3 onboarded</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Why workflows-and-onboards, not tokens</span>
+        <p class="card-sub">
+          A leaderboard ranking token usage rewards activity, not change.
+          It also incentivizes the wrong behavior at the FinOps level.
+        </p>
+        <p class="card-sub" style="margin-top: 0.6rem;">
+          The leaderboard here ranks two things: workflows the member
+          retired (behavior change) and peers they onboarded (network
+          effect). Both are durable signals that the program is
+          producing value rather than just consuming tokens.
+        </p>
+      </div>
+    </div>
+
+    <div class="pmm-hook">
+      <span class="pmm-label">PMM hook</span>
+      <p class="pmm-text">
+        Our cross-functional AI program has reached 80 team members across
+        product, engineering, and cloud &mdash; with 65% active in the past
+        30 days and three peer-led champions carrying adoption laterally.
+      </p>
+      <p class="pmm-sub">
+        The highest-leverage line for external messaging from this section.
+      </p>
     </div>
 
     <div class="principle" style="margin-top: 1.75rem;">
@@ -590,19 +883,21 @@
     <div class="grid grid-3">
       <div class="card">
         <span class="card-label">Workflows retired</span>
-        <div class="card-metric">8</div>
+        <div class="card-metric">14</div>
         <p class="card-sub">
-          Manual workflows that no longer happen the old way for the PMs who
-          adopted them. Counted only when extinction is sustained &gt;30 days.
+          Manual workflows that no longer happen the old way for the team
+          members who adopted them. Counted only when extinction is sustained
+          &gt;30 days. Across all three functions.
         </p>
       </div>
 
       <div class="card">
         <span class="card-label">Tuesday Test pass rate</span>
-        <div class="card-metric">4<span class="unit"> / 5</span></div>
+        <div class="card-metric">5<span class="unit"> / 6</span></div>
         <p class="card-sub">
-          Of five workflows surveyed, four show sustained behavior change.
-          One is still partial — some PMs still doing it manually.
+          Of six workflows surveyed across functions, five show sustained
+          behavior change. One is still partial &mdash; some team members
+          still doing it manually.
         </p>
       </div>
 
@@ -611,7 +906,7 @@
         <div class="card-metric">100<span class="unit">%</span></div>
         <p class="card-sub">
           If the AI fails, the work still ships. No critical-path
-          dependency on a single LLM call.
+          dependency on a single LLM call. Audited monthly.
         </p>
       </div>
     </div>
@@ -621,42 +916,72 @@
         <span class="card-label">Workflows retired · this quarter</span>
         <div class="workflow-list">
           <div class="workflow-row">
-            <span class="workflow-num">01</span>
+            <span class="workflow-num">PM</span>
             <span class="workflow-name">Customer feedback synthesis (weekly)</span>
             <span class="pill green"><span class="pill-dot"></span>Retired</span>
           </div>
           <div class="workflow-row">
-            <span class="workflow-num">02</span>
+            <span class="workflow-num">PM</span>
             <span class="workflow-name">Status report assembly</span>
             <span class="pill green"><span class="pill-dot"></span>Retired</span>
           </div>
           <div class="workflow-row">
-            <span class="workflow-num">03</span>
+            <span class="workflow-num">PM</span>
             <span class="workflow-name">Cross-product roadmap deconfliction</span>
             <span class="pill green"><span class="pill-dot"></span>Retired</span>
           </div>
           <div class="workflow-row">
-            <span class="workflow-num">04</span>
-            <span class="workflow-name">Quarterly retrospective synthesis</span>
-            <span class="pill green"><span class="pill-dot"></span>Retired</span>
-          </div>
-          <div class="workflow-row">
-            <span class="workflow-num">05</span>
-            <span class="workflow-name">Customer escalation framing</span>
-            <span class="pill green"><span class="pill-dot"></span>Retired</span>
-          </div>
-          <div class="workflow-row">
-            <span class="workflow-num">06</span>
-            <span class="workflow-name">Persona research compilation</span>
-            <span class="pill green"><span class="pill-dot"></span>Retired</span>
-          </div>
-          <div class="workflow-row">
-            <span class="workflow-num">07</span>
+            <span class="workflow-num">PM</span>
             <span class="workflow-name">Competitive teardown drafting</span>
             <span class="pill green"><span class="pill-dot"></span>Retired</span>
           </div>
           <div class="workflow-row">
-            <span class="workflow-num">08</span>
+            <span class="workflow-num">PM</span>
+            <span class="workflow-name">Persona research compilation</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">ENG</span>
+            <span class="workflow-name">PR description drafting</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">ENG</span>
+            <span class="workflow-name">Code review summarization</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">ENG</span>
+            <span class="workflow-name">Runbook generation from incident logs</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">ENG</span>
+            <span class="workflow-name">Error log triage and routing</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">ENG</span>
+            <span class="workflow-name">Release-note assembly</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">CLD</span>
+            <span class="workflow-name">Cost-attribution report drafting</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">CLD</span>
+            <span class="workflow-name">Incident post-mortem first draft</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">CLD</span>
+            <span class="workflow-name">Capacity-planning summary</span>
+            <span class="pill green"><span class="pill-dot"></span>Retired</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">PM</span>
             <span class="workflow-name">Stakeholder update drafting</span>
             <span class="pill yellow"><span class="pill-dot"></span>Partial</span>
           </div>
@@ -664,48 +989,68 @@
       </div>
 
       <div class="card">
-        <span class="card-label">Time-on-task · top 5 workflows</span>
+        <span class="card-label">Time-on-task · representative workflows</span>
         <p class="card-sub" style="margin-bottom: 0.5rem;">
           Median minutes per execution. Grey = before. Glacier = after.
+          Two from each function.
         </p>
         <div class="bar-chart">
           <div class="bar-row">
             <div class="bar-row-head">
-              <span class="bar-row-label">Customer feedback synthesis</span>
+              <span class="bar-row-label">Customer feedback synthesis <span class="card-detail" style="display:inline; padding:0;">· PM</span></span>
               <span class="bar-row-value">180 &rarr; 22 min</span>
             </div>
             <div class="bar-row-track" style="--before: 100%; --after: 12%;"></div>
           </div>
           <div class="bar-row">
             <div class="bar-row-head">
-              <span class="bar-row-label">Status report assembly</span>
-              <span class="bar-row-value">60 &rarr; 8 min</span>
-            </div>
-            <div class="bar-row-track" style="--before: 100%; --after: 13%;"></div>
-          </div>
-          <div class="bar-row">
-            <div class="bar-row-head">
-              <span class="bar-row-label">Competitive teardown drafting</span>
+              <span class="bar-row-label">Competitive teardown drafting <span class="card-detail" style="display:inline; padding:0;">· PM</span></span>
               <span class="bar-row-value">240 &rarr; 45 min</span>
             </div>
             <div class="bar-row-track" style="--before: 100%; --after: 19%;"></div>
           </div>
           <div class="bar-row">
             <div class="bar-row-head">
-              <span class="bar-row-label">Quarterly retrospective</span>
-              <span class="bar-row-value">120 &rarr; 30 min</span>
+              <span class="bar-row-label">PR description drafting <span class="card-detail" style="display:inline; padding:0;">· ENG</span></span>
+              <span class="bar-row-value">22 &rarr; 4 min</span>
             </div>
-            <div class="bar-row-track" style="--before: 100%; --after: 25%;"></div>
+            <div class="bar-row-track" style="--before: 100%; --after: 18%;"></div>
           </div>
           <div class="bar-row">
             <div class="bar-row-head">
-              <span class="bar-row-label">Persona research compilation</span>
-              <span class="bar-row-value">150 &rarr; 24 min</span>
+              <span class="bar-row-label">Runbook from incident logs <span class="card-detail" style="display:inline; padding:0;">· ENG</span></span>
+              <span class="bar-row-value">90 &rarr; 18 min</span>
             </div>
-            <div class="bar-row-track" style="--before: 100%; --after: 16%;"></div>
+            <div class="bar-row-track" style="--before: 100%; --after: 20%;"></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-row-head">
+              <span class="bar-row-label">Cost-attribution report <span class="card-detail" style="display:inline; padding:0;">· CLD</span></span>
+              <span class="bar-row-value">120 &rarr; 20 min</span>
+            </div>
+            <div class="bar-row-track" style="--before: 100%; --after: 17%;"></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-row-head">
+              <span class="bar-row-label">Incident post-mortem draft <span class="card-detail" style="display:inline; padding:0;">· CLD</span></span>
+              <span class="bar-row-value">150 &rarr; 30 min</span>
+            </div>
+            <div class="bar-row-track" style="--before: 100%; --after: 20%;"></div>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="pmm-hook">
+      <span class="pmm-label">PMM hook</span>
+      <p class="pmm-text">
+        We measure adoption by behavior change, not activity. Fourteen
+        workflows retired this quarter across three functions &mdash; the
+        system is replacing manual work, not adding to it.
+      </p>
+      <p class="pmm-sub">
+        The highest-leverage line for external messaging from this section.
+      </p>
     </div>
 
     <div class="principle" style="margin-top: 1.75rem;">
@@ -732,29 +1077,123 @@
     <div class="grid grid-4">
       <div class="card">
         <span class="card-label">Tooling spend</span>
-        <div class="card-metric">$400<span class="unit">/mo</span></div>
-        <p class="card-sub">20 seats &times; $20/seat. The fixed input.</p>
+        <div class="card-metric">$1,600<span class="unit">/mo</span></div>
+        <p class="card-sub">80 seats &times; $20/seat. The fixed input.</p>
       </div>
 
       <div class="card">
         <span class="card-label">Hours saved</span>
-        <div class="card-metric">156<span class="unit">/mo</span></div>
-        <p class="card-sub">Across 12 active users. ~13 hours per active user.</p>
+        <div class="card-metric">580<span class="unit">/mo</span></div>
+        <p class="card-sub">Across 52 active users. ~11 hours per active user.</p>
       </div>
 
       <div class="card">
         <span class="card-label">Cost per hour saved</span>
-        <div class="card-metric">$2.56</div>
-        <p class="card-sub">The unit cost of one hour of PM time recovered.</p>
+        <div class="card-metric">$2.76</div>
+        <p class="card-sub">The unit cost of one hour of fully-loaded time recovered.</p>
       </div>
 
       <div class="card">
         <span class="card-label">ROI multiplier</span>
-        <div class="card-metric">39<span class="unit">x</span></div>
+        <div class="card-metric">40<span class="unit">x</span></div>
         <p class="card-sub">
-          Value-to-cost ratio at fully-loaded PM rate ($100/hr). Reported
-          conservatively.
+          Value-to-cost ratio at blended fully-loaded rate ($110/hr).
+          Reported conservatively.
         </p>
+      </div>
+    </div>
+
+    <div class="grid grid-3" style="margin-top: 1.25rem;">
+      <div class="card">
+        <span class="card-label">Cost &amp; value · by function</span>
+        <p class="card-sub" style="margin-bottom: 0.6rem;">
+          Spend allocated by headcount. Value attributed by hours saved
+          at function-specific fully-loaded rates.
+        </p>
+        <div class="workflow-list">
+          <div class="workflow-row">
+            <span class="workflow-num">PM</span>
+            <span class="workflow-name">$400 spend &middot; $14.3K value</span>
+            <span class="workflow-meta">$100/hr</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">ENG</span>
+            <span class="workflow-name">$960 spend &middot; $44.4K value</span>
+            <span class="workflow-meta">$120/hr</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">CLD</span>
+            <span class="workflow-name">$240 spend &middot; $14.6K value</span>
+            <span class="workflow-meta">$130/hr</span>
+          </div>
+        </div>
+        <span class="card-detail" style="margin-top: 0.5rem;">
+          Engineering carries the largest dollar return. PM and Cloud
+          comparable in absolute value despite headcount difference.
+        </span>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Hours saved · by function</span>
+        <p class="card-sub" style="margin-bottom: 0.6rem;">
+          Distribution of recovered hours across the active population.
+        </p>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <div class="bar-row-head">
+              <span class="bar-row-label">Engineering</span>
+              <span class="bar-row-value">370 hrs &middot; 64%</span>
+            </div>
+            <div class="bar-row-track" style="--before: 0%; --after: 64%;"></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-row-head">
+              <span class="bar-row-label">Cloud / Platform</span>
+              <span class="bar-row-value">112 hrs &middot; 19%</span>
+            </div>
+            <div class="bar-row-track" style="--before: 0%; --after: 19%;"></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-row-head">
+              <span class="bar-row-label">Product management</span>
+              <span class="bar-row-value">98 hrs &middot; 17%</span>
+            </div>
+            <div class="bar-row-track" style="--before: 0%; --after: 17%;"></div>
+          </div>
+        </div>
+        <span class="card-detail" style="margin-top: 0.75rem;">
+          Engineering volume reflects both headcount and per-task velocity.
+        </span>
+      </div>
+
+      <div class="card">
+        <span class="card-label">FinOps discipline</span>
+        <p class="card-sub" style="margin-bottom: 0.6rem;">
+          Cost attribution at the workflow level. Same governance posture
+          as cloud spend.
+        </p>
+        <div class="workflow-list">
+          <div class="workflow-row">
+            <span class="workflow-num">01</span>
+            <span class="workflow-name">Cost-per-active-user tracked monthly</span>
+            <span class="pill glacier"><span class="pill-dot"></span>On</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">02</span>
+            <span class="workflow-name">Workflow-level cost attribution</span>
+            <span class="pill glacier"><span class="pill-dot"></span>On</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">03</span>
+            <span class="workflow-name">Token spend ceiling per function</span>
+            <span class="pill glacier"><span class="pill-dot"></span>On</span>
+          </div>
+          <div class="workflow-row">
+            <span class="workflow-num">04</span>
+            <span class="workflow-name">Monthly review w/ Cloud FinOps</span>
+            <span class="pill glacier"><span class="pill-dot"></span>On</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -799,43 +1238,56 @@
           <text x="570" y="232" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="middle">NOW</text>
 
           <!-- Y axis labels -->
-          <text x="32" y="44" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="end">$20K</text>
-          <text x="32" y="104" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="end">$15K</text>
-          <text x="32" y="164" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="end">$10K</text>
+          <text x="32" y="44" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="end">$80K</text>
+          <text x="32" y="104" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="end">$60K</text>
+          <text x="32" y="164" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="end">$30K</text>
           <text x="32" y="224" font-family="JetBrains Mono" font-size="9" fill="#6B7280" text-anchor="end">$0</text>
         </svg>
       </div>
 
       <div class="card">
         <span class="card-label">Cumulative value · running total</span>
-        <div class="card-metric" style="margin-bottom: 1rem;">$94<span class="unit">,200</span></div>
+        <div class="card-metric" style="margin-bottom: 1rem;">$361<span class="unit">,200</span></div>
         <p class="card-sub" style="margin-bottom: 1rem;">
           Value-equivalent of hours recovered across the program to date.
-          Calculated conservatively at $100/hr fully-loaded.
+          Calculated conservatively at $110/hr blended fully-loaded.
         </p>
         <div class="workflow-list">
           <div class="workflow-row">
             <span class="workflow-num">RATE</span>
-            <span class="workflow-name">$100 / hour fully-loaded</span>
-            <span class="workflow-meta">PM rate</span>
+            <span class="workflow-name">$110 / hour blended fully-loaded</span>
+            <span class="workflow-meta">all functions</span>
           </div>
           <div class="workflow-row">
             <span class="workflow-num">HOURS</span>
-            <span class="workflow-name">942 cumulative hours saved</span>
+            <span class="workflow-name">3,284 cumulative hours saved</span>
             <span class="workflow-meta">since M1</span>
           </div>
           <div class="workflow-row">
             <span class="workflow-num">SPEND</span>
-            <span class="workflow-name">$2,400 cumulative tooling</span>
+            <span class="workflow-name">$9,600 cumulative tooling</span>
             <span class="workflow-meta">6 months</span>
           </div>
           <div class="workflow-row">
             <span class="workflow-num">NET</span>
-            <span class="workflow-name">$91,800 net value</span>
+            <span class="workflow-name">$351,600 net value</span>
             <span class="workflow-meta">value minus spend</span>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="pmm-hook">
+      <span class="pmm-label">PMM hook</span>
+      <p class="pmm-text">
+        $2.76 cost per hour of fully-loaded time recovered. 40x return on
+        tooling spend. The unit economics are defensible at the same
+        rigor as cloud spend &mdash; because they&rsquo;re measured the
+        same way.
+      </p>
+      <p class="pmm-sub">
+        The highest-leverage line for external messaging from this section.
+      </p>
     </div>
 
     <div class="principle" style="margin-top: 1.75rem;">
@@ -845,6 +1297,118 @@
       </p>
       <p class="principle-sub">Reporting is a discipline, not an artifact.</p>
     </div>
+  </section>
+
+  <!-- ============ Ask the operating system ============ -->
+  <section class="ask" id="ask">
+    <div class="ask-head">
+      <span class="label">Ask the operating system</span>
+      <h2 class="section-title">Querying the program in plain language.</h2>
+      <p class="intro">
+        The dashboard is also an interface. Authorized stakeholders can
+        ask plain-language questions of the program data and the
+        underlying agent surfaces the answer &mdash; same governance
+        boundaries, same audit log, same trust scaffolding. A few
+        sample queries below.
+      </p>
+    </div>
+
+    <div class="ask-list">
+      <div class="ask-item">
+        <div class="ask-q">
+          <span class="ask-q-tag">ASK</span>
+          <span class="ask-q-text">Which workflows have the most stuck adoption?</span>
+        </div>
+        <div class="ask-a">
+          <span class="ask-a-tag">→</span>
+          <span class="ask-a-text">
+            Stakeholder update drafting (PM) is the only workflow in
+            yellow on the Tuesday Test. Four PMs out of twelve are still
+            doing it manually, citing tone-control concerns. Recommended
+            next move: a 15-minute peer session with Sarah, who&rsquo;s
+            already solved this for her own updates.
+          </span>
+        </div>
+      </div>
+
+      <div class="ask-item">
+        <div class="ask-q">
+          <span class="ask-q-tag">ASK</span>
+          <span class="ask-q-text">Who should I onboard next for highest ROI?</span>
+        </div>
+        <div class="ask-a">
+          <span class="ask-a-tag">→</span>
+          <span class="ask-a-text">
+            Three engineers in the Platform team aren&rsquo;t in the
+            program yet, each ticketing into runbook generation and
+            error log triage &mdash; both workflows with high
+            time-on-task collapse. Estimated combined recovery: 40-50
+            hours/month. Sequence them after Marcus&rsquo;s next
+            onboarding session.
+          </span>
+        </div>
+      </div>
+
+      <div class="ask-item">
+        <div class="ask-q">
+          <span class="ask-q-tag">ASK</span>
+          <span class="ask-q-text">Where&rsquo;s the program off pace?</span>
+        </div>
+        <div class="ask-a">
+          <span class="ask-a-tag">→</span>
+          <span class="ask-a-text">
+            Cloud / Platform onboarding has flattened in the past two
+            weeks &mdash; only one new member added vs. a trailing
+            three-week average of two. Priya is the only active
+            champion in that function. Worth surfacing this in the
+            next cross-functional cadence; possibly the program needs
+            a second cloud-side champion.
+          </span>
+        </div>
+      </div>
+
+      <div class="ask-item">
+        <div class="ask-q">
+          <span class="ask-q-tag">ASK</span>
+          <span class="ask-q-text">What&rsquo;s the unit economics on the engineering segment?</span>
+        </div>
+        <div class="ask-a">
+          <span class="ask-a-tag">→</span>
+          <span class="ask-a-text">
+            Engineering: $960 monthly spend, 370 hours saved, $44,400
+            value at $120/hr fully-loaded. Cost per hour saved: $2.59.
+            ROI: 46x. The strongest segment economics in the program by
+            a wide margin &mdash; reflecting both headcount and the
+            high per-task velocity of code-adjacent workflows.
+          </span>
+        </div>
+      </div>
+
+      <div class="ask-item">
+        <div class="ask-q">
+          <span class="ask-q-tag">ASK</span>
+          <span class="ask-q-text">What&rsquo;s the next champion likely to emerge from?</span>
+        </div>
+        <div class="ask-a">
+          <span class="ask-a-tag">→</span>
+          <span class="ask-a-text">
+            Dev (Engineering) — currently ranked #4 on the leaderboard,
+            but with the steepest velocity of new command authorship in
+            the past 30 days. Has already informally onboarded two
+            peers without being asked. Worth a direct nudge from
+            Marcus to formalize the champion role within the next two
+            weeks.
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <p class="ask-footnote">
+      Demo queries shown above are pre-canned for illustration. In production,
+      this surface routes through Claude (or the model of choice) with
+      authorization scoped to the requester&rsquo;s permissions, full audit
+      logging, and a fallback to deterministic queries when confidence is low.
+    </p>
   </section>
 
   <!-- ============ Footer ============ -->
