@@ -1,8 +1,31 @@
 # Preservica — Senior PM, AI Programmes · Recruiter screen prep
 
-Monday morning recruiter screen. The role is **Senior Product Manager,
-AI Programmes** at Preservica. Hybrid UK or Remote US. Reports to Head
-of Product.
+Monday morning recruiter screen with **Mark** (recruiter). The role
+is **Senior Product Manager, AI Programmes** at Preservica. Hybrid UK
+or Remote US. Reports to Head of Product.
+
+## Updated context — comp band is on the table
+
+Mark replied to the pre-call comp question with the US band: **$140–
+160K base**. He was direct that this is *"towards the bottom end"* of
+where Ian targets, and explicitly opened the door for stepping back.
+
+Ian elected to proceed with the call. The reasoning, captured here so
+it's visible going in:
+
+- The band's top is Ian's floor target — at the boundary, not under it
+- The role fit is one of the strongest in the pipeline (regulated
+  industries + AI builder + senior IC alignment)
+- Total comp picture is unknown (equity, RSUs/options, bonus structure,
+  growth-stage exposure) — those could materially shift the math
+- Mark is being a respectful recruiter; the relationship is worth
+  keeping warm regardless of whether this specific role converts
+
+**The call is no longer about whether the band exists. It's about
+whether the full package and the role substance justify the band's
+position relative to other live opportunities** (Teradyne $140–225K,
+Deltek $103–160K + no equity, PagerDuty market-rate US Sr PM, UKG
+PO $102.3–147K + RSUs).
 
 ## What Preservica does (and why it matters for fit)
 
@@ -150,18 +173,40 @@ Realistic. You're actively in process at one or two other places
 
 ### "What are your comp expectations?"
 
-The email asking for the band goes out before the call (per the
-earlier draft). If they didn't share in advance, ask early on the call.
-Pre-loaded answer if pressed first: *"I'd want to understand the band
-you have for the role before anchoring myself. My current frame is
-the US Senior PM market — $160K+ base, with the package considered as
-a whole. Happy to be more specific once I know what you're working
-with."*
+Band is known ($140–160K US base). The conversation now is about
+total package, not base alone.
+
+Pre-loaded answer: *"My base target frame is $160K+, which I know is
+at the top of what you've shared. But I'd want to understand the full
+package — equity, options or RSUs, bonus, benefits — before drawing
+conclusions. If the total picture lands and the role is what it reads
+as on paper, we have plenty to discuss."*
 
 That answer:
-- Doesn't anchor low
-- Frames you as serious about market alignment, not desperate
-- Invites them to share, which is what you want
+- Doesn't apologize for caring about money
+- Doesn't pretend the band isn't at your floor
+- Doesn't anchor too high (you're at $160K not $180K)
+- Opens the door to negotiating on total comp, not just base
+- Signals you'll evaluate the whole picture before committing
+
+### Three things to surface about total comp on the call
+
+1. **Equity / RSUs / options.** *"What does the equity picture look
+   like at Preservica? Options, RSUs, something else?"* UK-anchored
+   companies vary widely on this. Preservica is private — equity could
+   be options with real upside if they're scaling toward acquisition,
+   or it could be nominal.
+2. **Band flex for the right candidate.** Don't ask transactionally
+   — ask conversationally: *"How firm is that band, and is there
+   typically room when the candidate brings something distinctive?"*
+   The answer tells you whether the $160K top is a hard cap or a
+   guideline.
+3. **Growth-stage equity exposure.** *"What's Preservica's stage right
+   now? Where are you in the funding / growth arc?"* The phrase
+   *"entering the next phase of platform evolution"* in the JD
+   suggests a real growth moment. If they're approaching an exit,
+   equity matters more. If they're stable mid-market, base is doing
+   more of the work.
 
 ### "Can you work the UK hybrid?"
 
@@ -177,10 +222,10 @@ No. Remote US is the only path. Don't apologize. *"I'm US-based
 - **Don't sound like a "Senior PM, AI" who needs to position around
   the AI gap.** You don't have an AI gap. You have shipped AI work.
   Talk about it that way.
-- **Don't anchor low on comp.** UK-anchored postings sometimes try to
-  bring US candidates in below US-market bands. If you've gotten the
-  band in advance and it's below $130K base, you can decide whether
-  to take the call or not. If it's above, take the call.
+- **Don't anchor below the band's top.** $160K is your floor target
+  and the top of their band. Don't accept the middle of their band as
+  "where you're aiming" just because the band is known. If pressed for
+  a number, $160K+ is the anchor.
 - **Don't reference the panel content you've prepped for Deltek.**
   Different process. Different customer. Keep the case studies as
   proof points, not as a deck you're pre-pitching.
@@ -204,13 +249,13 @@ That question:
 
 ## Logistics
 
-- **When:** Monday morning (confirm exact time in calendar)
-- **Format:** Recruiter screen, likely 30 min
-- **Pre-work:** Send the comp-band email today if not sent already
+- **When:** Monday morning (exact slot booked via Greenhouse self-schedule)
+- **Format:** MS Teams call, ~30 min
+- **Recruiter:** Mark
 - **Next steps if it goes well:** HM round with Head of Product
 
 ## Open items
 
-- Comp band — pending email response
-- Name of the recruiter — fill in
-- Specific time of Monday call — fill in
+- Specific time of Monday call — confirm in calendar
+- Total comp picture (equity, RSUs/options, bonus) — surface on the
+  call per the three questions above
