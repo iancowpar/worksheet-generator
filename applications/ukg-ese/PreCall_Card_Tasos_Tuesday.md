@@ -7,82 +7,59 @@ The HM for the Senior PM role on his BSA team (Salesforce-centric CX
 work). Steve Marshall set this up after Dara escalated to push the
 process; Tasos agreed to look at you within 24 hours.
 
-## Confirmed background (don't waste minutes verifying)
+## The actual rubric (Steve confirmed Friday May 29)
 
-- **20+ years at Kronos/UKG** — lifer, predates the Ultimate merger by
-  a lot. Service-delivery DNA, not platform-builder DNA.
-- **Shrewsbury, MA** — same New England geography as you (Methuen).
-- **MBA, UMass Amherst Isenberg School of Management. PMP.**
-- **Career shape:** "highly skilled program manager who has defined
-  and implemented processes for planning, risk management, and status
-  reporting for the Global Services organization." That's literally
-  his public bio language.
-- **Quiet operator profile.** No podcasts, no blog posts, no
-  thought-leadership posts. Don't reference "your recent post on X" —
-  there isn't one. Same kind of read as Forgan.
+Steve told us exactly what Tasos will evaluate on. Order the call
+around these five:
 
-## What's unconfirmed (be ready to ask honestly)
+1. **Developing relationships and synergies with stakeholders**
+2. **Prioritization of customer issues**
+3. **Salesforce experience**
+4. **Agentic AI mindset**
+5. **Fit for the team and energy level**
 
-- The Director / BSA title is from Steve's email. Public sources still
-  show him as "Sr Mgr, Global Support Operations, Analytics and
-  Project Management." The promotion is plausible (Global Support Ops
-  → Director BSA is a normal arc inside ESE) but not externally
-  verified. **Treat the Director/BSA framing as your inside
-  information, not as established fact.**
+Steve also closed his note with *"Think you will do well!"* — which
+is a real read from someone who knows Tasos's tone.
 
-## How Tasos will likely run the conversation (the register)
+**The most important rubric implication:** item 4 means Tasos
+*wants* AI fluency. Bring it — but in operating-mindset register
+(shipped agentic AI inside a product, real workflows, measurable
+adoption), not in vision-pitching register (where AI is going, MCP
+strategy, agentic platforms as the future). Show, don't pitch.
 
-He's a PMO operator and a UKG lifer, which means he probes on a very
-specific cluster:
+## Lead bullets, mapped to the rubric
 
-- **Discipline and operating rigor.** Can you run a backlog, write
-  crisp requirements, manage stakeholders across Support / CS / Pro
-  Services without drama?
-- **The Salesforce gap, directly.** He will ask. Don't dodge.
-- **Cultural fit and longevity.** Boomerangs are a *positive* signal
-  to lifers. Lean into "I know UKG, I know the people, I know what
-  good looks like here."
-- **What he's likely NOT into:** vision/strategy theater, AI
-  futurism, market-facing product framing, MCP/Anthropic
-  enthusiasm. Keep all of that turned down unless he opens the door.
+### 1. Stakeholder relationships and synergies → the AI capability layer
 
-## The shift from Forgan / Rabideau / Preservica prep
+*"I built an AI capability layer across twenty PMs at UKG with no
+top-down mandate. It scaled because adoption happened through peer
+recommendation — PMs onboarded each other, retired their own
+workflows, and three of them became champions without being assigned
+to. The mechanism was a peer cadence, shared infrastructure, and a
+15-minute on-ramp ritual — operating model, not a training program.
+That's what stakeholder synergies look like when they actually work."*
 
-| | Forgan / Rabideau (VP-level) | Tasos (Director-level) |
-|---|---|---|
-| Dialect | Vision, transformation, function-building | Operating model, backlog, stakeholders |
-| Lead bullet | AI capability layer (function from zero) | Same work, framed as *stakeholder orchestration* |
-| Second bullet | Migration tool (built with architect) | **Same, but as "how I learn a platform"** |
-| Vision pitch | Crisp, optional reinforcer | **Dial it way down.** Save it. |
-| Mindset | "I built a function" | "I run an operating system" |
+The PMO operator in Tasos will hear: operating model, cadence,
+mechanism. Not: AI program.
 
-## Lead bullets, in order for Tasos
+### 2. Prioritization of customer issues → the upgrade-program operating system
 
-1. **The AI capability layer — reframed as operating model and
-   stakeholder orchestration.** Not "I built an AI program." Closer to
-   *"I built the operating model that let twenty PMs adopt AI without
-   a top-down mandate — peer cadence, shared infrastructure, an
-   on-ramp ritual, and measurement that distinguished activity from
-   real change."* That language reads to a PMO operator as discipline,
-   not enthusiasm.
-2. **The migration tool, framed as platform learning.** *"I learn
-   platforms by partnering with the architect. I prototyped in Claude
-   Code, scoped three business epics with the platform architect to
-   define what was actually buildable, handed engineering a complete
-   delivery package."* This is your direct answer to the Salesforce
-   gap — the proof you learn unfamiliar platforms by partnering, not
-   by faking expertise.
-3. **The composite ARR-risk model and upgrade-program operating
-   system.** A data product with weekly cadence, measurement, and
-   stakeholder routing — exactly the PMO-operating-rigor signal he
-   responds to. Surface it; don't lead.
-4. **Save:** the AI vision, MCP, "agentic platform" framing,
-   Substack thought leadership. None of that lands with Tasos.
+*"I owned the upgrade program's data products at UKG. A composite
+ARR-risk model that scored 300 customers on weighted exposure — ARR
+magnitude, case volume, true-defect rate, sentiment — and an
+analytics product with an embedded Claude Code function as the
+routing layer that surfaced the single highest-leverage action across
+five issue panels. Cut a working defect list from ~200 issues to 5.
+Surfaced ~$50M in at-risk ARR before escalation. The program lead
+acted on it weekly."*
 
-## The Salesforce gap — frame it directly when it comes up
+That's prioritization of customer issues at $250M ARR scale. It's
+also the cleanest single proof point you have for rubric item 2.
 
-Don't volunteer it first. When he asks (and he will), the honest
-answer:
+### 3. Salesforce experience → the honest answer
+
+Don't volunteer first. When he asks (and he will, per Steve), the
+prepared answer:
 
 > *"Honest about it: Service Cloud as an operator, not a builder. I
 > haven't written Apex or built flows. The way I've learned every new
@@ -97,7 +74,55 @@ That answer:
 - Doesn't claim expertise you don't have
 - Names the exact muscle he hires for (crisp, buildable requirements)
 - Surfaces the platform-architect partnership pattern as proof
-- Signals respect for the existing team
+- Signals respect for the existing Salesforce team
+
+### 4. Agentic AI mindset → shipped agentic work, in operating register
+
+This is where I'd updated my earlier advice. *Bring the AI.* Tasos
+wants to hear it. But in the *operator* register:
+
+- *"I shipped a Claude Code function embedded as the routing layer
+  inside an analytics product — the agent makes the highest-leverage
+  call across five issue panels. It's agentic AI inside a real product,
+  not a prototype."*
+- *"I built and run a personal Claude Code productivity OS — twenty
+  custom slash commands in active daily use, integrated with Slack via
+  MCP. The way I think about agentic AI is workflow-by-workflow,
+  not platform-by-platform."*
+- *"In the AI capability layer, the agentic mindset showed up in how I
+  measured adoption — extinction over addition. What workflows
+  stopped, not what tools launched."*
+
+What NOT to bring:
+- MCP as a strategy lecture
+- "Where AI is going" futurism
+- Vendor evaluation theater
+- Any prediction about the AI market
+
+### 5. Fit for the team and energy level → Brooks lens, dialed in
+
+Tasos has been at UKG/Kronos 20+ years. He runs a steady operating
+team. Energy level for him isn't loud excitement — it's *present and
+engaged.* The Brooks lens here:
+
+- **Settle into the room.** First five seconds. Don't perform.
+- **Warm, curious, not effusive.** Lifer energy is steady warmth.
+- **Engage in his answers** when he describes the team's pain points
+  or operating cadence. Follow up *in his answer* before pivoting to
+  your story.
+- **Don't pre-pitch.** Let questions surface; don't volunteer.
+
+## How to be in the room — Brooks lens, shortened
+
+- **T — Topics.** Pre-load the three stories above (capability layer,
+  upgrade-program operating system, migration tool with platform
+  architect). Pick from the shelf when asked, don't scramble.
+- **A — Asking.** Steve confirmed Tasos wants relationship/synergy
+  discussion. When he describes the team's stakeholders or pain
+  points, follow up *in his frame* before introducing yours.
+- **L — Levity.** Match his quiet warmth. Don't over-energize.
+- **K — Kindness.** When he names a constraint or existing process,
+  acknowledge before reframing.
 
 ## Highest-leverage early question
 
@@ -107,7 +132,7 @@ That answer:
 > how requirements flow into the platform'? I want to understand which
 > muscle you're hiring for."*
 
-This is the question the research surfaced. Three reasons it works:
+Three reasons it works:
 1. Signals you understand BSA isn't pure shipping
 2. Lets him talk about his operating model — his home turf
 3. Tells you in his answer whether the Salesforce-depth bar is high
@@ -135,40 +160,23 @@ This is the question the research surfaced. Three reasons it works:
   Lowell undergrad. Same system. Mention only if education comes up.
 - **Kronos heritage.** He predates the Ultimate merger by a lot.
   Acknowledging "Kronos-era UKG" lightly (if it comes up) will
-  register as someone who knows the lineage.
+  register.
 
-## Watch-outs
+## Watch-outs (revised)
 
-- **Don't lead with AI vision.** He's not the audience for it.
+- **Don't lead with AI vision.** Steve confirmed agentic mindset is
+  on the rubric — bring shipped agentic work, not strategy theater.
 - **Don't claim Salesforce expertise you don't have.** He'll know
   inside 30 seconds.
 - **Don't volunteer "I'm in other processes at higher bands."** Dara
-  already told him; you saying it again converts honest info into a
-  transactional move.
+  already told him.
 - **Don't dismiss the role as a stepping stone.** Even if you wouldn't
   take it at the published band, treat the work with respect on the
   call. Lifers can smell condescension.
 - **Don't push leveling at the panel-level register.** The leveling
   conversation belongs with Dara, not with Tasos.
-
-## How to be in the room — Brooks lens, shortened
-
-Tasos is a quiet operator running an HM interview, not a sourcing
-call. He'll ask, listen, and watch the texture of your answers more
-than the headline content. The lens:
-
-- **T — Topics.** Pre-load discipline-and-operating-model stories.
-  Have three ready: the AI capability layer (operating model),
-  the migration tool (platform learning), the composite ARR-risk
-  model (measurement and cadence).
-- **A — Asking.** When he describes the team's pain points, follow
-  up *in his answer*. Don't leap to "let me tell you what I'd do."
-  Lifers respect humility about not knowing the current state.
-- **L — Levity.** Match his quiet warmth. Don't over-energize the
-  call. Settled and curious reads stronger than performed-passionate.
-- **K — Kindness.** When he names a constraint or an existing process,
-  acknowledge before reframing. "That's a real one — the way I'd
-  think about it…" rather than "Well, what you should do is…"
+- **Don't over-energize for item #5.** Tasos's "energy level" isn't
+  performed excitement. It's present and engaged.
 
 ## The strategic frame for this specific call
 
@@ -179,14 +187,14 @@ here compounds Dara's continued advocacy** for the better roles. The
 call has to land cleanly even if you wouldn't take this exact offer.
 
 Translation: take it as a real fit conversation, treat the work with
-respect, and let the level question surface naturally if Tasos asks
-about trajectory or fit. **Don't volunteer it.**
+respect, let the level question surface naturally if Tasos asks about
+trajectory or fit. **Don't volunteer it.**
 
 ## After
 
-Same-day note to Steve thanking him. Brief, warm, no follow-up ask —
-he's already done the work that mattered.
+Same-day note to Steve thanking him with a one-line read on how the
+call went (he asked for this in his Friday email). Brief, warm.
 
-Optional same-day note to Tasos if the conversation surfaced something
-specific worth referencing. Default: don't send one; let Steve relay
-your interest.
+Optional same-day note to Tasos only if the conversation surfaced
+something specific worth referencing. Default: don't send one; let
+Steve relay your interest.
