@@ -138,6 +138,141 @@ def test_mc_match_fails_when_letter_and_text_disagree():
 
 
 # ---------------------------------------------------------------------------
+# Format-robustness — correct answers in off-spec formats must still verify.
+# These are the false-negative cases that previously flagged good problems
+# and blocked the worksheet (the "can't verify the answers" trust-killer).
+# ---------------------------------------------------------------------------
+
+def test_combine_like_terms_accepts_factored_answer():
+    """A correct but factored answer should verify (expand/simplify equality)."""
+    p = Problem(
+        label="ok",
+        prompt="Find the product.",
+        body="(x + 2)(x + 3)",
+        answer="x^2 + 5x + 6",
+    )
+    assert verify(p, "combine_like_terms").ok
+
+
+def test_combine_like_terms_handles_multidigit_exponent():
+    p = Problem(label="ok", body="(x^10 + 2x) + (3x^10 - 2x)", answer="4x^10")
+    assert verify(p, "combine_like_terms").ok
+
+
+def test_classify_accepts_comma_format():
+    """'Arithmetic, d = -9' (comma, no parens) must verify."""
+    p = Problem(label="ok", body="78, 69, 60, 51, 42, ...", answer="Arithmetic, d = -9")
+    assert verify(p, "classify_arith_geom").ok
+
+
+def test_classify_accepts_bare_word():
+    """A bare 'Geometric' with no ratio value still classifies correctly."""
+    p = Problem(label="ok", body="2, 6, 18, 54, ...", answer="Geometric")
+    assert verify(p, "classify_arith_geom").ok
+
+
+def test_geometric_ratio_accepts_bare_fraction():
+    p = Problem(label="ok", body="81, 27, 9, 3, ...", answer="1/3", answer_label="r =")
+    assert verify(p, "geometric_ratio").ok
+
+
+def test_geometric_term_accepts_sentence_answer():
+    p = Problem(label="ok", body="The sequence 2, 6, 18, 54, ... — find the fifth term.",
+                answer="The fifth term is 162.")
+    assert verify(p, "geometric_term").ok
+
+
+def test_explicit_rule_accepts_middot_format():
+    """'f(n) = 5 · 3^{n-1}' (middot, no parens) must verify."""
+    p = Problem(
+        label="ok",
+        body="Write an explicit rule for a sequence with a first term of 5 and a common ratio of 3.",
+        answer="f(n) = 5 · 3^{n-1}",
+        answer_label="f(n) =",
+    )
+    assert verify(p, "explicit_rule").ok
+
+
+def test_recursive_rule_accepts_asterisk_format():
+    p = Problem(
+        label="ok",
+        body="f(n) = 5(3)^{n-1}",
+        answer="f(1) = 5, f(n) = 3 * f(n-1)",
+    )
+    assert verify(p, "recursive_rule").ok
+
+
+def test_mc_match_accepts_letter_only_answer():
+    p = Problem(
+        label="ok",
+        body="Which function decreases?",
+        options=["y = 6(1/3)^x", "y = 18(1/3)^x", "y = 18(3)^x", "y = 6(3)^x"],
+        correct_letter="B",
+        answer="(B)",
+    )
+    assert verify(p, "mc_match").ok
+
+
+def test_mc_match_accepts_spacing_difference():
+    """Option stored compact, answer restated with spaces — must still match."""
+    p = Problem(
+        label="ok",
+        body="Which function?",
+        options=["y=6(1/3)^x", "y=18(1/3)^x", "y=18(3)^x", "y=6(3)^x"],
+        correct_letter="B",
+        answer="(B) y = 18(1/3)^x",
+    )
+    assert verify(p, "mc_match").ok
+
+
+# ---------------------------------------------------------------------------
+# `checked` flag — separates "didn't evaluate" from "evaluated and wrong".
+# Couldn't-parse failures set checked=False (caller defers to Claude);
+# genuine math errors set checked=True (caller trusts the flag).
+# ---------------------------------------------------------------------------
+
+def test_checked_false_when_cannot_parse_answer():
+    """A combine answer with a syntax error → never evaluated, so not 'checked'."""
+    p = Problem(label="x", body="(x + 1) + (x + 2)", answer="2x + 3 +")
+    result = verify(p, "combine_like_terms")
+    assert not result.ok
+    assert not result.checked
+
+
+def test_checked_false_when_sequence_missing():
+    p = Problem(label="x", body="Find the common ratio.", answer="r = 2")
+    result = verify(p, "geometric_ratio")
+    assert not result.ok
+    assert not result.checked
+
+
+def test_checked_true_on_real_math_error():
+    """A genuine sign error was evaluated — checked stays True so it's trusted."""
+    p = Problem(
+        label="x",
+        body="(3xy + 2xz - 4yz) + (-xy + 5xz + 2yz)",
+        answer="2xy + 7xz + 2yz",  # should be -2yz
+    )
+    result = verify(p, "combine_like_terms")
+    assert not result.ok
+    assert result.checked
+
+
+def test_mc_letter_text_mismatch_is_checked():
+    """A letter/text disagreement is a real detected bug, not a parse failure."""
+    p = Problem(
+        label="x",
+        body="Which function?",
+        options=["y = 6(1/3)^x", "y = 18(1/3)^x", "y = 18(3)^x", "y = 6(3)^x"],
+        correct_letter="B",
+        answer="(B) y = 6(1/3)^x",  # text is option A
+    )
+    result = verify(p, "mc_match")
+    assert not result.ok
+    assert result.checked
+
+
+# ---------------------------------------------------------------------------
 # Misc sanity
 # ---------------------------------------------------------------------------
 
@@ -146,6 +281,8 @@ def test_unknown_kind_returns_failure_not_exception():
     result = verify(p, kind="not_a_real_kind")
     assert not result.ok
     assert "unknown verifier kind" in result.reason
+    # Unknown kind means we never checked — caller should defer, not flag.
+    assert not result.checked
 
 
 # ---------------------------------------------------------------------------
