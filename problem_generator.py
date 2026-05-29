@@ -1,11 +1,11 @@
-"""Round Two — problem generator (Claude API integration).
+"""Round Two — problem generator.
 
 Three responsibilities:
 
-  extract_problem_types(pdf_bytes)       one Opus 4.7 multimodal call;
+  extract_problem_types(pdf_bytes)       one multimodal extraction call;
                                          returns ExtractedTypeSpec list
-  generate_problem(spec, exclude)        one Sonnet 4.6 call per problem
-  verify_word_problem(problem, spec)     one Sonnet 4.6 call when the
+  generate_problem(spec, exclude)        one generation call per problem
+  verify_word_problem(problem, spec)     one verifier call when the
                                          verifier_kind is claude_second_pass
 
 The retry loop in `generate_problem_with_retry` calls the SymPy verifier
@@ -14,21 +14,17 @@ for `claude_second_pass`. After max_retries failures the problem is returned
 as-is, and the caller can flag it for human review based on the returned
 GeneratedProblem.verification.ok status.
 
-ANTHROPIC_API_KEY is read from os.environ. The module raises a friendly
-RuntimeError if it's missing — callers (the Streamlit app) should catch
-that and surface a setup-the-key message rather than crashing.
+Provider-specific client setup lives in llm_provider.py. This module owns the
+prompt assembly, JSON parsing, generated problem shape, and retry behavior.
 """
 
 from __future__ import annotations
 
 import json
-import os
 import re
-from dataclasses import dataclass, field
-from functools import lru_cache
+from dataclasses import dataclass
 
-from anthropic import Anthropic
-
+from llm_provider import MissingAPIKey, get_llm_provider
 from prompts import (
     ANSWER_FORMAT_GUIDANCE,
     EXTRACT_TYPES_SYSTEM,
@@ -49,12 +45,18 @@ DEFAULT_DIFFICULTY = "same"
 from verifier import VerificationResult, correct_substitution_in_answer, verify
 from worksheet_renderer import Problem, ProblemType
 
-
-OPUS_MODEL = "claude-opus-4-7"
-SONNET_MODEL = "claude-sonnet-4-6"
-EXTRACT_MAX_TOKENS = 8192
-GENERATE_MAX_TOKENS = 2048
-VERIFY_MAX_TOKENS = 1024
+_SUPPORTED_LAYOUTS = {
+    "centered",
+    "word_setup",
+    "word_blanks",
+    "mc_2col",
+    "mc_4row",
+    "short_answer_right",
+    "short_answer_below",
+    "table",
+}
+_MC_LAYOUTS = {"mc_2col", "mc_4row"}
+_UNICODE_SUPERSCRIPT_RE = re.compile(r"[\u00b2\u00b3\u00b9\u2070-\u209f]")
 
 
 # ---------------------------------------------------------------------------
@@ -100,57 +102,17 @@ class GeneratedProblem:
 
 
 # ---------------------------------------------------------------------------
-# Anthropic client
-# ---------------------------------------------------------------------------
-
-class MissingAPIKey(RuntimeError):
-    """ANTHROPIC_API_KEY isn't set in the environment."""
-
-
-@lru_cache(maxsize=1)
-def _client() -> Anthropic:
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        raise MissingAPIKey(
-            "ANTHROPIC_API_KEY is not set. For local dev, export it; for "
-            "Streamlit Community Cloud, paste it into the app's Secrets UI. "
-            "See .streamlit/secrets.toml.example on the publish-prep branch."
-        )
-    return Anthropic(api_key=api_key)
-
-
-# ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
 def extract_problem_types(pdf_bytes: bytes) -> list[ExtractedTypeSpec]:
-    """Send the test PDF to Claude Opus and parse the structured response.
+    """Send the test PDF to the configured AI provider and parse the response.
 
     The PDF is passed as a multimodal `document` content block. This handles
-    both text-based and scanned PDFs without requiring a separate OCR step."""
-    import base64
-    pdf_b64 = base64.standard_b64encode(pdf_bytes).decode("ascii")
-
-    response = _client().messages.create(
-        model=OPUS_MODEL,
-        max_tokens=EXTRACT_MAX_TOKENS,
-        system=EXTRACT_TYPES_SYSTEM,
-        messages=[{
-            "role": "user",
-            "content": [
-                {
-                    "type": "document",
-                    "source": {
-                        "type": "base64",
-                        "media_type": "application/pdf",
-                        "data": pdf_b64,
-                    },
-                },
-                {"type": "text", "text": EXTRACT_TYPES_USER},
-            ],
-        }],
+    both text-based and scanned PDFs when the provider supports PDF input."""
+    raw = get_llm_provider().extract_problem_types(
+        pdf_bytes, EXTRACT_TYPES_SYSTEM, EXTRACT_TYPES_USER
     )
-    raw = _response_text(response)
     data = _extract_json(raw)
     if "types" not in data or not isinstance(data["types"], list):
         raise ValueError(f"extract response missing 'types' list: {raw[:300]}")
@@ -209,32 +171,20 @@ def generate_problem(
         label=label,
     )
 
-    response = _client().messages.create(
-        model=SONNET_MODEL,
-        max_tokens=GENERATE_MAX_TOKENS,
-        system=GENERATE_PROBLEM_SYSTEM,
-        messages=[{"role": "user", "content": user}],
-    )
-    raw = _response_text(response)
+    raw = get_llm_provider().generate_problem(GENERATE_PROBLEM_SYSTEM, user)
     data = _extract_json(raw)
     data["label"] = label  # enforce caller-provided label
     return _parse_problem(data, spec.layout)
 
 
 def verify_word_problem(problem: Problem, spec: ExtractedTypeSpec) -> VerificationResult:
-    """Second-pass Claude verification for word problems and any kind that
+    """Second-pass provider verification for word problems and any kind that
     falls through to claude_second_pass."""
     user = VERIFY_WORD_PROBLEM_USER.format(
         body=problem.body,
         answer=problem.answer,
     )
-    response = _client().messages.create(
-        model=SONNET_MODEL,
-        max_tokens=VERIFY_MAX_TOKENS,
-        system=VERIFY_WORD_PROBLEM_SYSTEM,
-        messages=[{"role": "user", "content": user}],
-    )
-    raw = _response_text(response)
+    raw = get_llm_provider().verify_word_problem(VERIFY_WORD_PROBLEM_SYSTEM, user)
     data = _extract_json(raw)
     return VerificationResult(
         ok=bool(data.get("verified", False)),
@@ -246,7 +196,7 @@ def verify_word_problem(problem: Problem, spec: ExtractedTypeSpec) -> Verificati
 def _merge_unverified(
     sympy_result: VerificationResult, claude_result: VerificationResult
 ) -> VerificationResult:
-    """Combine a SymPy 'couldn't check' result with a failing Claude second
+    """Combine a SymPy 'couldn't check' result with a failing provider second
     pass into one flag with a reason that helps the teacher understand why a
     problem needs review — neither checker could confirm the answer."""
     parts = []
@@ -290,6 +240,12 @@ def generate_problem_with_retry(
             math_difficulty=math_difficulty,
             language_difficulty=language_difficulty,
         )
+
+        structure_result = _validate_generated_problem(problem, spec, label, seen)
+        if not structure_result.ok:
+            last_problem, last_result = problem, structure_result
+            seen.append(problem)
+            continue
 
         problem, status = correct_substitution_in_answer(problem)
 
@@ -392,14 +348,102 @@ def estimate_cost(pdf_size_bytes: int, n_types: int = 4, n_problems_per_type: in
 # Response parsing helpers
 # ---------------------------------------------------------------------------
 
-def _response_text(response) -> str:
-    """Concatenate text blocks from a messages.create response."""
-    parts = []
-    for block in response.content:
-        text = getattr(block, "text", None)
-        if text:
-            parts.append(text)
-    return "".join(parts)
+def _validate_generated_problem(
+    problem: Problem,
+    spec: ExtractedTypeSpec,
+    expected_label: str,
+    excluded: list[Problem],
+) -> VerificationResult:
+    """Catch malformed generation before math verification.
+
+    The SymPy verifier can prove an answer, but it cannot tell us that a
+    multiple-choice problem forgot its options, a word setup omitted the setup
+    line, or Claude used Unicode superscripts that render as black boxes in
+    Helvetica. Those are trust failures too, so they trigger a retry.
+    """
+    failures: list[str] = []
+
+    if spec.layout not in _SUPPORTED_LAYOUTS:
+        failures.append(f"unsupported layout '{spec.layout}'")
+    if problem.label != expected_label:
+        failures.append(f"label '{problem.label}' != expected '{expected_label}'")
+    if not problem.body.strip():
+        failures.append("body is empty")
+    if not problem.answer.strip():
+        failures.append("answer is empty")
+    if _body_matches_any(problem, excluded):
+        failures.append("body duplicates an excluded/example problem")
+
+    superscript_fields = _fields_with_unicode_superscripts(problem)
+    if superscript_fields:
+        failures.append(
+            "unicode superscripts found in " + ", ".join(sorted(superscript_fields))
+        )
+
+    if spec.layout == "centered" and not problem.prompt.strip():
+        failures.append("centered layout requires prompt")
+    elif spec.layout == "word_setup" and not (problem.setup or "").strip():
+        failures.append("word_setup layout requires setup")
+    elif spec.layout == "word_blanks":
+        if not problem.blanks or len([b for b in problem.blanks if b.strip()]) < 2:
+            failures.append("word_blanks layout requires at least two blank labels")
+    elif spec.layout in _MC_LAYOUTS:
+        failures.extend(_validate_mc_shape(problem))
+    elif spec.layout == "short_answer_below" and not (problem.answer_label or "").strip():
+        failures.append("short_answer_below layout requires answer_label")
+    elif spec.layout == "table":
+        if problem.options or problem.correct_letter:
+            failures.append("table layout should not include multiple-choice fields")
+
+    if failures:
+        return VerificationResult(
+            ok=False,
+            reason="invalid generated problem: " + "; ".join(failures),
+            details={"layout": spec.layout, "label": expected_label},
+            checked=True,
+        )
+    return VerificationResult(ok=True, reason="generated problem structure is valid")
+
+
+def _validate_mc_shape(problem: Problem) -> list[str]:
+    failures: list[str] = []
+    if not problem.options or len(problem.options) != 4:
+        failures.append("MC layout requires exactly four options")
+        return failures
+    if any(not option.strip() for option in problem.options):
+        failures.append("MC options must be nonempty")
+    normalized_options = [_normalize_problem_text(option) for option in problem.options]
+    if len(set(normalized_options)) != 4:
+        failures.append("MC options must be distinct")
+    if problem.correct_letter not in ("A", "B", "C", "D"):
+        failures.append(f"MC correct_letter must be A-D, got '{problem.correct_letter}'")
+    return failures
+
+
+def _body_matches_any(problem: Problem, excluded: list[Problem]) -> bool:
+    body = _normalize_problem_text(problem.body)
+    return any(body == _normalize_problem_text(other.body) for other in excluded)
+
+
+def _normalize_problem_text(text: str) -> str:
+    text = text.strip().lower()
+    text = re.sub(r"\s+", " ", text)
+    return text
+
+
+def _fields_with_unicode_superscripts(problem: Problem) -> set[str]:
+    fields: dict[str, str] = {
+        "body": problem.body,
+        "answer": problem.answer,
+        "prompt": problem.prompt,
+        "setup": problem.setup or "",
+        "answer_label": problem.answer_label or "",
+    }
+    if problem.blanks:
+        fields.update({f"blank[{i}]": value for i, value in enumerate(problem.blanks)})
+    if problem.options:
+        fields.update({f"option[{i}]": value for i, value in enumerate(problem.options)})
+    return {name for name, value in fields.items() if _UNICODE_SUPERSCRIPT_RE.search(value)}
 
 
 def _extract_json(text: str) -> dict:

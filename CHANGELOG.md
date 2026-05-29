@@ -4,6 +4,22 @@ All notable user-facing changes to Round Two.
 
 ## 2026-05-29
 
+### Added
+- **Provider boundary for department/Gemini readiness.** Round Two now routes
+  extraction, generation, and second-pass word-problem verification through
+  `llm_provider.py`, with Anthropic as the default backend and model names
+  configurable through environment variables. This keeps the worksheet
+  pipeline independent from one AI vendor and creates a clean place to add a
+  district Gemini backend later.
+- **Scaling guide.** Added `SCALING.md` with the recommended department
+  rollout, operational controls, provider strategy, and Gemini/Gem companion
+  path.
+- **Generation-shape validation before math verification.** Generated
+  problems are now rejected and retried if they are malformed for their
+  layout, duplicate an excluded/example problem, omit required MC/setup/blank
+  fields, or contain Unicode superscripts that can render as black boxes in
+  the worksheet PDF.
+
 ### Fixed
 - **Far fewer false "can't verify the answer" flags.** The auto-checker used
   to flag any answer it couldn't parse — including correct answers written in

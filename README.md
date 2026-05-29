@@ -10,9 +10,11 @@ retaking the test.
 ## How it works
 
 - Extract the distinct problem types from the uploaded test using
+  the configured AI provider. The default provider is Anthropic using
   Claude (`claude-opus-4-7`).
-- Generate per-problem variants for each type using Claude
-  (`claude-sonnet-4-6`), with SymPy verification and a regenerate
+- Generate per-problem variants for each type using the configured
+  generation model. The default is Claude (`claude-sonnet-4-6`), with
+  SymPy verification and a regenerate
   loop for incorrect answers.
 - Render the final PDF with ReportLab using the canonical visual
   style (NAVY headers, tan-bordered example boxes, manual exponent
@@ -39,9 +41,18 @@ export ANTHROPIC_API_KEY=sk-ant-...
 streamlit run app.py
 ```
 
-Note: `app.py` is currently under construction. The renderer
-(`worksheet_renderer.py`) is the first working module; the Streamlit
-UI is the final step of the build.
+Optional provider/model configuration:
+
+```
+export ROUND_TWO_LLM_PROVIDER=anthropic
+export ROUND_TWO_EXTRACT_MODEL=claude-opus-4-7
+export ROUND_TWO_GENERATE_MODEL=claude-sonnet-4-6
+export ROUND_TWO_VERIFY_MODEL=claude-sonnet-4-6
+```
+
+`ROUND_TWO_LLM_PROVIDER=gemini` is reserved for a district Gemini backend,
+but this build does not implement the Gemini client yet. See `SCALING.md`
+for the rollout path.
 
 ## Deploy
 
@@ -60,6 +71,10 @@ stay private. Create a new Web Service from the repo with:
 - Build command: `pip install -r requirements.txt`
 - Start command: `streamlit run app.py --server.port=$PORT --server.address=0.0.0.0`
 - Environment variable: `ANTHROPIC_API_KEY`
+
+For department use, prefer a private deployment with basic auth or school
+SSO, secret-managed API keys, and usage monitoring before sharing the URL
+broadly.
 
 ## Cost
 
