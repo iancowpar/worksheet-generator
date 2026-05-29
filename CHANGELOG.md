@@ -2,6 +2,27 @@
 
 All notable user-facing changes to Round Two.
 
+## 2026-05-29
+
+### Fixed
+- **Far fewer false "can't verify the answer" flags.** The auto-checker used
+  to flag any answer it couldn't parse — including correct answers written in
+  a slightly different format — which blocked the whole worksheet behind a
+  manual review. The checker now separates "I solved it and the answer is
+  wrong" from "I couldn't read this format," and only the former counts as a
+  real problem. Unreadable-format cases get a fresh Claude solve-from-scratch
+  check before anything is flagged.
+- **The checker now understands more answer formats.** It accepts common
+  variations teachers and the generator naturally produce — `Arithmetic, d = -9`
+  without parentheses, a bare `Geometric`, `f(n) = 5 · 3^{n-1}` with a middot,
+  `r = 1/3` or just `1/3`, multiple-choice answers given as just `(B)`, and
+  spacing differences in multiple-choice option text.
+
+### Changed
+- **The generator is now told the exact answer format** the checker expects
+  for each problem type, so correct answers land in a verifiable shape on the
+  first try instead of being flagged and regenerated.
+
 ## 2026-05-04
 
 ### Added

@@ -159,8 +159,63 @@ Example (for reference only — do not reproduce or trivially modify):
 
 Already generated for this type (avoid duplicating):
 {excluded_bodies}
-{calibration_block}
+{answer_format_block}{calibration_block}
 Generate problem {label} as JSON only."""
+
+
+# Per-verifier answer-format contracts, injected into GENERATE_PROBLEM_USER.
+# These exist because the downstream verifier matches the answer against a
+# specific canonical shape; if Claude answers correctly but in a different
+# format, the auto-check can't confirm it and the problem gets flagged. Pinning
+# the exact format the verifier expects removes that whole class of false
+# failures at the source. Keep these in lockstep with verifier.py.
+ANSWER_FORMAT_GUIDANCE = {
+    "combine_like_terms": (
+        "The `answer` must be ONLY the fully simplified expression, e.g. "
+        "\"2x^2 + 7x - 5\". No \"Answer:\" prefix, no prose, no restating the "
+        "problem. Use `^` exponent markup, never Unicode superscripts."
+    ),
+    "evaluate_at_x": (
+        "The `body` must literally contain \"f(x) = <expression>\" and ask for "
+        "\"f(N)\" with a specific integer N. The `answer` must be "
+        "\"f(N) = <value>\" with the SAME N, e.g. \"f(3) = 8\"."
+    ),
+    "geometric_ratio": (
+        "The `body` must contain the sequence as comma-separated numbers ending "
+        "in \"...\". The `answer` must be \"r = <value>\", e.g. \"r = 1/3\" "
+        "(fractions allowed; reduce them)."
+    ),
+    "geometric_term": (
+        "The `body` must give the sequence (or an explicit formula) and ask for a "
+        "specific term. The `answer` must be ONLY that term's value, e.g. \"162\"."
+    ),
+    "classify_arith_geom": (
+        "The `body` must be a comma-separated sequence ending in \"...\". The "
+        "`answer` must be EXACTLY \"Arithmetic (d = <value>)\" or "
+        "\"Geometric (r = <value>)\" — the correct classification with its "
+        "common difference or common ratio."
+    ),
+    "recursive_rule": (
+        "The `answer` must be EXACTLY \"f(1) = <a>, f(n) = <r> * f(n-1)\", e.g. "
+        "\"f(1) = 5, f(n) = 3 * f(n-1)\". Use `*` for multiplication."
+    ),
+    "explicit_rule": (
+        "The `answer` must be EXACTLY \"f(n) = <a>(<r>)^{{n-1}}\", e.g. "
+        "\"f(n) = 5(3)^{{n-1}}\", where <a> is the first term and <r> the common "
+        "ratio named in the body."
+    ),
+    "mc_match": (
+        "Provide all 4 `options` (A,B,C,D order) and set `correct_letter`. The "
+        "`answer` must be EXACTLY \"(<correct_letter>) <verbatim text of that "
+        "option>\" — the text after the letter must match the chosen option "
+        "character-for-character."
+    ),
+    "claude_second_pass": (
+        "Make the `answer` self-contained and unambiguous: state the final "
+        "result clearly (include units or a labeled value where the problem "
+        "asks for one) so it can be checked by re-solving from scratch."
+    ),
+}
 
 
 # Per-level guidance text injected into the difficulty calibration block

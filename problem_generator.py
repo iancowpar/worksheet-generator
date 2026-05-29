@@ -30,6 +30,7 @@ from functools import lru_cache
 from anthropic import Anthropic
 
 from prompts import (
+    ANSWER_FORMAT_GUIDANCE,
     EXTRACT_TYPES_SYSTEM,
     EXTRACT_TYPES_USER,
     GENERATE_PROBLEM_SYSTEM,
@@ -189,12 +190,21 @@ def generate_problem(
             "\nDifficulty calibration:\n" + "\n".join(calibration_lines) + "\n"
         )
 
+    # Pin the exact answer format the verifier for this kind expects, so a
+    # correct answer in an off-spec format doesn't get flagged downstream.
+    format_guidance = ANSWER_FORMAT_GUIDANCE.get(spec.verifier_kind)
+    answer_format_block = (
+        f"Answer format (must follow exactly):\n{format_guidance}\n\n"
+        if format_guidance else ""
+    )
+
     user = GENERATE_PROBLEM_USER.format(
         title=spec.title,
         layout=spec.layout,
         pattern_description=spec.pattern_description,
         example_json=example_json,
         excluded_bodies=excluded_bodies,
+        answer_format_block=answer_format_block,
         calibration_block=calibration_block,
         label=label,
     )
@@ -233,6 +243,25 @@ def verify_word_problem(problem: Problem, spec: ExtractedTypeSpec) -> Verificati
     )
 
 
+def _merge_unverified(
+    sympy_result: VerificationResult, claude_result: VerificationResult
+) -> VerificationResult:
+    """Combine a SymPy 'couldn't check' result with a failing Claude second
+    pass into one flag with a reason that helps the teacher understand why a
+    problem needs review — neither checker could confirm the answer."""
+    parts = []
+    if claude_result.reason:
+        parts.append(f"second-pass check: {claude_result.reason}")
+    if sympy_result.reason:
+        parts.append(f"auto-check: {sympy_result.reason}")
+    return VerificationResult(
+        ok=False,
+        reason="; ".join(parts) or "could not verify answer",
+        details={**sympy_result.details, **claude_result.details},
+        checked=claude_result.checked,
+    )
+
+
 def generate_problem_with_retry(
     spec: ExtractedTypeSpec,
     label: str,
@@ -268,17 +297,23 @@ def generate_problem_with_retry(
             result = verify_word_problem(problem, spec)
         else:
             result = verify(problem, spec.verifier_kind)
-            # If the SymPy verifier raised a parse error, the spec's
-            # verifier_kind was probably misassigned during extraction
-            # (Claude tends to pick combine_like_terms for word problems
-            # whose body is a sentence, not a parseable expression).
-            # Fall back to Claude second-pass instead of flagging.
-            if not result.ok and any(
-                keyword in result.reason
-                for keyword in ("SyntaxError", "TokenError", "couldn't find",
-                                "couldn't parse", "raised")
-            ):
-                result = verify_word_problem(problem, spec)
+            # When the SymPy verifier couldn't actually evaluate the answer
+            # (couldn't parse the expression, extract the sequence, or match
+            # the answer format — `checked=False`), it has NOT found a math
+            # error. Flagging here was the main source of false "can't verify
+            # the answer" failures: a correct answer in a slightly-off format
+            # would block the whole worksheet. Defer to the Claude second-pass
+            # for a real solve-from-scratch check instead.
+            #
+            # A `checked=True` failure means SymPy solved it and the claim is
+            # genuinely wrong — that we trust, and let the retry loop handle.
+            if not result.ok and not result.checked:
+                claude_result = verify_word_problem(problem, spec)
+                # Preserve the SymPy diagnostic if Claude also can't confirm,
+                # so the flagged reason stays useful for human review.
+                result = claude_result if claude_result.ok else _merge_unverified(
+                    sympy_result=result, claude_result=claude_result
+                )
 
         if result.ok:
             return GeneratedProblem(problem=problem, verification=result, attempts=attempt + 1)

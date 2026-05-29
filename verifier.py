@@ -19,7 +19,7 @@ import re
 from dataclasses import dataclass, field
 from typing import Callable
 
-from sympy import Rational, simplify
+from sympy import Rational, expand, simplify
 from sympy.parsing.sympy_parser import (
     implicit_multiplication_application,
     parse_expr,
@@ -34,6 +34,14 @@ class VerificationResult:
     ok: bool
     reason: str
     details: dict = field(default_factory=dict)
+    # `checked` distinguishes a genuine math disagreement from a verifier that
+    # never managed to evaluate the problem. When a SymPy verifier can't parse
+    # the expression or extract the sequence/answer (a *formatting* mismatch,
+    # not a *math* mismatch), it sets checked=False so the caller knows the
+    # answer was never truly tested and can defer to the Claude second-pass
+    # instead of flagging a possibly-correct problem. ok=False with
+    # checked=True means "I solved it and the claim is wrong" — trust it.
+    checked: bool = True
 
 
 # --- Public entry point -----------------------------------------------------
@@ -43,13 +51,18 @@ def verify(problem: Problem, kind: str) -> VerificationResult:
     callers can use to retry, accept, or flag a problem."""
     fn = _VERIFIERS.get(kind)
     if fn is None:
-        return VerificationResult(ok=False, reason=f"unknown verifier kind: {kind}")
+        return VerificationResult(
+            ok=False, reason=f"unknown verifier kind: {kind}", checked=False
+        )
     try:
         return fn(problem)
     except Exception as e:
+        # A raised exception means we never evaluated the math (bad parse,
+        # unexpected shape). Don't treat it as a wrong answer.
         return VerificationResult(
             ok=False,
             reason=f"verifier raised {type(e).__name__}: {e}",
+            checked=False,
         )
 
 
@@ -61,13 +74,33 @@ _TRANSFORMATIONS = standard_transformations + (implicit_multiplication_applicati
 def _normalize(s: str) -> str:
     """Translate worksheet markup into a SymPy-parseable string.
 
-    - `^N` / `^{...}` → `**N` / `**(...)`
+    - `^N` / `^{...}` / `^-N` → `**N` / `**(...)` / `**(-N)`
     - Unicode minus signs (− ‒ –) → ASCII `-`
+    - Explicit multiplication symbols (· × ⋅ ∙ *) → `*`
     - Curly quote artifacts removed
     """
     s = s.replace("−", "-").replace("–", "-").replace("—", "-")
+    # Normalize the various "times" glyphs Claude reaches for in formulas so
+    # implicit-multiplication parsing doesn't choke on them.
+    for times in ("·", "⋅", "∙", "×", "•"):
+        s = s.replace(times, "*")
     s = re.sub(r"\^\{([^}]+)\}", r"**(\1)", s)
-    s = re.sub(r"\^([A-Za-z0-9])", r"**\1", s)
+    s = re.sub(r"\^\(([^)]+)\)", r"**(\1)", s)
+    # A bare exponent is a full digit run (so `^10` survives) or a single
+    # variable letter (so `m^2n` stays m²·n, not m^(2n)). An optional leading
+    # minus covers `^-2`.
+    s = re.sub(r"\^(-?\d+|-?[A-Za-z])", r"**(\1)", s)
+    return s
+
+
+def _normalize_operators(s: str) -> str:
+    """Collapse the various 'times' glyphs to ASCII `*` and unicode minus to
+    `-`, without touching `^`/`{}` exponent markup. Used by the recursive- and
+    explicit-rule verifiers, which regex-match against the raw answer string
+    (not a SymPy expression) and just need operator spelling normalized."""
+    s = s.replace("−", "-").replace("–", "-").replace("—", "-")
+    for times in ("·", "⋅", "∙", "×", "•"):
+        s = s.replace(times, "*")
     return s
 
 
@@ -78,8 +111,15 @@ def _parse(s: str):
 
 
 def _equal(a, b) -> bool:
-    """Symbolic equality that survives factoring/rearrangement."""
-    return simplify(a - b) == 0
+    """Symbolic equality that survives factoring/rearrangement.
+
+    `expand` is fast and exact for the polynomial sums/products that make up
+    almost every checkable problem here; `simplify` is the fallback for the
+    rarer rational or factored forms where expansion alone won't cancel."""
+    diff = a - b
+    if expand(diff) == 0:
+        return True
+    return simplify(diff) == 0
 
 
 def _parse_rational(s: str) -> Rational:
@@ -123,10 +163,10 @@ def _verify_evaluate_at_x(problem: Problem) -> VerificationResult:
     of the form 'f(N) = <value>' (or just '<value>'). Verify by substituting."""
     fdef = re.search(r"f\(\s*x\s*\)\s*=\s*(.+?)(?:,|\?|\.)", problem.body)
     if not fdef:
-        return VerificationResult(ok=False, reason="couldn't find 'f(x) = ...' in body")
-    sub = re.search(r"f\(\s*(\d+(?:\.\d+)?)\s*\)", problem.body[fdef.end():])
+        return VerificationResult(ok=False, reason="couldn't find 'f(x) = ...' in body", checked=False)
+    sub = re.search(r"f\(\s*(-?\d+(?:\.\d+)?)\s*\)", problem.body[fdef.end():])
     if not sub:
-        return VerificationResult(ok=False, reason="couldn't find 'f(N)' substitution in body")
+        return VerificationResult(ok=False, reason="couldn't find 'f(N)' substitution in body", checked=False)
 
     expr_str = fdef.group(1).strip()
     n_str = sub.group(1)
@@ -137,7 +177,7 @@ def _verify_evaluate_at_x(problem: Problem) -> VerificationResult:
     computed_simplified = simplify(computed)
 
     # Extract claimed value from answer. Accepts "f(4) = 16" or just "16".
-    m = re.search(r"f\(\s*\d+\s*\)\s*=\s*([^\s]+)", problem.answer)
+    m = re.search(r"f\(\s*-?\d+\s*\)\s*=\s*([^\s]+)", problem.answer)
     claimed_str = m.group(1) if m else problem.answer.strip()
     try:
         claimed = _parse_rational(claimed_str)
@@ -145,7 +185,7 @@ def _verify_evaluate_at_x(problem: Problem) -> VerificationResult:
         try:
             claimed = simplify(_parse(claimed_str))
         except Exception:
-            return VerificationResult(ok=False, reason=f"couldn't parse claimed value '{claimed_str}'")
+            return VerificationResult(ok=False, reason=f"couldn't parse claimed value '{claimed_str}'", checked=False)
     if simplify(computed_simplified - claimed) == 0:
         return VerificationResult(ok=True, reason=f"f({n_str}) = {computed_simplified}")
     return VerificationResult(
@@ -159,19 +199,22 @@ def _verify_geometric_ratio(problem: Problem) -> VerificationResult:
     """Verify the claimed common ratio of a sequence in the body."""
     nums = _extract_sequence(problem.body)
     if nums is None or len(nums) < 2:
-        return VerificationResult(ok=False, reason="couldn't extract sequence from body")
+        return VerificationResult(ok=False, reason="couldn't extract sequence from body", checked=False)
     r = nums[1] / nums[0]
     for i in range(2, len(nums)):
         if nums[i] / nums[i - 1] != r:
             return VerificationResult(ok=False, reason="sequence is not geometric")
 
-    m = re.search(r"r\s*=\s*([\-]?[0-9./]+)", problem.answer)
+    # Accept "r = 1/3", a bare "1/3", or "the common ratio is 1/3".
+    m = re.search(r"r\s*=\s*(-?[0-9./]+)", problem.answer)
     if not m:
-        return VerificationResult(ok=False, reason="couldn't find 'r = ...' in answer")
+        m = re.search(r"(-?\d+\s*/\s*\d+|-?\d+(?:\.\d+)?)", problem.answer)
+    if not m:
+        return VerificationResult(ok=False, reason="couldn't find 'r = ...' in answer", checked=False)
     try:
         claimed = _parse_rational(m.group(1))
     except (ValueError, ZeroDivisionError):
-        return VerificationResult(ok=False, reason=f"couldn't parse claimed r '{m.group(1)}'")
+        return VerificationResult(ok=False, reason=f"couldn't parse claimed r '{m.group(1)}'", checked=False)
     if claimed == r:
         return VerificationResult(ok=True, reason=f"r = {r}")
     return VerificationResult(ok=False, reason=f"r mismatch: computed {r}, claimed {claimed}")
@@ -182,23 +225,32 @@ def _verify_geometric_term(problem: Problem) -> VerificationResult:
     `f(n) = a(r)^{n-1}` or a sequence-style body. Answer is a number or '<value>'."""
     n_target = _find_nth_request(problem.body)
     if n_target is None:
-        return VerificationResult(ok=False, reason="couldn't find which nth-term is asked")
+        return VerificationResult(ok=False, reason="couldn't find which nth-term is asked", checked=False)
 
     a, r = _extract_a_r(problem.body)
     if a is None or r is None:
-        return VerificationResult(ok=False, reason="couldn't extract a and r from body")
+        return VerificationResult(ok=False, reason="couldn't extract a and r from body", checked=False)
 
     computed = a * r ** (n_target - 1)
     computed = simplify(computed)
 
+    # A geometric term is a concrete number. If the answer is prose ("the
+    # fifth term is 162"), pull the numeric token out rather than letting
+    # implicit multiplication turn the words into a meaningless symbol product.
     claimed_str = problem.answer.strip()
-    try:
-        claimed = _parse_rational(claimed_str)
-    except (ValueError, ZeroDivisionError):
+    if re.search(r"[A-Za-z]", claimed_str):
+        m = re.search(r"-?\d+\s*/\s*\d+|-?\d+(?:\.\d+)?", claimed_str)
+        if not m:
+            return VerificationResult(ok=False, reason=f"no numeric value in answer '{claimed_str}'", checked=False)
+        claimed = _parse_rational(m.group(0))
+    else:
         try:
-            claimed = simplify(_parse(claimed_str))
+            claimed = _parse_rational(claimed_str)
         except Exception:
-            return VerificationResult(ok=False, reason=f"couldn't parse '{claimed_str}'")
+            try:
+                claimed = simplify(_parse(claimed_str))
+            except Exception:
+                return VerificationResult(ok=False, reason=f"couldn't parse '{claimed_str}'", checked=False)
     if simplify(computed - claimed) == 0:
         return VerificationResult(ok=True, reason=f"term = {computed}")
     return VerificationResult(ok=False, reason=f"term mismatch: computed {computed}, claimed {claimed}")
@@ -208,7 +260,7 @@ def _verify_classify_arith_geom(problem: Problem) -> VerificationResult:
     """Body is a sequence; answer says 'Arithmetic (d = X)' or 'Geometric (r = Y)'."""
     nums = _extract_sequence(problem.body)
     if nums is None or len(nums) < 3:
-        return VerificationResult(ok=False, reason="couldn't extract a 3+ term sequence")
+        return VerificationResult(ok=False, reason="couldn't extract a 3+ term sequence", checked=False)
 
     diffs = [nums[i + 1] - nums[i] for i in range(len(nums) - 1)]
     is_arith = all(d == diffs[0] for d in diffs)
@@ -222,25 +274,46 @@ def _verify_classify_arith_geom(problem: Problem) -> VerificationResult:
     if is_geo:
         is_geo = all(r == ratios[0] for r in ratios)
 
+    # The classification word is the load-bearing part of the answer; the
+    # d/r value is supplementary. Read them independently so we tolerate
+    # "Arithmetic (d = -9)", "Arithmetic, d = -9", "arithmetic d=-9", or even
+    # a bare "Arithmetic" with no value.
     ans = problem.answer
-    arith_claim = re.search(r"Arithmetic\s*\(\s*d\s*=\s*([+\-]?[0-9./]+)", ans)
-    geo_claim = re.search(r"Geometric\s*\(\s*r\s*=\s*([+\-]?[0-9./]+)", ans)
+    says_arith = bool(re.search(r"\bArithmetic\b", ans, re.IGNORECASE))
+    says_geo = bool(re.search(r"\bGeometric\b", ans, re.IGNORECASE))
+    d_val = re.search(r"\bd\s*=\s*([+\-]?[0-9./]+)", ans, re.IGNORECASE)
+    r_val = re.search(r"\br\s*=\s*([+\-]?[0-9./]+)", ans, re.IGNORECASE)
 
-    if arith_claim and is_arith:
-        claimed = _parse_rational(arith_claim.group(1))
-        if claimed == diffs[0]:
-            return VerificationResult(ok=True, reason=f"arithmetic, d = {diffs[0]}")
-        return VerificationResult(ok=False, reason=f"d mismatch: computed {diffs[0]}, claimed {claimed}")
-    if geo_claim and is_geo:
-        claimed = _parse_rational(geo_claim.group(1))
-        if claimed == ratios[0]:
-            return VerificationResult(ok=True, reason=f"geometric, r = {ratios[0]}")
-        return VerificationResult(ok=False, reason=f"r mismatch: computed {ratios[0]}, claimed {claimed}")
-    if arith_claim and is_geo:
-        return VerificationResult(ok=False, reason="claimed arithmetic but sequence is geometric")
-    if geo_claim and is_arith:
-        return VerificationResult(ok=False, reason="claimed geometric but sequence is arithmetic")
-    return VerificationResult(ok=False, reason="couldn't classify or parse claim")
+    if not (says_arith or says_geo):
+        return VerificationResult(ok=False, reason="answer names neither Arithmetic nor Geometric", checked=False)
+    if says_arith and says_geo:
+        return VerificationResult(ok=False, reason="answer names both Arithmetic and Geometric", checked=False)
+
+    if says_arith:
+        if not is_arith:
+            kind = "geometric" if is_geo else "neither"
+            return VerificationResult(ok=False, reason=f"claimed arithmetic but sequence is {kind}")
+        if d_val:
+            try:
+                claimed = _parse_rational(d_val.group(1))
+            except (ValueError, ZeroDivisionError):
+                return VerificationResult(ok=False, reason=f"couldn't parse d '{d_val.group(1)}'", checked=False)
+            if claimed != diffs[0]:
+                return VerificationResult(ok=False, reason=f"d mismatch: computed {diffs[0]}, claimed {claimed}")
+        return VerificationResult(ok=True, reason=f"arithmetic, d = {diffs[0]}")
+
+    # says_geo
+    if not is_geo:
+        kind = "arithmetic" if is_arith else "neither"
+        return VerificationResult(ok=False, reason=f"claimed geometric but sequence is {kind}")
+    if r_val:
+        try:
+            claimed = _parse_rational(r_val.group(1))
+        except (ValueError, ZeroDivisionError):
+            return VerificationResult(ok=False, reason=f"couldn't parse r '{r_val.group(1)}'", checked=False)
+        if claimed != ratios[0]:
+            return VerificationResult(ok=False, reason=f"r mismatch: computed {ratios[0]}, claimed {claimed}")
+    return VerificationResult(ok=True, reason=f"geometric, r = {ratios[0]}")
 
 
 def _verify_explicit_rule(problem: Problem) -> VerificationResult:
@@ -250,15 +323,21 @@ def _verify_explicit_rule(problem: Problem) -> VerificationResult:
     a_match = re.search(r"first term of\s+([+\-]?[0-9./]+)", body, re.IGNORECASE)
     r_match = re.search(r"common ratio of\s+([+\-]?[0-9./]+)", body, re.IGNORECASE)
     if not (a_match and r_match):
-        return VerificationResult(ok=False, reason="couldn't find first term / common ratio in body")
+        return VerificationResult(ok=False, reason="couldn't find first term / common ratio in body", checked=False)
     a = _parse_rational(a_match.group(1))
     r = _parse_rational(r_match.group(1))
 
-    ans = re.sub(r"\s", "", problem.answer)
-    # f(n)=a(r)^{n-1} → check the captured a and r
-    m = re.match(r"f\(n\)=([+\-]?[0-9./]+)\(([+\-]?[0-9./]+)\)\^?\{?n-1\}?", ans)
+    # Strip whitespace and normalize the "times" glyphs so a, r are next to
+    # parens / operators. Accept a(r)^{n-1}, a·r^{n-1}, a(r)^(n-1), a(r)^n-1.
+    ans = re.sub(r"\s", "", _normalize_operators(problem.answer))
+    m = re.match(
+        r"f\(n\)=([+\-]?[0-9./]+)"          # a
+        r"\*?\(?([+\-]?[0-9./]+)\)?"        # r, optional parens or leading *
+        r"\^?\{?\(?n-1\)?\}?",              # ^{n-1} / ^(n-1) / ^n-1
+        ans,
+    )
     if not m:
-        return VerificationResult(ok=False, reason=f"answer doesn't match f(n)=a(r)^{{n-1}}: '{problem.answer}'")
+        return VerificationResult(ok=False, reason=f"answer doesn't match f(n)=a(r)^{{n-1}}: '{problem.answer}'", checked=False)
     claimed_a = _parse_rational(m.group(1))
     claimed_r = _parse_rational(m.group(2))
     if claimed_a == a and claimed_r == r:
@@ -274,13 +353,17 @@ def _verify_recursive_rule(problem: Problem) -> VerificationResult:
     """
     a_target, r_target = _extract_a_r(problem.body)
     if a_target is None or r_target is None:
-        return VerificationResult(ok=False, reason="couldn't extract a and r from body")
+        return VerificationResult(ok=False, reason="couldn't extract a and r from body", checked=False)
 
-    ans = problem.answer
+    ans = _normalize_operators(problem.answer)
     a_m = re.search(r"f\(1\)\s*=\s*([+\-]?[0-9./]+)", ans)
-    r_m = re.search(r"f\(n\)\s*=\s*([+\-]?[0-9./]+)\s*[·*]\s*f\(n-1\)", ans)
+    # r · f(n-1) — accept *, the order "f(n) = f(n-1) · r" too.
+    r_m = re.search(r"f\(n\)\s*=\s*([+\-]?[0-9./]+)\s*\*\s*f\(n-1\)", ans)
+    if not r_m:
+        r_alt = re.search(r"f\(n\)\s*=\s*f\(n-1\)\s*\*\s*([+\-]?[0-9./]+)", ans)
+        r_m = r_alt
     if not (a_m and r_m):
-        return VerificationResult(ok=False, reason=f"answer doesn't match recursive form: '{ans}'")
+        return VerificationResult(ok=False, reason=f"answer doesn't match recursive form: '{problem.answer}'", checked=False)
     a_claim = _parse_rational(a_m.group(1))
     r_claim = _parse_rational(r_m.group(1))
     if a_claim == a_target and r_claim == r_target:
@@ -301,12 +384,30 @@ def _verify_mc_match(problem: Problem) -> VerificationResult:
         return VerificationResult(ok=False, reason=f"invalid correct_letter '{problem.correct_letter}'")
     idx = "ABCD".index(problem.correct_letter)
     expected_option = problem.options[idx]
-    m = re.match(r"^\(([A-D])\)\s*(.+)$", problem.answer.strip())
-    if not m:
-        return VerificationResult(ok=False, reason=f"answer doesn't start with '(X) ': '{problem.answer}'")
-    if m.group(1) != problem.correct_letter:
-        return VerificationResult(ok=False, reason=f"answer letter '{m.group(1)}' != correct_letter '{problem.correct_letter}'")
-    answer_text = m.group(2).strip()
+
+    # Accept "(B) text", "B) text", "B. text", "B: text". The letter must be
+    # parenthesized or followed by a real delimiter so an option that simply
+    # starts with A-D (e.g. "Decreasing") isn't misread as a choice letter.
+    m = re.match(r"^(?:\(([A-D])\)|([A-D])\s*[.):])\s*(.*)$", problem.answer.strip())
+    # If the answer carries an explicit letter, it must agree with
+    # correct_letter — a letter/text mismatch is a real, detected bug.
+    if m:
+        letter = m.group(1) or m.group(2)
+        if letter != problem.correct_letter:
+            return VerificationResult(
+                ok=False,
+                reason=f"answer letter '{letter}' != correct_letter '{problem.correct_letter}'",
+            )
+        answer_text = m.group(3).strip()
+        # Some answers are just "(B)" with no restated text — the letter
+        # alone, agreeing with correct_letter, is enough to verify.
+        if not answer_text:
+            return VerificationResult(ok=True, reason=f"MC ({problem.correct_letter}) verified (letter only)")
+    else:
+        # No leading letter — treat the whole answer as restated option text
+        # and check it against the option correct_letter points to.
+        answer_text = problem.answer.strip()
+
     if _normalize_for_compare(answer_text) == _normalize_for_compare(expected_option):
         return VerificationResult(ok=True, reason=f"MC ({problem.correct_letter}) verified")
     return VerificationResult(
@@ -317,8 +418,13 @@ def _verify_mc_match(problem: Problem) -> VerificationResult:
 
 
 def _normalize_for_compare(s: str) -> str:
-    """Squash whitespace and remove non-essential characters for option comparison."""
-    return re.sub(r"\s+", " ", s).strip()
+    """Normalize an MC option for comparison: strip ALL whitespace, unify the
+    'times' glyphs and unicode minus, and lowercase. Options are short answer
+    choices, so dropping every space safely makes 'y = 6(3)^x' match
+    'y=6(3)^x' without risking a word-merge changing the meaning."""
+    s = _normalize_operators(s)
+    s = re.sub(r"\s+", "", s)
+    return s.lower()
 
 
 # --- Sequence / formula extraction helpers --------------------------------
