@@ -34,7 +34,11 @@ CELL_PAD_TOP = 7
 CELL_PAD_BOTTOM = 7
 
 TITLE = "Factor Pairs from 1 – 100"
-SUBTITLE = "with the larger factor first · perfect squares in bold"
+SUBTITLE = "with the larger factor first · perfect squares in bold orange"
+
+# A saturated orange that stays legible when printed on white (plain yellow
+# washes out). Used for perfect-square headers and their boxed equations.
+ORANGE = (0.886, 0.345, 0.043)  # ~ #E2580B
 
 
 def is_perfect_square(n: int) -> bool:
@@ -77,10 +81,15 @@ def draw_cell(c, x_left: float, y_top: float, width: float, height: float, n: in
     cx = x_left + width / 2
     is_sq = is_perfect_square(n)
 
-    # Header number (underlined; bold for perfect squares).
+    # Header number (underlined; bold + orange for perfect squares).
     head_font = "Helvetica-Bold" if is_sq else "Helvetica"
     c.setFont(head_font, HEADER_SIZE)
-    c.setFillColorRGB(0, 0, 0)
+    if is_sq:
+        c.setFillColorRGB(*ORANGE)
+        c.setStrokeColorRGB(*ORANGE)
+    else:
+        c.setFillColorRGB(0, 0, 0)
+        c.setStrokeColorRGB(0.15, 0.15, 0.15)
     head_y = y_top - CELL_PAD_TOP - HEADER_SIZE
     c.drawCentredString(cx, head_y, str(n))
     num_w = c.stringWidth(str(n), head_font, HEADER_SIZE)
@@ -94,14 +103,17 @@ def draw_cell(c, x_left: float, y_top: float, width: float, height: float, n: in
         if square_pair:
             c.setFont("Helvetica-Bold", PAIR_SIZE)
             tw = c.stringWidth(text, "Helvetica-Bold", PAIR_SIZE)
+            # Bold + orange perfect-square equation in an orange box.
+            c.setFillColorRGB(*ORANGE)
             c.drawCentredString(cx, line_y, text)
-            # Box the perfect-square equation.
             pad_x, pad_y = 4, 2.5
             c.setLineWidth(1.0)
+            c.setStrokeColorRGB(*ORANGE)
             c.rect(cx - tw / 2 - pad_x, line_y - pad_y,
                    tw + 2 * pad_x, PAIR_SIZE + 2 * pad_y, stroke=1, fill=0)
         else:
             c.setFont("Helvetica", PAIR_SIZE)
+            c.setFillColorRGB(0, 0, 0)
             c.drawCentredString(cx, line_y, text)
         line_y -= LINE_H
 
