@@ -1,14 +1,44 @@
 # Decision framework — UKG / Preservica / Deltek
 
-The discipline this enforces: criteria and weights set *before*
-offers land, then offers scored against them. If the math
-contradicts your gut, that tells you the weights are wrong OR your
-gut is reacting to something the framework missed. Either way you
-surface the disagreement honestly instead of retrofitting reasoning
-to whichever offer shows up first.
+## Strategic clarity (updated June 1, after family discussion)
 
-Built for the three active live tracks. Updated as offers and signals
-land.
+The framework's purpose has shifted. It was built to arbitrate
+between three options. After working through the family math, the
+real decision shape is:
+
+**Primary path: UKG at competitive comp.** Ian's green line is
+**$140K base + RSUs + bonus**. At that or above, UKG is the answer —
+because the family financial floor improves enough to ease tightness,
+the presence/identity dimensions favor returning to UKG, and the
+runway pressure (end-of-June close) makes a fast-moving UKG process
+the right shape.
+
+**$135K is the doubt threshold.** Below $140K but at or above $135K,
+the cash tightness barely improves and the gap to Preservica/Deltek
+becomes hard to justify on presence alone. The negotiation play (see
+`ukg-ese/UKG_Negotiation_Play.md`) pushes from this range up to $140K.
+
+**Below $135K is decline.** Doesn't solve the tightness problem.
+Hold for Deltek/Preservica.
+
+**Best case: re-leveled to Lead PM via Atul at $150K+.** The play
+Dara's been positioning for. Likely upper bound on what UKG could
+offer.
+
+### What the framework is now for
+
+| Scenario | Framework role |
+|---|---|
+| UKG offers $140K+ | **Confirmation.** Validates the decision; gives you the language to articulate why it's right. |
+| UKG offers $135-140K | **Decision-arbiter.** Cash gap to Preservica gets real. Framework helps weigh whether to negotiate up or hold. |
+| UKG offers <$135K | **Backup activated.** Framework becomes the comparator between Preservica and Deltek as primary paths. |
+| UKG falls through entirely | **Primary contest.** Original purpose. Preservica vs. Deltek decision. |
+
+Most likely scenario, given Dara's advocacy and your boomerang
+position: UKG lands in the $138-147K range. The framework is
+confirmation-or-decision-arbiter, not primary contest.
+
+---
 
 ## The dimensions and the scoring guidance
 
