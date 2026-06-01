@@ -12,7 +12,7 @@ land.
 
 ## The dimensions and the scoring guidance
 
-Ten dimensions. Each scored 1–10 per role when offers / interviews
+Eleven dimensions. Each scored 1–10 per role when offers / interviews
 surface enough info. Weights total 100, set BY YOU now, BEFORE
 offers compare.
 
@@ -26,27 +26,31 @@ offers compare.
 | 6 | **Manager / team fit** | From interview signals. 10 = great working chemistry confirmed, 5 = professionally fine, 1 = real friction |
 | 7 | **Company health / risk** | Growth trajectory, layoff risk, ownership stability. 10 = clear runway and growing, 5 = stable, 1 = real risk of disruption |
 | 8 | **Day-to-day energy fit** | The work you actually do on Tuesday. 10 = naturally energizing, 5 = neutral, 1 = draining |
-| 9 | **Optionality (doors opened)** | What this enables next. 10 = opens multiple distinct paths, 5 = keeps options open, 1 = narrows |
-| 10 | **Geographic / lifestyle fit** | Commute, hybrid demands, time zone, travel. 10 = ideal, 5 = workable, 1 = strain |
+| 9 | **Identity & belonging** | Whether the role aligns with how you see yourself and where the work has meaning beyond the work itself — finishing unfinished business, community pull, mission alignment, the version of you the role activates. 10 = deeply aligned, scratches a real itch / 5 = professionally fine but not personally meaningful / 1 = feels like wearing someone else's jacket |
+| 10 | **Optionality (doors opened)** | What this enables next. 10 = opens multiple distinct paths, 5 = keeps options open, 1 = narrows |
+| 11 | **Geographic / lifestyle fit** | Commute, hybrid demands, time zone, travel. 10 = ideal, 5 = workable, 1 = strain |
 
 ## My recommended starting weights (react and adjust)
 
-Pre-set for "mid-career, post-RIF, family considerations, AI-fluent,
-career-capital-conscious." These are *starting* weights — adjust
-based on what's actually true for you.
+Recalibrated for the fact that all three options are material upgrades
+over your last UKG comp ($130K), so relative cash differences between
+the three matter less than fit dimensions. Your own framing — *"it's
+not just about comp, which is why fit matters most"* — is honored
+here.
 
 | Dimension | Weight | Why this number |
 |---|---|---|
-| 1. Year-1 cash | **18** | High because runway matters post-RIF |
-| 2. Equity upside | **8** | Modest — of the three, only UKG has real RSUs |
+| 1. Year-1 cash | **15** | Still meaningful (family considerations), but all three are upgrades |
+| 2. Equity upside | **6** | Modest — only UKG has real RSUs |
 | 3. Scope of ownership | **15** | High — this is where career capital compounds |
 | 4. Career capital (24-mo) | **15** | High — sets up the next move |
-| 5. Strategic centrality | **10** | Means visibility + insulation from layoffs |
+| 5. Strategic centrality | **10** | Visibility + insulation from layoffs |
 | 6. Manager / team fit | **10** | Real signal of daily quality |
 | 7. Company health / risk | **6** | All three are reasonably healthy |
 | 8. Day-to-day energy fit | **8** | Real but secondary to scope + comp |
-| 9. Optionality | **5** | Hard to predict; matters but smaller weight |
-| 10. Geographic / lifestyle | **5** | All three are remote/hybrid-friendly; small differentiator |
+| 9. Identity & belonging | **8** | Honors the emotional dimension Ian named explicitly |
+| 10. Optionality | **4** | Hard to predict; matters but smaller weight |
+| 11. Geographic / lifestyle | **3** | All remote/hybrid-friendly; small differentiator |
 | **Total** | **100** | |
 
 **Sanity-check your weights with this question:** *If you had to give
@@ -70,18 +74,20 @@ hypothesized, not confirmed.**
 | 6. Manager / team fit | *?* (Tasos call Tuesday) | *7* (Mark warm; Helen+Stuart TBD) | *7* (Rabideau strong, Forgan went well) |
 | 7. Company health / risk | *6* (UKG stable, large, layoff cycles real) | *6* (VCT-backed, growth ambition real but execution risk) | *5* (Roper margin discipline, two layoff rounds 2025-26) |
 | 8. Day-to-day energy fit | *4* (BSA / Salesforce — not your natural lane) | *8* (programmatic AI work — your lane) | *7* (AI adoption — your lane, larger org context) |
-| 9. Optionality | *6* (gateway to Atul Lead/Matt Alliances) | *5* (specialist trajectory — Head of Product / VP eventually) | *6* (large-co Sr Mgr → Director path) |
-| 10. Geographic / lifestyle | *7* (UKG remote, Lowell familiar) | *8* (Methuen ~30 min from Milk St office) | *6* (Herndon-based co, some travel) |
+| 9. Identity & belonging | **8** (real pull — Fire Up ERG, Brand Champion, unfinished business, known quantity) | *7* (forward-looking identity — "the AI Programmes person at PSV during the bet") | *5* (Sr Manager at Deltek — solid but doesn't resonate with any specific identity thread) |
+| 10. Optionality | *6* (gateway to Atul Lead/Matt Alliances) | *5* (specialist trajectory — Head of Product / VP eventually) | *6* (large-co Sr Mgr → Director path) |
+| 11. Geographic / lifestyle | *7* (UKG remote, Lowell familiar) | *8* (Methuen ~30 min from Milk St office) | *6* (Herndon-based co, some travel) |
 
-**Plug into your weights and a working ranking falls out.** With my
-starting weights:
+**Plug into your weights and a working ranking falls out.** With the
+recalibrated weights:
 
-- **Preservica:** preliminary ~6.7
-- **Deltek (panel):** preliminary ~5.8 *(if offer materializes)*
-- **UKG (Tasos PO):** preliminary ~5.0 *(if offer materializes at this level)*
+- **Preservica:** preliminary ~6.9
+- **Deltek (panel):** preliminary ~5.9 *(if offer materializes)*
+- **UKG (Tasos PO):** preliminary ~5.4 *(if offer materializes at this level)*
 
 Don't trust those numbers yet — half the scores are hypothesized.
-The point is the framework, not today's ranking.
+The identity dimension narrowed UKG's gap meaningfully. The point is
+the framework, not today's ranking.
 
 ## What needs to land before final scoring is honest
 
