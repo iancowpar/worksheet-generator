@@ -29,16 +29,19 @@ COL_W = (PAGE_W - 2 * MARGIN) / N_COLS
 
 HEADER_SIZE = 10
 PAIR_SIZE = 9.5
-LINE_H = 13
+LINE_H = 14
 CELL_PAD_TOP = 7
 CELL_PAD_BOTTOM = 7
 
 TITLE = "Factor Pairs from 1 – 100"
-SUBTITLE = "with the larger factor first · perfect squares in bold orange"
+SUBTITLE = "with the larger factor first · perfect squares in orange"
 
 # A saturated orange that stays legible when printed on white (plain yellow
 # washes out). Used for perfect-square headers and their boxed equations.
 ORANGE = (0.886, 0.345, 0.043)  # ~ #E2580B
+# Light gray fill for cells whose number has a perfect-square factor.
+GRAY = (0.898, 0.898, 0.890)    # ~ #E5E5E3
+BORDER = (0.15, 0.15, 0.15)
 
 
 def is_perfect_square(n: int) -> bool:
@@ -46,18 +49,41 @@ def is_perfect_square(n: int) -> bool:
     return r * r == n
 
 
-def factor_pairs_larger_first(n: int) -> list[tuple[int, int, bool]]:
-    """Return (big, small, is_square_pair) for each factor pair a*b = n with
-    a <= b, ordered by the smaller factor ascending (larger factor first in
-    the displayed equation). is_square_pair flags the a == b pair."""
+def factor_pairs_larger_first(n: int) -> list[tuple[int, int, str]]:
+    """Return (big, small, kind) for each factor pair a*b = n with a <= b,
+    ordered by the smaller factor ascending (larger factor first in the
+    displayed equation). `kind` is one of:
+
+      "square"    the a == b equation of a perfect square (bold orange box)
+      "factorbox" a pair that reveals a perfect-square factor > 1, i.e. a
+                  proper factor that is a perfect square (thin black box) —
+                  matches the highlighted pairs in the original sheet
+      "plain"     no special treatment
+
+    A pair earns "factorbox" when one of its factors is a perfect square > 1
+    that is a *proper* factor of n (so n·1 is never boxed just because n is a
+    perfect square — only the a == a equation marks that)."""
     pairs = []
     a = 1
     while a * a <= n:
         if n % a == 0:
             b = n // a
-            pairs.append((b, a, a == b))
+            if a == b:
+                kind = "square"
+            elif (is_perfect_square(a) and a > 1) or (
+                is_perfect_square(b) and b > 1 and a > 1
+            ):
+                kind = "factorbox"
+            else:
+                kind = "plain"
+            pairs.append((b, a, kind))
         a += 1
     return pairs
+
+
+def has_square_factor(n: int) -> bool:
+    """True if the cell should be gray-shaded — i.e. it has any boxed pair."""
+    return any(kind != "plain" for _, _, kind in factor_pairs_larger_first(n))
 
 
 def row_heights(numbers: list[int]) -> list[float]:
@@ -73,10 +99,21 @@ def row_heights(numbers: list[int]) -> list[float]:
 
 
 def draw_cell(c, x_left: float, y_top: float, width: float, height: float, n: int) -> None:
-    # Cell border.
-    c.setLineWidth(0.6)
-    c.setStrokeColorRGB(0.15, 0.15, 0.15)
-    c.rect(x_left, y_top - height, width, height, stroke=1, fill=0)
+    y_bottom = y_top - height
+
+    # Gray shading for cells whose number has a perfect-square factor.
+    if has_square_factor(n):
+        c.setFillColorRGB(*GRAY)
+        c.rect(x_left, y_bottom, width, height, stroke=0, fill=1)
+
+    # Double-ruled cell border (outer + inset inner line), like the original.
+    c.setStrokeColorRGB(*BORDER)
+    c.setLineWidth(0.9)
+    c.rect(x_left, y_bottom, width, height, stroke=1, fill=0)
+    inset = 2.0
+    c.setLineWidth(0.4)
+    c.rect(x_left + inset, y_bottom + inset,
+           width - 2 * inset, height - 2 * inset, stroke=1, fill=0)
 
     cx = x_left + width / 2
     is_sq = is_perfect_square(n)
@@ -89,7 +126,7 @@ def draw_cell(c, x_left: float, y_top: float, width: float, height: float, n: in
         c.setStrokeColorRGB(*ORANGE)
     else:
         c.setFillColorRGB(0, 0, 0)
-        c.setStrokeColorRGB(0.15, 0.15, 0.15)
+        c.setStrokeColorRGB(*BORDER)
     head_y = y_top - CELL_PAD_TOP - HEADER_SIZE
     c.drawCentredString(cx, head_y, str(n))
     num_w = c.stringWidth(str(n), head_font, HEADER_SIZE)
@@ -98,17 +135,28 @@ def draw_cell(c, x_left: float, y_top: float, width: float, height: float, n: in
 
     # Factor-pair equations, larger factor first.
     line_y = head_y - LINE_H
-    for big, small, square_pair in factor_pairs_larger_first(n):
+    for big, small, kind in factor_pairs_larger_first(n):
         text = f"{big} · {small}"
-        if square_pair:
+        if kind == "square":
+            # Bold + orange perfect-square equation in an orange box.
             c.setFont("Helvetica-Bold", PAIR_SIZE)
             tw = c.stringWidth(text, "Helvetica-Bold", PAIR_SIZE)
-            # Bold + orange perfect-square equation in an orange box.
             c.setFillColorRGB(*ORANGE)
             c.drawCentredString(cx, line_y, text)
-            pad_x, pad_y = 4, 2.5
+            pad_x, pad_y = 4, 1.7
             c.setLineWidth(1.0)
             c.setStrokeColorRGB(*ORANGE)
+            c.rect(cx - tw / 2 - pad_x, line_y - pad_y,
+                   tw + 2 * pad_x, PAIR_SIZE + 2 * pad_y, stroke=1, fill=0)
+        elif kind == "factorbox":
+            # Thin black box around a pair that reveals a square factor.
+            c.setFont("Helvetica", PAIR_SIZE)
+            tw = c.stringWidth(text, "Helvetica", PAIR_SIZE)
+            c.setFillColorRGB(0, 0, 0)
+            c.drawCentredString(cx, line_y, text)
+            pad_x, pad_y = 4, 1.7
+            c.setLineWidth(0.6)
+            c.setStrokeColorRGB(*BORDER)
             c.rect(cx - tw / 2 - pad_x, line_y - pad_y,
                    tw + 2 * pad_x, PAIR_SIZE + 2 * pad_y, stroke=1, fill=0)
         else:
