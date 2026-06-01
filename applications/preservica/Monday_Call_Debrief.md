@@ -7,7 +7,7 @@ had assumed. The total-comp thesis needs to be rebuilt.
 ## What happened in the room
 
 - Mark opened with the agenda. Screening call, then 30-min informal
-  Teams call with **Helen Pelic (Head of Product)** and **Stuart Reid
+  Teams call with **Helena Pilih (Head of Product)** and **Stuart Reed
   (CPO)** if this goes well, then a wider panel.
 - Mark wants you in the Boston office (Milk Street) for at least one
   of the stages — face-to-name. Hybrid pattern is one or two
@@ -35,7 +35,7 @@ had assumed. The total-comp thesis needs to be rebuilt.
 ## The strong-fit signals (lean in)
 
 - **"Yes, it sounds like it, honestly."** Mark's direct read on fit.
-- **Stuart Reid (CPO) is the executive sponsor.** Confirmed. Stuart
+- **Stuart Reed (CPO) is the executive sponsor.** Confirmed. Stuart
   is *"arguably number 2 in the company"* after CEO Mike Quinn. This
   is board-level air cover.
 - **Growth ambition is real.** £20M ARR today, **target £50M in three
@@ -92,13 +92,13 @@ Now: *"Real role + below-projection cash + zero equity upside even
 if they exit."*
 
 This doesn't kill Preservica as an option — the role substance is
-real and Stuart Reid as exec sponsor means top cover. But it
+real and Stuart Reed as exec sponsor means top cover. But it
 fundamentally changes what you're trading for what:
 
 - You're paying ~$35K/year (vs. projected mid) for the role substance
 - You don't participate if Preservica exits at premium multiples in 2-4
   years
-- Career capital is real (AI Programmes title, Stuart Reid sponsor,
+- Career capital is real (AI Programmes title, Stuart Reed sponsor,
   programmatic role) but it has to be the thing you want
 
 ### What still works in Preservica's favor
@@ -137,10 +137,10 @@ not the other way around.
 
 ## Process intelligence from the call
 
-- **Helen Pelic was a senior PM promoted into Head of Product.** She
+- **Helena Pilih was a senior PM promoted into Head of Product.** She
   was previously in the role you're interviewing for. She'll probe
   the mechanics deeply because she's lived them.
-- **Stuart Reid is the strategic voice.** Cares about AI bets,
+- **Stuart Reed is the strategic voice.** Cares about AI bets,
   customer-facing narrative, the £50M target. He's also CCS/customer
   success umbrella, which matters.
 - **Mark wants the second-stage call this week if possible,** drift
@@ -157,8 +157,8 @@ not the other way around.
 1. **No further action with Mark this week** unless he reaches out.
    The user-group conflict means radio silence is expected through
    Wednesday or Thursday.
-2. **Stay sharp for Helen + Stuart.** That's the substantive stage.
-   When it lands, we build a prep card for it. Helen's been the SPM
+2. **Stay sharp for Helena + Stuart.** That's the substantive stage.
+   When it lands, we build a prep card for it. Helena's been the SPM
    on Preserve365; she'll go deep on mechanics. Stuart wants the
    strategic + governance read.
 3. **Don't make Preservica the anchor.** Let Tasos Tuesday and the
@@ -167,7 +167,7 @@ not the other way around.
 
 ### When the next round is scheduled
 
-- Prep card for Helen + Stuart — different shape than Mark prep
+- Prep card for Helena + Stuart — different shape than Mark prep
 - Practice the "how I'd approach building AI Programmes here" answer
   with the three-bucket framing Mark just gave you (UX / back-office /
   Rumsfeld bucket) — that's their internal language

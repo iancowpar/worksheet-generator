@@ -101,7 +101,7 @@ hypothesized, not confirmed.**
 | 3. Scope of ownership | *4* (joining BSA team, defined scope) | **9** (first US PM, defining function) | *7* (Sr Manager, new function under Rabideau) |
 | 4. Career capital (24-mo) | *5* (Senior PM BSA, solid) | **8** ("Built AI program through PSV growth") | *7* (Sr Mgr AI Adoption at Deltek) |
 | 5. Strategic centrality | *4* (BSA team, internal-facing) | **9** (AI Programmes, CPO sponsor, board visibility) | *7* (visible function, multi-VP panel) |
-| 6. Manager / team fit | *?* (Tasos call Tuesday) | *7* (Mark warm; Helen+Stuart TBD) | *7* (Rabideau strong, Forgan went well) |
+| 6. Manager / team fit | *?* (Tasos call Tuesday) | *7* (Mark warm; Helena+Stuart TBD) | *7* (Rabideau strong, Forgan went well) |
 | 7. Company health / risk | *6* (UKG stable, large, layoff cycles real) | *6* (VCT-backed, growth ambition real but execution risk) | *5* (Roper margin discipline, two layoff rounds 2025-26) |
 | 8. Day-to-day energy fit | *4* (BSA / Salesforce — not your natural lane) | *8* (programmatic AI work — your lane) | *7* (AI adoption — your lane, larger org context) |
 | 9. Identity & belonging | **8** (real pull — Fire Up ERG, Brand Champion, unfinished business, known quantity) | *7* (forward-looking identity — "the AI Programmes person at PSV during the bet") | *5* (Sr Manager at Deltek — solid but doesn't resonate with any specific identity thread) |
@@ -130,7 +130,7 @@ For each role, the things that would meaningfully shift the score:
 - RSU grant size at this level
 
 ### Preservica
-- Helen + Stuart round signals on the actual work shape
+- Helena + Stuart round signals on the actual work shape
 - Whether the £50M ARR target is board-committed or leadership-aspirational
 - The first-90-days plan from Stuart (governance posture, AI bets)
 - Title precision (just "Senior PM" or "Senior PM, AI Programmes Lead")
