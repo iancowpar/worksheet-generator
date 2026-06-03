@@ -111,7 +111,7 @@ After that session, the first PM who came to me with specifics was
 Maria. Maria works on the translation team. Her job is to add
 translated versions of WFM software as we expand into new markets.
 Coordinating a new language launch means a massive amount of Jira
-coordination across about a dozen teams. Cloning epics, restructuring
+coordination across five teams. Cloning epics, restructuring
 stories, making sure all the descriptions and acceptance criteria
 reflect the new market, not just doing a Hungarian-for-Polish text
 swap.
@@ -129,7 +129,7 @@ She retired her old workflow that afternoon.
 
 That same week, Laura, my product partner on Ascentis, saw what I'd
 built for our quarterly business review. The QBR was something I used
-to spend six or seven hours on every quarter. Go through Jira, bucket
+to spend about four hours on every quarter. Go through Jira, bucket
 the work by category, build the slides. I'd written a command that
 did the whole thing in about ten minutes. Laura watched me run it
 once, asked for the command, and used it for her own QBR at the end
@@ -275,17 +275,14 @@ If you need to come in tighter (12-13 min), the cleanest cuts are:
 
 That's ~150 words of trim available without losing structural beats.
 
-## Verify before rehearsing
+## Verified specifics (locked)
 
-1. **Names spelled right.** Vasu, Sam (senior director), Raph
-   (director), Maria (translation), Keith (product partner), Laura
-   (Ascentis product partner). Flag any misspellings.
-2. **Maria's quote.** "It's magic. It feels like life will never be
-   the same again." Confirm wording.
-3. **Laura's QBR cadence.** End of March is when she ran it for her
-   QBR. Confirm.
-4. **The "dozen teams" claim** for Maria's translation deployment.
-   Confirm or correct.
-5. **"Six or seven hours" for QBR prep.** Your number, confirm.
-
-Any corrections needed, flag now before I start Case 2.
+- Names: Vasu (product partner), Sam (senior director), Raph
+  (director), Maria (translation team), Keith (product partner),
+  Laura (Ascentis product partner).
+- Maria's quote, softened for spoken delivery: "It's magic. It feels
+  like life will never be the same again."
+- Maria's coordination scope: five teams.
+- Ian's QBR prep before automation: about four hours.
+- "Not just swap Hungarian for Polish" — Ian's actual phrasing,
+  kept.
