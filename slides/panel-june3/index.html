@@ -296,6 +296,143 @@
       line-height: 1.5;
     }
 
+    /* ---------- Four-piece grid (Case 1 infrastructure) ---------- */
+
+    .four-comp {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(0.75rem, 1.25vw, 1.25rem);
+      margin-top: clamp(2rem, 3vw, 3rem);
+      width: 100%;
+      max-width: 1400px;
+    }
+
+    /* ---------- Showdown (Case 2 negotiation) ---------- */
+
+    .showdown {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.5rem, 2.5vw, 2.5rem);
+      margin-top: clamp(1.5rem, 2.5vw, 2.5rem);
+      width: 100%;
+      max-width: 1300px;
+      align-items: stretch;
+    }
+
+    .showdown-side {
+      border: 1px solid var(--border);
+      padding: clamp(1.5rem, 2.5vw, 2.5rem);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .showdown-side.product {
+      border-left: 2px solid var(--glacier-deep);
+    }
+
+    .showdown-side .comp-title {
+      font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .showdown-resolution {
+      margin-top: clamp(1.25rem, 2vw, 2rem);
+      max-width: 64ch;
+    }
+
+    /* ---------- Flag row (Case 2 university five flags) ---------- */
+
+    .flags-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: clamp(0.5rem, 0.85vw, 0.85rem);
+      margin-top: clamp(1.5rem, 2.5vw, 2.5rem);
+      width: 100%;
+      max-width: 1400px;
+    }
+
+    .flag-card {
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--amber);
+      padding: clamp(1rem, 1.5vw, 1.5rem) clamp(0.75rem, 1vw, 1rem);
+      font-family: var(--font-sans);
+      font-size: clamp(0.85rem, 1.05vw, 1.05rem);
+      font-weight: 500;
+      color: var(--charcoal);
+      line-height: 1.3;
+      min-height: clamp(6rem, 8vw, 8rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    /* ---------- Outcomes grid (Case 2 honest frame) ---------- */
+
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1.5rem, 3vw, 3rem);
+      margin-top: clamp(1.5rem, 2.5vw, 2.5rem);
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .outcome-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .outcome-metric {
+      font-family: var(--font-sans);
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 700;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: var(--charcoal);
+    }
+
+    .outcome-metric.accent {
+      color: var(--glacier-deep);
+    }
+
+    .outcome-label {
+      font-family: var(--font-mono);
+      font-size: clamp(0.8rem, 1.05vw, 1rem);
+      color: var(--charcoal-soft);
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+    }
+
+    /* ---------- Testimonial (Case 2 university) ---------- */
+
+    .testimonial {
+      margin-top: clamp(1.5rem, 2.5vw, 2.5rem);
+      padding-left: clamp(1rem, 1.5vw, 1.5rem);
+      border-left: 2px solid var(--glacier-deep);
+      max-width: 80ch;
+    }
+
+    .testimonial-quote {
+      font-size: clamp(1rem, 1.4vw, 1.3rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.45;
+      color: var(--charcoal);
+      letter-spacing: -0.005em;
+    }
+
+    .testimonial-attribution {
+      font-family: var(--font-mono);
+      font-size: clamp(0.7rem, 0.9vw, 0.85rem);
+      color: var(--charcoal-soft);
+      letter-spacing: 0.06em;
+      margin-top: 0.85rem;
+    }
+
     /* ---------- Title cards ---------- */
 
     .title-card .label-tag {
@@ -442,109 +579,136 @@
           &ldquo;The thought behind it was great, but the execution was proving difficult.&rdquo;
         </p>
         <p class="caption">
-          Starbucks employee note, on the retirement of the AI inventory system. May 2026.
+          Starbucks employee, on the retirement of the AI inventory system. May 2026.
         </p>
       </div>
     </section>
 
-    <!-- ============ SLIDE 3 — Case 1 title card ============ -->
+    <!-- ============ SLIDE 3 — Two cases, one belief ============ -->
+    <section class="slide">
+      <div class="center-stack">
+        <span class="label">The work</span>
+        <h2 class="title-lg">
+          Two internal operating mechanisms.<br>
+          <span class="accent">One belief about how adoption actually works.</span>
+        </h2>
+        <p class="subtitle">
+          Behavior change inside a PM organization.
+          Risk visibility across a multi-year program.
+          Different muscles. Same discipline.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 4 — Case 1 title card ============ -->
     <section class="slide title-card">
       <div class="center-stack">
         <span class="label label-tag">Case Study 01</span>
         <h2 class="display">The AI<br>Capability Layer</h2>
         <p class="subtitle">
-          A peer community of twenty PMs. Built from zero. No top-down mandate.
+          Six weeks. From one PM to twenty.<br>
+          No top-down mandate.
         </p>
       </div>
     </section>
 
-    <!-- ============ SLIDE 4 — Case 1 mechanism diagram ============ -->
-    <section class="slide">
-      <div class="stack">
-        <span class="label">The mechanism</span>
-        <h3 class="title">Shared infrastructure. Peer community. On-ramp ritual.</h3>
-
-        <svg class="mech-diagram" viewBox="0 0 1100 580" xmlns="http://www.w3.org/2000/svg" aria-label="Case 1 mechanism diagram">
-          <!-- Connecting lines (triangle) -->
-          <line x1="550" y1="160" x2="200" y2="460" class="stroke-accent" />
-          <line x1="550" y1="160" x2="900" y2="460" class="stroke-accent" />
-          <line x1="200" y1="460" x2="900" y2="460" class="stroke-accent" />
-
-          <!-- Center seed annotation -->
-          <circle cx="550" cy="360" r="6" fill="#5BA89E" />
-          <text x="570" y="365" class="node-sub">SEED · personal Claude Code productivity OS</text>
-
-          <!-- Top node: Peer community -->
-          <rect x="380" y="80" width="340" height="120" class="node-fill" rx="2" />
-          <text x="550" y="125" text-anchor="middle" class="node-title">Peer community</text>
-          <text x="550" y="160" text-anchor="middle" class="node-sub">twenty PMs · self-organizing · no roster</text>
-
-          <!-- Bottom left node: Shared infrastructure -->
-          <rect x="20" y="450" width="360" height="120" class="node-fill" rx="2" />
-          <text x="200" y="495" text-anchor="middle" class="node-title">Shared infrastructure</text>
-          <text x="200" y="530" text-anchor="middle" class="node-sub">slash commands · prompts · patterns</text>
-
-          <!-- Bottom right node: On-ramp ritual -->
-          <rect x="720" y="450" width="360" height="120" class="node-fill" rx="2" />
-          <text x="900" y="495" text-anchor="middle" class="node-title">On-ramp ritual</text>
-          <text x="900" y="530" text-anchor="middle" class="node-sub">15-min working session · first slash command</text>
-        </svg>
+    <!-- ============ SLIDE 5 — The catalyst (Vasu&rsquo;s question) ============ -->
+    <section class="slide quote-slide">
+      <div class="center-stack">
+        <span class="label">The catalyst &middot; March 2026</span>
+        <p class="quote-text">
+          &ldquo;Wait. How long would it take you to write me one of these?&rdquo;
+        </p>
+        <p class="caption">
+          Vasu, product partner, after his first slash command.
+          The moment one PM&rsquo;s tool became a question another PM asked.
+        </p>
       </div>
     </section>
 
-    <!-- ============ SLIDE 5 — Case 1 adoption arc ============ -->
+    <!-- ============ SLIDE 6 — Four pieces of infrastructure ============ -->
     <section class="slide">
       <div class="stack">
-        <span class="label">The adoption arc</span>
-        <h3 class="title">From one workflow to twenty PMs running their own.</h3>
-
-        <div class="arc-stack">
-          <div class="arc-step">
-            <span class="arc-label">Seed</span>
-            <span class="arc-number">1</span>
-            <span class="caption" style="max-width: 18ch; margin-top: 0.5rem;">
-              Personal productivity OS. Twenty slash commands in active use.
+        <span class="label">The infrastructure</span>
+        <h3 class="title">Four pieces. Small enough to hold on one screen.</h3>
+        <div class="four-comp">
+          <div class="comp-card">
+            <span class="comp-num">01</span>
+            <span class="comp-title">Slash command library</span>
+            <span class="comp-body">
+              Commands for workflows people hated. Eight to ten by week two. Each one a small thing that used to be manual and now wasn&rsquo;t.
             </span>
           </div>
-          <span class="arc-rule"></span>
-          <div class="arc-step">
-            <span class="arc-label">Founding peer group</span>
-            <span class="arc-number">3<span style="color: var(--charcoal-soft);">–</span>5</span>
-            <span class="caption" style="max-width: 18ch; margin-top: 0.5rem;">
-              Working cadence. Honest about what wasn't working. No decks.
+          <div class="comp-card">
+            <span class="comp-num">02</span>
+            <span class="comp-title">Confluence dashboards</span>
+            <span class="comp-body">
+              Built with Claude Code. Epic health, retro action items, roadmap state. Became how the team talked about its own work.
             </span>
           </div>
-          <span class="arc-rule"></span>
-          <div class="arc-step">
-            <span class="arc-label">Community</span>
-            <span class="arc-number">20</span>
-            <span class="caption" style="max-width: 18ch; margin-top: 0.5rem;">
-              Custom libraries. Champions emerging without being assigned.
+          <div class="comp-card">
+            <span class="comp-num">03</span>
+            <span class="comp-title">The build board</span>
+            <span class="comp-body">
+              One Confluence page. Index of every dashboard and command. A map of the work small enough to share in one screen.
+            </span>
+          </div>
+          <div class="comp-card">
+            <span class="comp-num">04</span>
+            <span class="comp-title">GitHub repo</span>
+            <span class="comp-body">
+              Commands and templates as shared substrate. A README that oriented a new PM in five minutes.
             </span>
           </div>
         </div>
-
-        <p class="body" style="margin-top: clamp(2rem, 3vw, 3rem);">
-          First-command stickiness. Champion emergence. Workflow extinction.
-          Each PM&rsquo;s first slash command was the conversion mechanism;
-          the second one was the proof they were inside the community.
-        </p>
       </div>
     </section>
 
-    <!-- ============ SLIDE 6 — Case 1 outcomes (typographic) ============ -->
+    <!-- ============ SLIDE 7 — Three adoption shapes ============ -->
     <section class="slide">
+      <div class="stack">
+        <span class="label">The adoption shapes</span>
+        <h3 class="title">Three different ways the work spread.</h3>
+        <div class="three-comp">
+          <div class="comp-card">
+            <span class="comp-num">DIRECT ENABLEMENT</span>
+            <span class="comp-title">Maria &middot; Translation</span>
+            <span class="comp-body">
+              We sat together for two hours and wrote a command that cloned a language deployment across five teams. She retired her old workflow that afternoon.
+            </span>
+          </div>
+          <div class="comp-card">
+            <span class="comp-num">OBSERVED &amp; ADOPTED</span>
+            <span class="comp-title">Laura &middot; Ascentis</span>
+            <span class="comp-body">
+              Watched me automate my QBR. About four hours of work collapsed to ten minutes. She took the command and ran her own QBR at the end of March.
+            </span>
+          </div>
+          <div class="comp-card">
+            <span class="comp-num">PEER PROPAGATION</span>
+            <span class="comp-title">Keith &amp; Vasu</span>
+            <span class="comp-body">
+              Wrote their own commands. Contributed back to the shared repo. The WFM Slack channel became a two-way exchange, not a one-way feed.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 8 — THE MARIA QUOTE ============ -->
+    <section class="slide quote-slide">
       <div class="center-stack">
-        <span class="label">The outcomes</span>
-        <div class="metric-display">20<span class="unit"> PMs</span></div>
-        <p class="caption" style="max-width: 50ch;">
-          Twenty custom slash-command libraries. Multiple PMs became champions
-          without being assigned. Workflows retired, not workflows launched.
+        <span class="label">The moment that told me it was working</span>
+        <p class="quote-text">
+          &ldquo;It&rsquo;s magic. It feels like life will never be the same again.&rdquo;
+        </p>
+        <p class="caption">
+          Maria &middot; Translation team &middot; the morning she retired her language-deployment workflow.
         </p>
       </div>
     </section>
 
-    <!-- ============ SLIDE 7 — Case 1 principle ============ -->
+    <!-- ============ SLIDE 9 — Measurement principle ============ -->
     <section class="slide quote-slide">
       <div class="center-stack">
         <span class="label">The measurement principle</span>
@@ -552,122 +716,163 @@
           Adoption measured by what stopped, not what launched.
         </p>
         <p class="caption">
-          Extinction over addition. The only adoption that lasts is the kind
-          nobody had to order.
+          Three named workflows retired across three teams in six weeks.
+          Peers building and contributing without being asked.
+          The honest measure was whether it kept running when I wasn&rsquo;t running it.
         </p>
       </div>
     </section>
 
-    <!-- ============ SLIDE 8 — Case 2 title card ============ -->
+    <!-- ============ SLIDE 10 — Case 2 title card ============ -->
     <section class="slide title-card">
       <div class="center-stack">
         <span class="label label-tag">Case Study 02</span>
-        <h2 class="display">The UTA<br>Operating System</h2>
+        <h2 class="display">The UTA<br>Upgrade Program</h2>
         <p class="subtitle">
-          <span class="accent">$250M ARR</span> &middot; 300 customers &middot; one weekly decision.
+          <span class="accent">300 customers</span> &middot;
+          <span class="accent">$250M ARR</span> &middot;
+          a tech-stack cliff edge by November 2026.
         </p>
       </div>
     </section>
 
-    <!-- ============ SLIDE 9 — Case 2 mechanism (three components) ============ -->
+    <!-- ============ SLIDE 11 — Four-source operating mechanism ============ -->
     <section class="slide">
       <div class="stack">
-        <span class="label">The mechanism</span>
-        <h3 class="title">Three components, one operating system.</h3>
-
+        <span class="label">The operating mechanism</span>
+        <h3 class="title">Four sources in. One ranked list of risk out.</h3>
         <div class="three-comp">
           <div class="comp-card">
-            <span class="comp-num">01</span>
-            <span class="comp-title">Composite ARR-risk model</span>
+            <span class="comp-num">INPUT</span>
+            <span class="comp-title">Four data sources</span>
             <span class="comp-body">
-              Top accounts scored on weighted exposure: ARR, case volume,
-              true-defect rate, sentiment. Replaced raw ticket counts with
-              weighted signal.
+              Sentiment from CSM leads and Salesforce.<br>
+              Defect counts from Jira.<br>
+              Case volume from Salesforce.<br>
+              ARR exposure from Salesforce + Power BI.
             </span>
           </div>
           <div class="comp-card">
-            <span class="comp-num">02</span>
-            <span class="comp-title">Five-panel analytics product</span>
+            <span class="comp-num">CLASSIFICATION</span>
+            <span class="comp-title">Jira label taxonomy</span>
             <span class="comp-body">
-              Opinionated by design. An embedded Claude Code function as the
-              routing layer surfaced the single highest-leverage action across
-              the panels.
+              Co-designed with Leila, our engineering manager. Customer config issues. Pre-existing issues. Only code fixes requiring deployment counted as defects.
             </span>
           </div>
           <div class="comp-card">
-            <span class="comp-num">03</span>
-            <span class="comp-title">Weekly reporting cadence</span>
+            <span class="comp-num">OUTPUT</span>
+            <span class="comp-title">Weighted top-5 list</span>
             <span class="comp-body">
-              Automated. Delivered to the program lead every Monday morning.
-              Ranked list of what to look at this week and why.
+              ARR-dominant. True-defect-dominant. Reviewed daily in standup. Reviewed weekly in the cross-functional call.
             </span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ SLIDE 10 — Case 2 signal routing diagram ============ -->
+    <!-- ============ SLIDE 12 — The engineering negotiation ============ -->
     <section class="slide">
       <div class="stack">
-        <span class="label">The signal routing</span>
-        <h3 class="title">Five panels in. One ranked action out.</h3>
-
-        <svg class="routing-diagram" viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg" aria-label="Signal routing diagram">
-          <!-- Left labels -->
-          <g transform="translate(20, 80)">
-            <text x="0" y="20" class="node-title">Customer escalations</text>
-            <text x="0" y="100" class="node-title">Code defects</text>
-            <text x="0" y="180" class="node-title">Internal bugs</text>
-            <text x="0" y="260" class="node-title">CVEs</text>
-            <text x="0" y="340" class="node-title">Noise</text>
-          </g>
-
-          <!-- Connecting lines into routing box -->
-          <line x1="320" y1="95" x2="620" y2="260" class="stroke-soft" />
-          <line x1="240" y1="175" x2="620" y2="260" class="stroke-soft" />
-          <line x1="225" y1="255" x2="620" y2="260" class="stroke-soft" />
-          <line x1="130" y1="335" x2="620" y2="260" class="stroke-soft" />
-          <line x1="135" y1="415" x2="620" y2="260" class="stroke-soft" />
-
-          <!-- Routing function (center) -->
-          <rect x="620" y="220" width="240" height="90" class="node-fill-accent" rx="2" />
-          <text x="740" y="252" text-anchor="middle" class="node-sub">EMBEDDED CLAUDE CODE</text>
-          <text x="740" y="285" text-anchor="middle" class="node-title">routing function</text>
-
-          <!-- Arrow to output -->
-          <line x1="860" y1="265" x2="1020" y2="265" class="stroke-accent" />
-          <polygon points="1020,260 1035,265 1020,270" fill="#5BA89E" />
-
-          <!-- Output -->
-          <text x="1055" y="262" class="arrow-out">The one action</text>
-          <text x="1055" y="290" class="arrow-out">this week.</text>
-        </svg>
-      </div>
-    </section>
-
-    <!-- ============ SLIDE 11 — Case 2 outcomes (typographic) ============ -->
-    <section class="slide">
-      <div class="center-stack">
-        <span class="label">The outcomes</span>
-        <div class="metric-display"><span class="unit">~</span>$50M</div>
-        <p class="caption" style="max-width: 60ch;">
-          in at-risk ARR surfaced before escalation.
-          Working defect list cut <span class="metric-underline">~97%</span>.
-          A weekly cadence the program lead actually acted on.
+        <span class="label">The negotiation that mattered most</span>
+        <h3 class="title">Pod-based scheduling versus complexity-based.</h3>
+        <div class="showdown">
+          <div class="showdown-side">
+            <span class="comp-num">ENGINEERING&rsquo;S PREFERENCE</span>
+            <span class="comp-title">By database pod</span>
+            <span class="comp-body">
+              Operationally efficient.<br>
+              Predictable sprint capacity.<br>
+              Clean batching of work.
+            </span>
+          </div>
+          <div class="showdown-side product">
+            <span class="comp-num">PRODUCT&rsquo;S COUNTER</span>
+            <span class="comp-title">By complexity</span>
+            <span class="comp-body">
+              Operationally resilient.<br>
+              Customer delays stay local.<br>
+              The cadence survives reality.
+            </span>
+          </div>
+        </div>
+        <p class="body showdown-resolution">
+          <span class="accent">Complexity won.</span> Not because product had more power. Because the delivery date was the load-bearing constraint, and only one of the two approaches survived the first customer asking us to hold off.
         </p>
       </div>
     </section>
 
-    <!-- ============ SLIDE 12 — Case 2 principle / close ============ -->
+    <!-- ============ SLIDE 13 — The university story ============ -->
+    <section class="slide">
+      <div class="stack">
+        <span class="label">The hardest test case</span>
+        <h3 class="title">A large university. Five flags lit at once.</h3>
+        <div class="flags-row">
+          <div class="flag-card">Red sentiment</div>
+          <div class="flag-card">Contract issues</div>
+          <div class="flag-card">Prior implementation scars</div>
+          <div class="flag-card">High-risk payroll concerns</div>
+          <div class="flag-card">Fragile custom time-off workflow</div>
+        </div>
+        <p class="body">
+          We built a custom validation process. We offered them dedicated engineering support for their custom Cognos reports. Normally customers handle their own. We made the exception because the risk profile warranted it. They got through the upgrade after my last day at UKG.
+        </p>
+        <div class="testimonial">
+          <p class="testimonial-quote">
+            &ldquo;Clear communication across teams, ensuring all stakeholders remained informed and aligned. A key contributor to the project&rsquo;s success.&rdquo;
+          </p>
+          <p class="testimonial-attribution">
+            THERESA MORGAN &middot; SENIOR BUSINESS PARTNER, UKG &middot; APRIL 30 2026
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 14 — Outcomes (honest frame) ============ -->
+    <section class="slide">
+      <div class="stack">
+        <span class="label">The outcomes</span>
+        <h3 class="title">What I saw through April 15.</h3>
+        <div class="outcomes-grid">
+          <div class="outcome-item">
+            <span class="outcome-metric">40<span class="accent">%</span></span>
+            <span class="outcome-label">of 300 customers upgraded</span>
+          </div>
+          <div class="outcome-item">
+            <span class="outcome-metric accent">&uarr;</span>
+            <span class="outcome-label">velocity rising, not falling</span>
+          </div>
+          <div class="outcome-item">
+            <span class="outcome-metric">Ahead</span>
+            <span class="outcome-label">of the November 2026 delivery date</span>
+          </div>
+        </div>
+        <p class="body" style="margin-top: clamp(1.5rem, 2.5vw, 2.5rem);">
+          What the dashboard did <em>not</em> do: change Lisa&rsquo;s prioritization calls. Her judgment was already sharp. The dashboard&rsquo;s value was the shared vocabulary it created across functions, not the executive judgment it replaced.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 15 — The throughline ============ -->
     <section class="slide quote-slide">
       <div class="center-stack">
-        <span class="label">The measurement principle</span>
+        <span class="label">The throughline</span>
         <p class="quote-text">
-          The system&rsquo;s value was measured by whether decisions changed.
+          Operating mechanisms change what a function can <span class="accent">see</span>.
         </p>
         <p class="caption">
-          Not whether the dashboard had users. Not whether adoption metrics were green.
-          Whether the program lead made different calls than they would have without the tool.
+          Not what it does. Build the conditions where the right thing becomes the easier thing.
+          The people you&rsquo;re working alongside will do the rest.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 16 — Q&amp;A close ============ -->
+    <section class="slide title-card">
+      <div class="center-stack">
+        <span class="label">Thank you</span>
+        <h2 class="display">Questions.</h2>
+        <p class="subtitle">
+          What would be most useful to dig into?
         </p>
       </div>
     </section>
@@ -675,8 +880,8 @@
   </div>
 
   <!-- ---------- Navigation chrome ---------- -->
-  <div class="counter" id="counter">01 / 12</div>
-  <div class="progress" id="progress" style="width: 8.33%"></div>
+  <div class="counter" id="counter">01 / 16</div>
+  <div class="progress" id="progress" style="width: 6.25%"></div>
   <div class="help" id="help">
     ←/→ navigate &nbsp;·&nbsp; F fullscreen &nbsp;·&nbsp; ? toggle help
   </div>
