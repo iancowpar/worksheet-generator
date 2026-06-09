@@ -4,7 +4,7 @@
 
 | Panelist | Role | What they're likely assessing |
 |---|---|---|
-| **Allen Allen** | Sr Business Systems Analyst | IC peer. Day-to-day collaboration. Does Ian respect BSA craft? Listen well? Push back well? |
+| **Ann Allen** | Sr Business Systems Analyst | IC peer. Day-to-day collaboration. Does Ian respect BSA craft? Listen well? Push back well? |
 | **Chris Costello** | Lead Business Systems Analyst | Team-leadership-layer partner. Can Ian be a credible peer at the Lead BSA altitude? |
 | **Don Wetmore** | Sr Mgr, Business Systems Analysis | Most senior on the panel. Strategic fit. Will Ian represent the function well to leadership? Is he at the right level? |
 
@@ -190,7 +190,7 @@ You'll have time. Spend it well. Five candidates by panelist:
 > "How does your team currently partner with product? Where do the
 > seams work well and where do they break?"
 
-### To Allen Allen (Sr BSA)
+### To Ann Allen (Sr BSA)
 > "What's the part of your job that's getting harder, not easier?
 > What would I, sitting in this seat, be able to help with?"
 
